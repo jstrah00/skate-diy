@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rampas de Skate DIY — Argentina</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter','Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;line-height:1.75;font-size:15px;}
+
+  /* COVER */
+  .cover{background:linear-gradient(135deg,#0d0d1a 0%,#1a1a3e 45%,#0f3460 100%);color:white;min-height:320px;padding:60px 50px 50px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
+  .cover::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(233,69,96,0.18) 0%,transparent 70%);top:-150px;right:-100px;border-radius:50%;}
+  .cover::after{content:'🛹';font-size:200px;position:absolute;opacity:0.05;bottom:-40px;right:10px;line-height:1;}
+  .cover .eyebrow{font-size:.72em;font-weight:700;letter-spacing:4px;color:#e94560;text-transform:uppercase;margin-bottom:14px;}
+  .cover h1{font-size:2.8em;font-weight:900;line-height:1.1;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+  .cover h1 span{color:#e94560;}
+  .cover .desc{font-size:1em;color:#a8c8ea;max-width:560px;margin-bottom:26px;}
+  .cover-badges{display:flex;gap:10px;flex-wrap:wrap;}
+  .cover-badges span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#ddd;padding:5px 14px;border-radius:20px;font-size:.78em;font-weight:600;}
+  .cover-badges span.red{background:#e94560;border-color:#e94560;color:white;}
+
+  /* LAYOUT */
+  .page{max-width:1000px;margin:0 auto;padding:40px 20px 60px;}
+
+  /* SECTION */
+  .section-title{font-size:1.3em;font-weight:900;color:#0f3460;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;padding-bottom:10px;border-bottom:3px solid #e94560;display:flex;align-items:center;gap:10px;}
+  .section-title .section-icon{font-size:1.2em;}
+  .section-subtitle{font-size:.85em;color:#888;margin-bottom:22px;margin-top:4px;}
+  .section{margin-bottom:48px;}
+
+  /* GRID */
+  .guides-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+
+  /* GUIDE CARD */
+  .guide-card{background:white;border-radius:14px;box-shadow:0 3px 20px rgba(0,0,0,.09);overflow:hidden;display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s;}
+  .guide-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.14);}
+  .guide-card-header{background:linear-gradient(135deg,#0f3460,#1a1a3e);color:white;padding:20px 22px 16px;position:relative;}
+  .guide-card-header .card-emoji{font-size:2em;margin-bottom:8px;display:block;}
+  .guide-card-header h3{font-size:1.05em;font-weight:900;text-transform:uppercase;letter-spacing:.5px;line-height:1.2;}
+  .guide-card-header .level-badge{display:inline-block;margin-top:8px;font-size:.7em;font-weight:700;padding:3px 10px;border-radius:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#ddd;}
+  .guide-card-header .level-badge.easy{background:rgba(39,174,96,.25);border-color:rgba(39,174,96,.5);color:#7effc7;}
+  .guide-card-header .level-badge.medium{background:rgba(233,69,96,.25);border-color:rgba(233,69,96,.5);color:#ffaab8;}
+  .guide-card-body{padding:18px 22px;flex:1;display:flex;flex-direction:column;}
+  .guide-card-body p{font-size:.85em;color:#555;line-height:1.6;flex:1;}
+  .guide-card-tags{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 16px;}
+  .guide-card-tags span{background:#f0f4fa;color:#0f3460;font-size:.7em;font-weight:700;padding:3px 9px;border-radius:10px;}
+  .guide-card-tags span.green{background:#e8f8ef;color:#27ae60;}
+  .guide-link{display:block;text-align:center;background:#e94560;color:white;font-weight:700;font-size:.88em;padding:10px 16px;border-radius:8px;text-decoration:none;letter-spacing:.5px;transition:background 0.2s;}
+  .guide-link:hover{background:#c73652;}
+
+  /* SPECIAL CARD (Guía de Materiales) */
+  .special-card{background:white;border-radius:14px;box-shadow:0 3px 20px rgba(0,0,0,.09);overflow:hidden;display:flex;align-items:stretch;transition:transform 0.2s,box-shadow 0.2s;}
+  .special-card:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.14);}
+  .special-card-accent{width:8px;background:linear-gradient(180deg,#e94560,#0f3460);flex-shrink:0;}
+  .special-card-content{padding:28px 30px;flex:1;display:flex;align-items:center;gap:24px;}
+  .special-card-icon{font-size:3em;flex-shrink:0;}
+  .special-card-text h3{font-size:1.1em;font-weight:900;color:#0f3460;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+  .special-card-text p{font-size:.88em;color:#555;line-height:1.6;margin-bottom:14px;}
+  .special-card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .special-card-tags span{background:#f0f4fa;color:#0f3460;font-size:.72em;font-weight:700;padding:3px 9px;border-radius:10px;}
+
+  /* RESPONSIVE */
+  @media(max-width:780px){
+    .guides-grid{grid-template-columns:repeat(2,1fr);}
+    .cover{padding:48px 28px 40px;}
+    .cover h1{font-size:2em;}
+    .special-card-content{flex-direction:column;align-items:flex-start;gap:12px;}
+    .special-card-icon{font-size:2.2em;}
+  }
+  @media(max-width:520px){
+    .guides-grid{grid-template-columns:1fr;}
+    .cover{padding:36px 20px 32px;}
+    .cover h1{font-size:1.7em;}
+    .cover .eyebrow{letter-spacing:2px;}
+    .section-title{font-size:1.1em;letter-spacing:1px;}
+    .special-card-content{padding:20px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="eyebrow">Colección de Guías · DIY Skate Argentina</div>
+  <h1>Rampas de Skate <span>DIY</span></h1>
+  <p class="desc">Todas las guías para construir estructuras de skate desde cero, con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+  <div class="cover-badges">
+    <span class="red">🇦🇷 Versión Argentina</span>
+    <span>📐 Medidas en cm</span>
+    <span>🪵 Materiales locales</span>
+  </div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="page">
+
+  <!-- SECCIÓN: ESTRUCTURAS STREET -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🏙️</span> Estructuras Street</div>
+    <p class="section-subtitle">Las más fáciles y rápidas de construir — ideales para empezar.</p>
+    <div class="guides-grid">
+
+      <!-- Manual Pad -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">🟦</span>
+          <h3>Manual Pad</h3>
+          <span class="level-badge easy">⚡ Muy fácil</span>
+        </div>
+        <div class="guide-card-body">
+          <p>La estructura de street más fácil y rápida de construir — guía paso a paso con materiales y medidas para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>📐 Medidas en cm</span>
+            <span>🪵 Materiales locales</span>
+          </div>
+          <a href="manualpad-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+      <!-- Cajón -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">📦</span>
+          <h3>Cajón de Skate</h3>
+          <span class="level-badge easy">🛹 Principiante</span>
+        </div>
+        <div class="guide-card-body">
+          <p>Guía paso a paso para construir un cajón de grind desde cero, con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>📐 Medidas en cm</span>
+            <span>🪵 Materiales locales</span>
+          </div>
+          <a href="cajon-manual-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+      <!-- Kicker -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">🚀</span>
+          <h3>Kicker</h3>
+          <span class="level-badge easy">🛹 Principiante</span>
+        </div>
+        <div class="guide-card-body">
+          <p>Guía paso a paso con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>📐 Medidas en cm</span>
+            <span>🪵 Materiales locales</span>
+          </div>
+          <a href="kicker-manual-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+      <!-- Grind Rail -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">⚙️</span>
+          <h3>Grind Rail</h3>
+          <span class="level-badge easy">🛹 Principiante</span>
+        </div>
+        <div class="guide-card-body">
+          <p>Dos versiones completas: caño de acero soldado y rail de madera con caño — con materiales, medidas en centímetros y todo adaptado para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>⚙️ Todo acero</span>
+            <span>🪵 Madera + caño</span>
+          </div>
+          <a href="grind-rail-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+      <!-- Grind Rail sin soldadura -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">🔩</span>
+          <h3>Grind Rail sin soldadura</h3>
+          <span class="level-badge easy">🛹 Principiante</span>
+        </div>
+        <div class="guide-card-body">
+          <p>Guía paso a paso para construir un caño de grind sin perforaciones ni soldadura — usando adhesivo de construcción. Con materiales y medidas adaptados para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span class="green">✅ Sin soldadura</span>
+            <span>📐 Medidas en cm</span>
+          </div>
+          <a href="grind-rail-alternative-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: RAMPAS -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🛹</span> Rampas</div>
+    <p class="section-subtitle">Proyectos con más estructura y curvas — requieren algo más de experiencia o planificación.</p>
+    <div class="guides-grid">
+
+      <!-- Bank Ramp -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">📐</span>
+          <h3>Bank Ramp</h3>
+          <span class="level-badge medium">🛹 Intermedio</span>
+        </div>
+        <div class="guide-card-body">
+          <p>Guía paso a paso para construir una rampa inclinada (bank) desde cero, con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>📐 Medidas en cm</span>
+            <span>🪵 Materiales locales</span>
+          </div>
+          <a href="bank-ramp-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+      <!-- Micro Quarter -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">🌀</span>
+          <h3>Micro Quarter Pipe</h3>
+          <span class="level-badge easy">🛹 Principiante</span>
+        </div>
+        <div class="guide-card-body">
+          <p>Guía paso a paso para construir una mini quarter pipe desde cero, con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>📐 Medidas en cm</span>
+            <span>🪵 Materiales locales</span>
+          </div>
+          <a href="micro-quarter-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+      <!-- Quarter Pipe 90cm -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <span class="card-emoji">🏄</span>
+          <h3>Quarter Pipe 90 cm</h3>
+          <span class="level-badge medium">🛹 Principiante / Intermedio</span>
+        </div>
+        <div class="guide-card-body">
+          <p>Guía paso a paso para construir una quarter pipe de tamaño estándar, con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+          <div class="guide-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>📐 Medidas en cm</span>
+            <span>🪵 Materiales locales</span>
+          </div>
+          <a href="quarter-pipe-arg.html" class="guide-link">Ver guía →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECCIÓN: GUÍA DE MATERIALES -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">📋</span> Guía de Materiales</div>
+    <p class="section-subtitle">Recursos base — leé esto primero si es tu primera construcción.</p>
+
+    <div class="special-card">
+      <div class="special-card-accent"></div>
+      <div class="special-card-content">
+        <div class="special-card-icon">🪵</div>
+        <div class="special-card-text">
+          <h3>Guía de Materiales, Maderas y Fundaciones</h3>
+          <p>Todo lo que necesitás saber sobre maderas, herramientas, tornillos, fondos antióxido y equivalencias de materiales para construir rampas de skate en Argentina. Terminología local y recomendaciones de proveedores.</p>
+          <div class="special-card-tags">
+            <span>🇦🇷 Versión Argentina</span>
+            <span>🪵 Tipos de madera</span>
+            <span>🔧 Herramientas</span>
+            <span>💰 Presupuesto</span>
+          </div>
+          <a href="guia-rampa-skate-argentina.html" class="guide-link">Ver guía completa →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

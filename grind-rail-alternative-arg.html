@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Grind Rail Sin Soldadura DIY — Argentina</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5; color: #1a1a2e;
+    line-height: 1.75; font-size: 15px;
+  }
+
+  .cover {
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 45%, #0f3460 100%);
+    color: white; min-height: 320px; padding: 60px 50px 50px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .cover::before {
+    content: ''; position: absolute; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(233,69,96,0.18) 0%, transparent 70%);
+    top: -150px; right: -100px; border-radius: 50%;
+  }
+  .cover::after {
+    content: '🛹'; font-size: 180px; position: absolute;
+    opacity: 0.06; bottom: -30px; right: 20px; line-height: 1;
+  }
+  .cover .eyebrow { font-size: 0.72em; font-weight: 700; letter-spacing: 4px; color: #e94560; text-transform: uppercase; margin-bottom: 14px; }
+  .cover h1 { font-size: 2.6em; font-weight: 900; line-height: 1.1; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .cover h1 span { color: #e94560; }
+  .cover .desc { font-size: 1em; color: #a8c8ea; max-width: 560px; margin-bottom: 26px; }
+  .cover-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cover-badges span { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #ddd; padding: 5px 14px; border-radius: 20px; font-size: 0.78em; font-weight: 600; }
+  .cover-badges span.red { background: #e94560; border-color: #e94560; color: white; }
+  .cover-badges span.green { background: #27ae60; border-color: #27ae60; color: white; }
+
+  .page { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+  .intro-box { background: white; border-radius: 14px; box-shadow: 0 3px 20px rgba(0,0,0,0.09); padding: 32px 36px; margin-bottom: 28px; border-left: 5px solid #e94560; }
+  .intro-box h2 { font-size: 1.15em; font-weight: 800; color: #e94560; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+  .specs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+  .spec-card { background: white; border-radius: 14px; box-shadow: 0 3px 20px rgba(0,0,0,0.09); padding: 22px 16px; text-align: center; }
+  .spec-card .icon { font-size: 2em; margin-bottom: 6px; }
+  .spec-card .val { font-size: 1.3em; font-weight: 900; color: #0f3460; line-height: 1.1; }
+  .spec-card .lbl { font-size: 0.72em; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  .card { background: white; border-radius: 14px; box-shadow: 0 3px 20px rgba(0,0,0,0.09); overflow: hidden; margin-bottom: 28px; }
+  .card-header { background: linear-gradient(90deg, #0f3460, #16213e); color: white; padding: 18px 28px; display: flex; align-items: center; gap: 12px; }
+  .card-header .icon { font-size: 1.4em; }
+  .card-header h2 { font-size: 1.1em; font-weight: 800; letter-spacing: 0.5px; }
+  .card-header small { font-size: 0.72em; color: #aac4e0; display: block; margin-top: 2px; }
+  .card-body { padding: 24px 28px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.91em; }
+  th { background: #f0f4fa; color: #0f3460; font-weight: 700; padding: 10px 14px; text-align: left; border-bottom: 2px solid #dce8f8; }
+  td { padding: 9px 14px; border-bottom: 1px solid #eef2f8; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f7f9fd; }
+
+  .step-card { background: white; border-radius: 14px; box-shadow: 0 3px 20px rgba(0,0,0,0.09); overflow: hidden; margin-bottom: 28px; }
+  .step-header { display: flex; align-items: stretch; background: linear-gradient(90deg, #0f3460, #16213e); color: white; }
+  .step-num { background: #e94560; color: white; font-size: 2em; font-weight: 900; width: 70px; min-width: 70px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-title-block { padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; }
+  .step-title-block h3 { font-size: 1.1em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+  .step-title-block small { color: #a8c8ea; font-size: 0.78em; margin-top: 2px; }
+  .step-body { padding: 24px 28px; }
+
+  .step-image-container { background: #f7f9fd; border-radius: 10px; padding: 16px; margin: 18px 0; text-align: center; border: 1px solid #e0e8f5; }
+  .step-image-container img { max-width: 100%; border-radius: 8px; display: block; margin: 0 auto; max-height: 340px; object-fit: contain; }
+  .img-fallback { display: none; padding: 22px 16px; background: #f0f4fa; border-radius: 8px; color: #666; font-size: 0.88em; text-align: center; }
+  .img-caption { font-size: 0.78em; color: #888; margin-top: 10px; font-style: italic; }
+
+  .callout { border-radius: 10px; padding: 14px 18px; margin: 14px 0; font-size: 0.91em; display: flex; gap: 12px; align-items: flex-start; }
+  .callout .ci { font-size: 1.3em; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { display: block; margin-bottom: 4px; color: #0f3460; }
+  .callout.info { background: #eef4ff; border: 1px solid #c8daf8; }
+  .callout.tip  { background: #edfaf3; border: 1px solid #b7e8ce; }
+  .callout.warn { background: #fff8ec; border: 1px solid #fad99a; }
+  .callout.alert { background: #fff0f3; border: 1px solid #f5c0c8; }
+
+  .sub-steps { counter-reset: sub; padding: 0; list-style: none; }
+  .sub-steps li { counter-increment: sub; display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
+  .sub-steps li::before { content: counter(sub); background: #0f3460; color: white; font-weight: 700; font-size: 0.78em; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .tool-item { background: #f7f9fd; border-radius: 8px; padding: 8px 12px; font-size: 0.88em; display: flex; align-items: center; gap: 8px; border: 1px solid #e0e8f5; }
+
+  .tip-banner { background: linear-gradient(135deg, #e94560, #c0392b); color: white; border-radius: 14px; padding: 22px 28px; margin-bottom: 28px; display: flex; gap: 16px; align-items: center; }
+  .tip-banner .tbi { font-size: 2.5em; flex-shrink: 0; }
+  .tip-banner h3 { font-size: 1.05em; font-weight: 800; margin-bottom: 4px; }
+  .tip-banner p { font-size: 0.88em; color: rgba(255,255,255,0.88); margin: 0; }
+
+  .cost-banner { background: linear-gradient(135deg, #1a6b3c, #27ae60); color: white; border-radius: 14px; padding: 22px 28px; margin-bottom: 28px; display: flex; gap: 16px; align-items: center; }
+  .cost-banner .tbi { font-size: 2.5em; flex-shrink: 0; }
+  .cost-banner h3 { font-size: 1.05em; font-weight: 800; margin-bottom: 4px; }
+  .cost-banner p { font-size: 0.88em; color: rgba(255,255,255,0.88); margin: 0; }
+
+  .highlight-box { background: linear-gradient(135deg, #f0f4fa, #e8f0fb); border: 2px solid #0f3460; border-radius: 12px; padding: 20px 24px; margin: 18px 0; }
+  .highlight-box h4 { color: #0f3460; font-size: 1em; font-weight: 800; margin-bottom: 8px; }
+
+  .parts-diagram { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+  .part-card { background: #f7f9fd; border: 1px solid #dce8f8; border-radius: 10px; padding: 14px 16px; }
+  .part-card h5 { color: #0f3460; font-size: 0.88em; font-weight: 800; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .part-card p { font-size: 0.85em; color: #555; margin: 0; }
+
+  .safety-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .safety-item { background: #fff8ec; border: 1px solid #fad99a; border-radius: 10px; padding: 14px 16px; font-size: 0.88em; }
+  .safety-item strong { color: #b7790a; display: block; margin-bottom: 4px; }
+
+  .footer { text-align: center; color: #aaa; font-size: 0.78em; padding: 20px; border-top: 1px solid #e0e8f5; margin-top: 10px; }
+
+  @media print {
+    body { background: white; font-size: 13px; }
+    .page { max-width: 100%; padding: 10px 15px 30px; }
+    .cover { min-height: 200px; padding: 30px; }
+    .cover h1 { font-size: 2em; }
+    .step-card, .card, .intro-box { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+  @media (max-width: 600px) {
+    .cover h1 { font-size: 1.8em; }
+    .cover { padding: 40px 28px 36px; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .tools-grid, .safety-grid, .parts-diagram { grid-template-columns: 1fr; }
+    .step-num { width: 50px; min-width: 50px; font-size: 1.5em; }
+    .card-body, .step-body { padding: 18px; }
+    .intro-box { padding: 22px 20px; }
+  }
+  .back-btn{position:fixed;top:16px;left:16px;z-index:100;background:rgba(15,52,96,0.92);color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:.82em;font-weight:700;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.15);transition:background 0.2s;}
+  .back-btn:hover{background:#e94560;}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-btn">← Índice</a>
+
+<!-- PORTADA -->
+<div class="cover">
+  <div class="eyebrow">Manual de Construcción · DIY Skate</div>
+  <h1>Cómo hacer un <span>Grind Rail</span> sin soldar</h1>
+  <p class="desc">Guía paso a paso para construir un caño de grind sin perforaciones ni soldadura — usando adhesivo de construcción. Con materiales y medidas adaptados para Argentina.</p>
+  <div class="cover-badges">
+    <span class="red">🇦🇷 Versión Argentina</span>
+    <span class="green">✅ Sin soldadura</span>
+    <span>📐 Medidas en cm</span>
+    <span>🛹 Nivel: Principiante</span>
+  </div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>¿Qué es este grind rail?</h2>
+    <p>Un <em>grind rail</em> (o "caño de grind") es uno de los obstáculos más icónicos del street skating — el caño de metal sobre el que hacés 50-50s, 5-0s, nosegrinds y todos los trucos de grind. Normalmente hacer uno requiere soldadora y algún conocimiento de herrería, lo que lo pone fuera del alcance de muchos.</p>
+    <p style="margin-top:10px;">Esta versión usa un truco simple: en lugar de soldar o perforar el metal, el ángulo de acero se fija al tirante de madera con <strong>adhesivo de construcción</strong> (equivalente al "Liquid Nails" del original). El resultado es igual de sólido para uso normal y se puede construir en un fin de semana con herramientas básicas. Esta guía está basada en los planos de <strong>diyskate.com</strong>, adaptada con materiales y medidas del mercado argentino.</p>
+  </div>
+
+  <!-- SPECS -->
+  <div class="specs-grid">
+    <div class="spec-card">
+      <div class="icon">↕️</div>
+      <div class="val">25 cm</div>
+      <div class="lbl">Altura</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">📏</div>
+      <div class="val">183 cm</div>
+      <div class="lbl">Largo</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">🔩</div>
+      <div class="val">Sin soldar</div>
+      <div class="lbl">Método</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">⏱️</div>
+      <div class="val">1 día</div>
+      <div class="lbl">Tiempo estimado</div>
+    </div>
+  </div>
+
+  <!-- COST BANNER -->
+  <div class="cost-banner">
+    <div class="tbi">💰</div>
+    <div>
+      <h3>El proyecto más económico y rápido de esta serie</h3>
+      <p>El grind rail sin soldadura es el proyecto con menor costo y menor dificultad de toda la serie. El costo original en EE.UU. era de ~USD 75 — en Argentina el equivalente depende de los precios del momento, pero en materiales es de los más accesibles. Se puede terminar en un solo día.</p>
+    </div>
+  </div>
+
+  <!-- MATERIALES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🛒</span>
+      <div>
+        <h2>Lista de materiales</h2>
+        <small>Terminología argentina — conseguibles en corralón, maderera, ferretería y herrería</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Cantidad / Medida</th>
+            <th>Para qué sirve</th>
+            <th>Original EE.UU.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tirante de pino 2×4</strong><br><small style="color:#888">Pino Elliottis o Paraná Misionero</small></td>
+            <td>1 tirante de <strong>244 cm</strong> entero<br><small>(se corta en 3 piezas: ver paso 1)</small></td>
+            <td>Larguero central superior + 2 pies (bases)</td>
+            <td>1 × 2×4 @ 8' long</td>
+          </tr>
+          <tr>
+            <td><strong>Poste de pino 4×4</strong><br><small style="color:#888">También llamado "tirante 4×4" en corralones</small></td>
+            <td>1 poste de <strong>244 cm</strong> entero<br><small>(se corta en 4 piezas: ver paso 1)</small></td>
+            <td>4 patas que determinan la altura del rail</td>
+            <td>1 × 4×4 @ 8' long</td>
+          </tr>
+          <tr>
+            <td><strong>Ángulo de acero (perfil en L)</strong><br><small style="color:#888">Ala de ~5 cm — en herrerías o distribuidoras de acero</small></td>
+            <td>2 barras de <strong>183 cm</strong> de largo</td>
+            <td>Las dos superficies de grind del rail</td>
+            <td>2 × angle iron @ 6' long</td>
+          </tr>
+          <tr>
+            <td><strong>Adhesivo de construcción</strong><br><small style="color:#888">"Adhesivo para construcción en cartucho" — equivalente al Liquid Nails original</small></td>
+            <td>1 cartucho (300–400 ml)</td>
+            <td>Pegar el ángulo de acero al tirante — sin perforaciones ni soldadura</td>
+            <td>Liquid Nails adhesive</td>
+          </tr>
+          <tr>
+            <td><strong>Escuadras metálicas (ángulo de acero galvanizado)</strong><br><small style="color:#888">Las escuadras de ferretería para refuerzo de uniones de madera</small></td>
+            <td>4 escuadras de ~5 × 5 cm</td>
+            <td>Reforzar la unión entre las patas y los pies (bases) del rail</td>
+            <td>4 × angle brackets</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~40 mm (1⅝") — caja de 50 u.</td>
+            <td>Fijar las escuadras metálicas a la madera</td>
+            <td>1 5/8" screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~65 mm (2½") — caja de 50 u.</td>
+            <td>Unir las patas al larguero y las patas a los pies</td>
+            <td>2 1/2" screws</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout info" style="margin-top:20px;">
+        <span class="ci">📌</span>
+        <div>
+          <strong>El adhesivo de construcción es la clave de este proyecto</strong>
+          <p>El "Liquid Nails" original es una marca de adhesivo de construcción en cartucho, muy común en EE.UU. En Argentina el equivalente directo se llama <strong>adhesivo de construcción o adhesivo multiuso en cartucho</strong>. Las marcas más comunes son <strong>Sika Boom, Sikaflex, Pattex o marcas genéricas de ferretería</strong>. Pedilo en cualquier ferretería grande o corralón — es el adhesivo que viene en cartucho para pistola aplicadora. Buscá uno que adhiera metal sobre madera.</p>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:12px;">
+        <span class="ci">🌧️</span>
+        <div>
+          <strong>¿Rail para exterior?</strong>
+          <p>Usá <strong>tirante y poste de pino impregnado CCA</strong> (el de color verdoso) y asegurate de elegir un adhesivo de construcción que sea <strong>resistente al agua y a la intemperie</strong>. El Sikaflex 11FC o equivalentes tienen esa propiedad. Pintá o lasureá la madera antes de aplicar el adhesivo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERRAMIENTAS -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🔨</span>
+      <div><h2>Herramientas necesarias</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="tools-grid">
+        <div class="tool-item">🔵 Sierra circular o serrucho</div>
+        <div class="tool-item">⚡ Atornillador eléctrico / taladro</div>
+        <div class="tool-item">📐 Escuadra y cinta métrica</div>
+        <div class="tool-item">✏️ Lápiz de carpintero</div>
+        <div class="tool-item">🔫 Pistola aplicadora para cartucho de adhesivo</div>
+        <div class="tool-item">🗜️ Sargentos / prensas (para mantener el ángulo mientras seca)</div>
+        <div class="tool-item">🦺 Guantes (para el adhesivo)</div>
+        <div class="tool-item">🪚 Sierra para metal (si necesitás cortar el ángulo)</div>
+      </div>
+
+      <div class="callout tip" style="margin-top:16px;">
+        <span class="ci">✅</span>
+        <div>
+          <strong>La pistola aplicadora es indispensable</strong>
+          <p>Los cartuchos de adhesivo de construcción requieren una <strong>pistola aplicadora</strong> (también llamada "pistola para silicona" o "pistolete") para poder aplicar el contenido. Se consigue en cualquier ferretería por muy poco dinero. Sin ella no podés usar el adhesivo en cartucho.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIP BANNER -->
+  <div class="tip-banner">
+    <div class="tbi">💡</div>
+    <div>
+      <h3>Sin soldadora, sin complicaciones</h3>
+      <p>La gran ventaja de este método es que no necesitás ninguna habilidad de herrería ni acceso a una soldadora. El adhesivo de construcción tiene una resistencia de cizallamiento altísima — el ángulo de acero no se va a mover con el uso normal de skate. El secreto está en limpiar bien las superficies antes de pegar y respetar el tiempo de secado.</p>
+    </div>
+  </div>
+
+  <!-- ===== PASOS ===== -->
+
+  <!-- PASO 1 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title-block">
+        <h3>Cortar todos los tirantes y el poste 4×4</h3>
+        <small>Cutting the lumber — 7 piezas en total de 2 maderas</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Este proyecto usa solo dos piezas de madera (un tirante 2×4 y un poste 4×4), de las cuales salén todas las piezas necesarias. Cortá todo antes de empezar a armar.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/grind_rail_02_matlist.jpg"
+             alt="Lista de cortes — grind rail sin soldadura"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">📋 <em>Lista de cortes del diseño original (diyskate.com/images/grind_rail_02_matlist.jpg)</em></div>
+        <div class="img-caption">Lista de cortes completa — 3 piezas del tirante 2×4 y 4 piezas del poste 4×4</div>
+      </div>
+
+      <div class="parts-diagram">
+        <div class="part-card">
+          <h5>🪵 Del tirante 2×4 (244 cm)</h5>
+          <p><strong>1 pieza de 183 cm</strong> — larguero central superior (el que va arriba de todo)<br><br>
+          <strong>2 piezas de 30 cm</strong> — pies / bases de cada extremo del rail</p>
+        </div>
+        <div class="part-card">
+          <h5>🪵 Del poste 4×4 (244 cm)</h5>
+          <p><strong>2 piezas de 21,5 cm</strong> — patas externas (definen la altura con el 2×4 encima)<br><br>
+          <strong>2 piezas de 18 cm</strong> — patas internas (a 61 cm de cada extremo del larguero)</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Por qué dos alturas distintas de patas?</strong>
+          <p>Las patas externas miden 21,5 cm y las internas 18 cm. La diferencia de ~3,5 cm es exactamente el ancho del tirante 2×4 que se apoya encima de las patas internas (el larguero). Las patas externas van debajo de los pies (bases) de 30 cm, que suman más altura total. Así todas las patas llevan el larguero a la misma altura: <strong>25 cm totales</strong> (la altura del rail).</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>El poste 4×4 es más fácil de encontrar de lo que parece</strong>
+          <p>En corralones y madereras lo pedís como <strong>"poste de pino 4×4"</strong> o <strong>"tirante 4×4"</strong>. Se usa mucho para pergolados, decks y estructuras de exterior. La medida real seco es ~90×90 mm. Si no lo encontrás en pino Elliottis, lo hay en pino impregnado (ideal para este proyecto si va al aire libre).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title-block">
+        <h3>Armar las patas (legs)</h3>
+        <small>Assembling the legs — pata 4×4 + pie 2×4 + escuadra metálica</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Cada pata del rail se arma con una pieza de poste 4×4 (la pata vertical) y una pieza de tirante 2×4 de 30 cm (el pie horizontal que apoya en el suelo). La escuadra metálica refuerza la unión entre los dos.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/ramps/grind_rail_02/grind_rail_01.gif"
+             alt="Armado de las patas — poste 4×4 con pie 2×4 y escuadra metálica"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🏗️ <em>Armado de las patas (diyskate.com/images/ramps/grind_rail_02/grind_rail_01.gif)</em></div>
+        <div class="img-caption">Pata de 4×4 atornillada al pie de 2×4 — escuadra metálica en la esquina interior para reforzar</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Tomá una de las <strong>piezas de 4×4 de 21,5 cm</strong> (patas externas) y atornillala al extremo de un <strong>pie de 2×4 de 30 cm</strong>. Usá <strong>4 o 5 tornillos de 65 mm</strong> pasando por el pie hacia la pata. Pre-taladrá para evitar que la madera se parta — el 4×4 es madera densa.</li>
+        <li>Colocá una <strong>escuadra metálica</strong> en la esquina interior donde la pata se une al pie, y atornillala con <strong>tornillos de 40 mm</strong> (2 o 3 por cada lado de la escuadra). La escuadra impide que la pata se separe del pie cuando alguien golpea el rail de costado.</li>
+        <li>Repetí para la segunda pata externa. Tenés que armar <strong>2 patas externas</strong> (pata de 21,5 cm + pie de 30 cm + escuadra).</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Dónde conseguir las escuadras metálicas en Argentina?</strong>
+          <p>Las escuadras metálicas (también llamadas <strong>"ángulos de refuerzo"</strong>, <strong>"escuadras para madera"</strong> o <strong>"right angle brackets"</strong>) se consiguen en cualquier ferretería mediana o en Easy/Sodimac. Son las escuadras en L de chapa galvanizada con agujeros para tornillos, muy usadas en carpintería y construcción liviana. Pedí las de 5×5 cm o similares.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title-block">
+        <h3>Armar el rail completo — larguero + 4 patas</h3>
+        <small>Assembling the grind rail — el 2×4 de 183 cm conecta todo</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con las dos patas externas armadas, unís todo con el larguero central de 183 cm y agregás las dos patas internas.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/ramps/grind_rail_02/grind_rail_02.gif"
+             alt="Rail armado completo — larguero 2×4 con 4 patas"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🏗️ <em>Rail armado completo (diyskate.com/images/ramps/grind_rail_02/grind_rail_02.gif)</em></div>
+        <div class="img-caption">Las 4 patas conectadas al larguero de 183 cm — patas internas a 61 cm de cada extremo</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Colocá el <strong>larguero 2×4 de 183 cm</strong> apoyado sobre las dos patas externas ya armadas. Atornillalo a cada pata con <strong>4 o 5 tornillos de 65 mm</strong> por pata, pasando por el costado del larguero hacia la pata.</li>
+        <li>Ahora colocá las <strong>2 patas internas de 4×4 de 18 cm</strong> debajo del larguero, a exactamente <strong>61 cm de cada extremo</strong> del larguero (medido desde el extremo hacia adentro). Atornillá cada una al larguero con 4 o 5 tornillos de 65 mm.</li>
+        <li>Verificá que el rail quede nivelado apoyándolo en el suelo — los 4 pies (o las 2 patas internas y los 2 pies externos) deben tocar el suelo al mismo tiempo. Si tambalea, corregí lijando o cortando levemente la pata que sobresale.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>El rail no debe tambalear</strong>
+          <p>Un rail que se mueve al patinar es peligroso. Antes de continuar con el adhesivo, verificá que la estructura esté perfectamente estable en el suelo. Es mucho más fácil corregir en este paso que una vez que el ángulo de acero ya está pegado.</p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h4>📐 Vista de la estructura terminada</h4>
+        <p>El rail tiene esta forma cuando está armado: el larguero 2×4 de 183 cm corre en el centro arriba, apoyado en dos patas externas (con pie) en los extremos y dos patas internas a 61 cm de cada punta. Las patas externas quedan más altas porque incluyen el pie de 30 cm que se asienta en el suelo, mientras que las patas internas van directamente al suelo sin pie. Esto le da estabilidad longitudinal y lateral al conjunto.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title-block">
+        <h3>Aplicar el adhesivo de construcción</h3>
+        <small>Placing the adhesive — cordón de adhesivo en la parte superior y lateral del 2×4</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Ahora viene la parte clave de este método: aplicar el adhesivo que va a mantener el ángulo de acero unido al larguero de madera.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/ramps/grind_rail_02/grind_rail_03.gif"
+             alt="Aplicación del adhesivo de construcción sobre el tirante 2×4"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🔫 <em>Aplicación del adhesivo (diyskate.com/images/ramps/grind_rail_02/grind_rail_03.gif)</em></div>
+        <div class="img-caption">Cordón de adhesivo aplicado en la cara superior y la cara lateral del larguero 2×4</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Limpiá bien la <strong>cara superior y la cara lateral del larguero 2×4</strong> donde va a apoyar el ángulo de acero. Sin polvo, sin aceite, sin humedad — la adherencia depende de una superficie limpia.</li>
+        <li>Limpiá también las caras del <strong>ángulo de acero</strong> que van a estar en contacto con la madera (las dos caras interiores del perfil en L). Podés usar un trapo con alcohol o aguarrás para desengrasarlas.</li>
+        <li>Con la pistola aplicadora, hacé un <strong>cordón continuo de adhesivo</strong> a lo largo de la cara superior del larguero (donde va a apoyar el ala horizontal del ángulo) y otro cordón a lo largo de la cara lateral (donde va a apoyar el ala vertical). El cordón debe ser continuo, de ~8-10 mm de diámetro.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Trabajá rápido una vez aplicado el adhesivo</strong>
+          <p>La mayoría de los adhesivos de construcción en cartucho tienen un tiempo de trabajo de 10 a 20 minutos antes de que empiecen a perder adherencia. Una vez que aplicás el adhesivo, colocá el ángulo de acero y ajustá las prensas sin demora.</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Qué adhesivo usar en Argentina?</strong>
+          <ul style="margin-top:6px; padding-left:18px;">
+            <li><strong>Sikaflex-11FC</strong> — adhesivo elástico resistente a la intemperie, buena adherencia metal-madera. Ideal para exterior.</li>
+            <li><strong>Pattex No More Nails</strong> (disponible en Easy/Sodimac) — equivalente directo al Liquid Nails, fácil de conseguir.</li>
+            <li><strong>Adhesivo de construcción genérico</strong> — cualquier marca de ferretería que diga "adhiere madera y metal". Revisá que sea resistente al agua si el rail va al exterior.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title-block">
+        <h3>Colocar y fijar el ángulo de acero</h3>
+        <small>Attaching the angle iron — 2 perfiles en L de 183 cm, uno por canto</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con el adhesivo aplicado, colocás los dos ángulos de acero sobre el larguero — uno en cada canto superior del 2×4 — y los mantenés en posición con prensas hasta que el adhesivo seque completamente.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/ramps/grind_rail_02/grind_rail_04.gif"
+             alt="Ángulos de acero colocados con prensas mientras seca el adhesivo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Ángulos de acero con prensas (diyskate.com/images/ramps/grind_rail_02/grind_rail_04.gif)</em></div>
+        <div class="img-caption">Los dos ángulos de acero en posición — prensas laterales y superiores mantienen la presión mientras el adhesivo cura</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Colocá los <strong>2 ángulos de acero de 183 cm</strong> sobre el larguero, uno en cada canto, de modo que el perfil en L abrace la esquina superior del 2×4 — un ala del ángulo apoya en la cara superior del tirante y la otra cae por la cara lateral.</li>
+        <li>Ajustá la posición para que los ángulos queden alineados y parejos a lo largo de todo el larguero.</li>
+        <li>Colocá <strong>sargentos / prensas</strong> desde los costados y desde arriba para mantener los ángulos bien pegados al tirante mientras el adhesivo cura. Si tenés pocas prensas, usá también tiras de cinta de embalaje resistente o flejes como complemento — lo que importa es que haya presión constante.</li>
+        <li><strong>Dejá secar sin mover el rail durante al menos 12 horas</strong> (preferiblemente 24 horas para máxima resistencia). Revisá las instrucciones específicas del adhesivo que uses — algunos curan más rápido.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>No patines el rail hasta que el adhesivo cure completamente</strong>
+          <p>Patinar antes de que el adhesivo esté completamente seco puede hacer que el ángulo se despegue o quede mal posicionado. Respetá el tiempo de curado indicado en el cartucho — generalmente 12 a 24 horas. Si tenés dudas, esperá el tiempo máximo recomendado.</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>¿No tenés suficientes prensas?</strong>
+          <p>Podés improvisar presión colocando pesos pesados encima (bolsas de cemento, baldes con agua, lo que tengas). También podés atar el ángulo al tirante con alambre grueso temporalmente mientras cura. La clave es que haya presión continua en todo el largo del ángulo, no solo en algunos puntos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 6 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div class="step-title-block">
+        <h3>Verificar, lijar cantos y ¡a patinar!</h3>
+        <small>Skate it — verificaciones finales antes de usar el rail</small>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/ramps/grind_rail_02/grind_rail_05.gif"
+             alt="Grind rail terminado listo para usar"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🛹 <em>Rail terminado (diyskate.com/images/ramps/grind_rail_02/grind_rail_05.gif)</em></div>
+        <div class="img-caption">El grind rail terminado — ángulos de acero pegados, rail estable y listo para 50-50s</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Una vez seco el adhesivo, verificá que los ángulos estén bien adheridos intentando moverlos con la mano. No deben tener movimiento. Si alguna zona quedó despegada, aplicá más adhesivo en esa zona y volvé a poner presión.</li>
+        <li>Revisá que no haya exceso de adhesivo que haya escurrido sobre la cara superior del ángulo (la zona donde van a apoyar los trucks). Si hay restos, retiralos con espátula o cúter mientras aún son maleables, o lijálos cuando ya estén secos.</li>
+        <li>Frotá bien ambos ángulos de acero con <strong>cera de parafina</strong> (vela común) para lubricar la superficie y que los grinds corran bien desde el primer momento.</li>
+        <li>Verificá una última vez que el rail no tambalee apoyándolo en el suelo y moviéndolo con la mano.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">🛹</span>
+        <div>
+          <strong>Wax antes de cada sesión</strong>
+          <p>El ángulo de acero funciona mejor con cera. Frotá bien con una vela de parafina (las de colmena o cualquier vela de cera) antes de cada sesión, especialmente cuando el metal esté frío. Notarás la diferencia inmediatamente en cómo corren los 50-50s y los 5-0s.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGURIDAD -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⛑️</span>
+      <div><h2>Seguridad, mantenimiento y consejos de uso</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="safety-grid">
+        <div class="safety-item">
+          <strong>🔩 Revisá los tornillos regularmente</strong>
+          Con el uso, los tornillos de las patas y los pies pueden aflojarse. Revisálos seguido — una pata que se mueve hace que el rail entero sea inestable.
+        </div>
+        <div class="safety-item">
+          <strong>🔗 Inspeccioná la adherencia del ángulo</strong>
+          Después de sesiones intensas, verificá que el ángulo de acero no tenga zonas que se estén separando de la madera. Si encontrás alguna, aplicá más adhesivo y volvé a prensar.
+        </div>
+        <div class="safety-item">
+          <strong>🌧️ Protección exterior</strong>
+          Si queda afuera, usá pino impregnado CCA y adhesivo resistente al agua. El ángulo de acero puede oxidarse — pintalo con antióxido si va a estar a la intemperie.
+        </div>
+        <div class="safety-item">
+          <strong>📐 Rail nivelado = rail seguro</strong>
+          Un rail que se mueve o tambalea puede voltearse mientras patinás. Revisá que los 4 apoyos toquen el suelo al mismo tiempo siempre que muevas el rail de lugar.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📖</span>
+      <div>
+        <h2>Glosario — términos usados en este manual</h2>
+        <small>Equivalencias entre el original en inglés y los nombres en Argentina</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <tr>
+          <th>En este manual (Argentina)</th>
+          <th>Original en inglés (EE.UU.)</th>
+          <th>Aclaración</th>
+        </tr>
+        <tr><td>Tirante 2×4 / pino elliottis</td><td>2×4 lumber</td><td>Medida real: ~40 × 90 mm seco</td></tr>
+        <tr><td>Poste 4×4 / tirante 4×4</td><td>4×4 lumber</td><td>Medida real: ~90 × 90 mm seco — patas del rail</td></tr>
+        <tr><td>Ángulo de acero / perfil en L</td><td>Angle iron</td><td>Perfil L 50×50 mm — las superficies de grind</td></tr>
+        <tr><td>Adhesivo de construcción en cartucho</td><td>Liquid Nails</td><td>Sikaflex, Pattex No More Nails o similar — en ferretería</td></tr>
+        <tr><td>Pistola aplicadora / pistolete</td><td>Applicator gun / caulk gun</td><td>Herramienta para aplicar el cartucho de adhesivo</td></tr>
+        <tr><td>Escuadra metálica / ángulo de refuerzo</td><td>Angle bracket</td><td>Escuadra en L galvanizada — en ferretería</td></tr>
+        <tr><td>Tornillo drywall 40 mm</td><td>1 5/8" screw</td><td>Para fijar las escuadras metálicas</td></tr>
+        <tr><td>Tornillo drywall 65 mm</td><td>2 1/2" screw</td><td>Para unir madera con madera (patas y larguero)</td></tr>
+        <tr><td>Sargento / prensa</td><td>Clamp</td><td>Para mantener el ángulo pegado mientras cura el adhesivo</td></tr>
+        <tr><td>Cera de parafina / vela</td><td>Wax</td><td>Para lubricar el ángulo y mejorar los grinds</td></tr>
+        <tr><td>Pino impregnado CCA</td><td>Pressure treated lumber</td><td>Para uso exterior, color verdoso</td></tr>
+        <tr><td>Corralón / maderera</td><td>Home Depot / lumber yard</td><td>Donde comprás la madera</td></tr>
+        <tr><td>Herrería / distribuidora de acero</td><td>Steel fabricator / steel yard</td><td>Donde conseguís y cortás el ángulo de acero</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="footer">
+  Manual adaptado para Argentina a partir de diyskate.com · Medidas convertidas de pies/pulgadas a centímetros · Materiales equivalentes al mercado local.<br>
+  Para los planos originales en inglés: <strong>diyskate.com/grind_rail_02.html</strong>
+</div>
+
+</body>
+</html>

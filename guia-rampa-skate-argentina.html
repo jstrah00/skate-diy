@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía DIY Rampas de Skate — Argentina</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f4f4;
+    color: #222;
+    line-height: 1.7;
+  }
+  .cover {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: "🛹";
+    font-size: 120px;
+    position: absolute;
+    opacity: 0.08;
+    top: -20px;
+    right: -20px;
+  }
+  .cover h1 {
+    font-size: 2.4em;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .cover .subtitle {
+    font-size: 1.1em;
+    color: #a8d8ea;
+    margin-bottom: 8px;
+  }
+  .cover .badge {
+    display: inline-block;
+    background: #e94560;
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 700;
+    margin-top: 16px;
+    letter-spacing: 1px;
+  }
+  .source-note {
+    background: #1a1a2e;
+    color: #aaa;
+    font-size: 0.78em;
+    text-align: center;
+    padding: 8px;
+    letter-spacing: 0.5px;
+  }
+  .toc {
+    background: white;
+    margin: 30px auto;
+    max-width: 860px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 30px 36px;
+  }
+  .toc h2 { font-size: 1em; text-transform: uppercase; color: #e94560; letter-spacing: 2px; margin-bottom: 16px; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 6px; font-size: 0.97em; }
+  .container {
+    max-width: 860px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+  }
+  .section {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  .section-header {
+    background: linear-gradient(90deg, #0f3460, #16213e);
+    color: white;
+    padding: 18px 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-header .icon { font-size: 1.5em; }
+  .section-header h2 { font-size: 1.25em; font-weight: 800; letter-spacing: 0.5px; }
+  .section-header .orig { font-size: 0.72em; color: #aac4e0; font-style: italic; }
+  .section-body { padding: 28px 30px; }
+  h3 {
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #0f3460;
+    margin: 22px 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e8f0fa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  h3:first-child { margin-top: 0; }
+  p { margin-bottom: 12px; font-size: 0.97em; }
+  .callout {
+    border-left: 4px solid #e94560;
+    background: #fff5f5;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 0.93em;
+  }
+  .callout.info {
+    border-color: #0f3460;
+    background: #f0f4fa;
+  }
+  .callout.warning {
+    border-color: #f5a623;
+    background: #fffbf0;
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.92em;
+  }
+  th {
+    background: #0f3460;
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f9f9f9; }
+  tr:hover td { background: #f0f4fa; }
+  .tag {
+    display: inline-block;
+    background: #e94560;
+    color: white;
+    font-size: 0.72em;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 4px;
+  }
+  .tag.blue { background: #0f3460; }
+  .tag.green { background: #27ae60; }
+  .grade-table th:nth-child(1) { width: 10%; }
+  .grade-table th:nth-child(2) { width: 35%; }
+  .grade-table th:nth-child(3) { width: 55%; }
+  .footer {
+    text-align: center;
+    color: #999;
+    font-size: 0.82em;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  @media print {
+    body { background: white; }
+    .container { max-width: 100%; }
+    .section { box-shadow: none; border: 1px solid #ddd; }
+  }
+  @media (max-width: 600px) {
+    .cover h1 { font-size: 1.5em; }
+    .section-body { padding: 18px; }
+    table { font-size: 0.82em; }
+  }
+  .back-btn{position:fixed;top:16px;left:16px;z-index:100;background:rgba(15,52,96,0.92);color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:.82em;font-weight:700;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.15);transition:background 0.2s;}
+  .back-btn:hover{background:#e94560;}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-btn">← Índice</a>
+
+<!-- PORTADA -->
+<div class="cover">
+  <h1>🛹 Guía para Construir Rampas de Skate DIY</h1>
+  <div class="subtitle">Materiales, maderas y fundaciones — Adaptado para Argentina</div>
+  <div class="subtitle" style="font-size:0.9em; color:#7fb3d3;">Basado en diyskate.com · Traducido y adaptado localmente</div>
+  <div class="badge">🇦🇷 Versión Argentina</div>
+</div>
+<div class="source-note">Contenido original en inglés: diyskate.com — Esta guía adapta terminología, medidas y materiales al mercado argentino.</div>
+
+<!-- INDICE -->
+<div class="container">
+<div class="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li>Tornillos y Fijaciones — Elegir el correcto según el uso</li>
+    <li>Madera Aserrada (Tirantes) — Nomenclatura nominal vs. real en Argentina</li>
+    <li>Terciado / Fenólico — Qué usar para las curvas y la superficie</li>
+    <li>Dónde conseguir los materiales en Argentina</li>
+    <li>Fundaciones y Base de la Rampa</li>
+    <li>Seguridad</li>
+  </ol>
+</div>
+
+<!-- SECCIÓN 1: TORNILLOS -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🔩</span>
+    <div>
+      <h2>1. Tornillos y Fijaciones — Elegir el Correcto</h2>
+      <div class="orig">Original: "Choosing the Right Screw for the Job"</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <p>Esta es probablemente una de las recomendaciones más importantes a la hora de construir. El tipo de tornillo correcto hace la diferencia entre una estructura que dura años y una que se deshace a los pocos meses.</p>
+
+    <h3>Rampas de Interior</h3>
+    <p>Para rampas que van a estar en interiores (garage, quincho cubierto, etc.), usá <strong>tornillos para drywall de rosca gruesa</strong>. Estos se consiguen en cualquier ferretería grande y en corralones de materiales. Son los tornillos de cabeza trompeta / corneta negros que se usan para fijar placas de yeso a madera — exactamente lo que necesitamos para fijar terciado sobre terciado o terciado sobre tirante.</p>
+
+    <div class="callout info">
+      <strong>📌 ¿Cómo los pedís en la ferretería?</strong>
+      "Tornillos para drywall de rosca gruesa" o "tornillos autoperforantes para madera". Los vas a reconocer por ser negros (fosfatados), con cabeza cónica plana y punta aguda. Se consiguen en Easy, Sodimac, y cualquier ferretería de barrio.
+    </div>
+
+    <h3>Rampas de Exterior</h3>
+    <p>Para rampas que van a quedar a la intemperie, usá <strong>tornillos galvanizados para madera exterior</strong> (equivalentes a los "galvanized deck screws" en EE.UU.). El galvanizado protege contra la oxidación y la humedad. También podés usar tornillos de <strong>acero inoxidable</strong> si querés mayor durabilidad, aunque salen más caros.</p>
+
+    <h3>Medidas de Tornillos — Tabla de Referencia</h3>
+    <p>Las medidas originales del sitio están en pulgadas. Acá convertimos todo a milímetros para que sea más fácil cuando vayas a la ferretería:</p>
+
+    <table>
+      <tr>
+        <th>Medida original (EE.UU.)</th>
+        <th>Equivalente en mm</th>
+        <th>Cuándo usarlo</th>
+      </tr>
+      <tr>
+        <td>1 5/8"</td>
+        <td>~40 mm</td>
+        <td>Terciado sobre terciado, o terciado sobre tirante (fijación de capas de superficie)</td>
+      </tr>
+      <tr>
+        <td>2 1/2"</td>
+        <td>~65 mm</td>
+        <td>Tirante sobre tirante, fijar el coping/tubo, unir los laterales (plantillas) a los tirantes</td>
+      </tr>
+    </table>
+
+    <div class="callout warning">
+      <strong>⚠️ Cuidado con la madera impregnada/tratada</strong>
+      Si usás tirantes de pino impregnado (CCA) para la estructura exterior, los químicos del tratamiento pueden ser tóxicos. Trabajá con guantes, barbijo y no quemes los recortes. Más info sobre madera impregnada en la sección de materiales.
+    </div>
+
+    <p>Si bien hay marcas específicas de tornillos que algunos recomiendan mucho, en la práctica los tornillos para drywall genéricos de buena calidad funcionan perfectamente. No vale la pena gastar extra en marcas premium.</p>
+
+    <div class="callout">
+      <strong>🔑 Regla de oro</strong>
+      Los clavos no sirven para construir rampas. Si en algún momento querés desarmarte y rearmar la rampa (para moverla, transportarla o repararla), los clavos hacen eso imposible. Los tornillos son el único camino.
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN 2: TIRANTES -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🪵</span>
+    <div>
+      <h2>2. Madera Aserrada (Tirantes) — Medidas Nominales vs. Reales</h2>
+      <div class="orig">Original: "Lumber — Nominal vs. Actual Dimensions"</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <p>En los planos de EE.UU., la madera estructural se nombra con medidas "nominales" — por ejemplo, un "2x4". Pero esa no es la medida real de la pieza. Igual pasa en Argentina: la madera se vende por su medida nominal (en verde, sin cepillar), y la medida real una vez seca y cepillada es siempre menor.</p>
+
+    <div class="callout info">
+      <strong>📌 ¿Cómo se llama en Argentina?</strong>
+      Lo que en EE.UU. llaman "dimensional lumber" acá se llama <strong>tirante</strong> (para piezas de 2" de espesor) o <strong>viga</strong> (para piezas de 3" o más). La madera más usada es el <strong>Pino Elliottis</strong> (o Elliotis) y el <strong>Pino Paraná Misionero</strong>, ambos disponibles en corralones y madereras de todo el país.
+    </div>
+
+    <h3>Tabla de Equivalencias — Medidas Nominales (EE.UU.) vs. Reales en Argentina</h3>
+    <p>Basado en la <strong>Tabla Voluntaria de Medidas del INTI</strong> para madera aserrada estructural (que adopta como referencia la norma PS-20 de EE.UU.):</p>
+
+    <table>
+      <tr>
+        <th>Nombre en EE.UU. (nominal)</th>
+        <th>Cómo pedirlo en Argentina</th>
+        <th>Medida real aproximada (seco y cepillado)</th>
+        <th>Uso en la rampa</th>
+      </tr>
+      <tr>
+        <td>2x4</td>
+        <td>Tirante 2x4 (pino elliottis / paraná)</td>
+        <td>40 mm × 90 mm</td>
+        <td>Estructura principal, costillas (ribs), soporte del deck</td>
+      </tr>
+      <tr>
+        <td>2x6</td>
+        <td>Tirante 2x6</td>
+        <td>40 mm × 140 mm</td>
+        <td>Largueros, piezas de mayor resistencia</td>
+      </tr>
+      <tr>
+        <td>4x4</td>
+        <td>Poste 4x4 (o "tirante de 4x4")</td>
+        <td>90 mm × 90 mm</td>
+        <td>Postes de fundación / soporte vertical</td>
+      </tr>
+      <tr>
+        <td>3x6</td>
+        <td>Viga 3x6</td>
+        <td>65 mm × 140 mm</td>
+        <td>Vigas de carga para estructuras más grandes</td>
+      </tr>
+    </table>
+
+    <div class="callout warning">
+      <strong>⚠️ Importante: las medidas varían</strong>
+      A diferencia de EE.UU., donde las medidas están muy estandarizadas, en Argentina podés encontrar pequeñas variaciones entre distintos proveedores. Cuando vayas al corralón, <strong>medí siempre las piezas antes de comprar</strong> o pedí que te aclaren las medidas reales (no las nominales). Lo más importante es que todas las piezas de la misma denominación tengan la misma medida real.
+    </div>
+
+    <h3>Especie de Madera Recomendada</h3>
+    <p>La madera más usada y fácil de conseguir en Argentina para estructuras es el <strong>Pino Elliottis</strong> (también escrito "Elliotis"), proveniente principalmente de Misiones. Es liviana, trabaja bien con tornillos, y tiene buena relación costo-resistencia para este tipo de construcción.</p>
+
+    <p>Para rampas de interior, el pino elliottis sin tratamiento es perfecto. Para exterior, usá siempre <strong>pino impregnado / pino tratado CCA</strong> (ver sección de materiales exteriores).</p>
+  </div>
+</div>
+
+<!-- SECCIÓN 3: TERCIADO / FENOLICO -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">📋</span>
+    <div>
+      <h2>3. Terciado y Fenólico — Todo lo que Necesitás Saber</h2>
+      <div class="orig">Original: "Most of What You Need to Know About Plywood"</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <p>El "plywood" en EE.UU. es lo que en Argentina llamamos <strong>terciado</strong> (también conocido como contrachapado, multilaminado o fenólico según el tipo). Es un tablero fabricado con capas de madera (chapas) pegadas entre sí con las vetas en direcciones alternadas, lo que le da resistencia en todos los sentidos y evita que se deforme.</p>
+
+    <div class="callout info">
+      <strong>📌 Nombres en Argentina</strong>
+      <ul style="margin-top:6px; padding-left:20px;">
+        <li><strong>Terciado</strong> = término genérico para tablero de madera multilaminado</li>
+        <li><strong>Fenólico / Terciado Fenólico</strong> = terciado con cola fenólica, resistente al agua — ideal para exterior</li>
+        <li><strong>Plakiboa / Plakimbre</strong> = marca/tipo comercial de fenólico en Argentina</li>
+        <li><strong>Particle board / aglomerado</strong> = tablero de partículas — <strong>NO usar para rampas</strong></li>
+        <li><strong>MDF</strong> = tablero de fibra de densidad media — <strong>NO usar</strong>, absorbe humedad y no tolera tornillos</li>
+      </ul>
+    </div>
+
+    <h3>Medidas Estándar en Argentina</h3>
+    <p>En EE.UU. el terciado se vende en planchas de 4 x 8 pies (1,22 x 2,44 m). En Argentina, las planchas de terciado y fenólico se venden en exactamente la misma medida: <strong>1,22 m × 2,44 m</strong> — así que los planos americanos aplican directamente sin conversión.</p>
+
+    <p>Los espesores disponibles son: 6 mm, 9 mm, 12 mm, 15 mm, 18 mm y 25 mm.</p>
+
+    <h3>Calidades del Terciado — Sistema de Grados Adaptado</h3>
+    <p>En EE.UU. usan letras (A, B, C, D) para calificar cada cara del tablero. En Argentina no existe un sistema de letras idéntico, pero los corralones suelen clasificar por "calidad" (1ra, 2da, industrial, fenólico, etc.). Esta tabla te ayuda a entender qué buscar:</p>
+
+    <table class="grade-table">
+      <tr>
+        <th>Grado EE.UU.</th>
+        <th>Descripción</th>
+        <th>Equivalente / Qué buscar en Argentina</th>
+      </tr>
+      <tr>
+        <td><strong>A</strong></td>
+        <td>Cara perfecta, sin nudos, lijada.</td>
+        <td>Terciado de 1ra calidad / terciado para muebles. No es necesario para rampas.</td>
+      </tr>
+      <tr>
+        <td><strong>B</strong></td>
+        <td>Superficie sólida, nudos pequeños, mayormente lijada.</td>
+        <td>Terciado de 2da calidad. Bueno para la superficie de rodadura si no conseguís el fenólico.</td>
+      </tr>
+      <tr>
+        <td><strong>C</strong></td>
+        <td>Nudos hasta 38 mm, algunas grietas.</td>
+        <td>Terciado industrial / de obra (calidad 3/4). Útil para las plantillas laterales y estructura interna.</td>
+      </tr>
+      <tr>
+        <td><strong>D</strong></td>
+        <td>Baja calidad, muchos defectos.</td>
+        <td>Evitar en lo posible. No usar en exteriores.</td>
+      </tr>
+      <tr>
+        <td><strong>CDX</strong></td>
+        <td>Cara C, dorso D, interior de madera de relleno.</td>
+        <td>Terciado fenólico industrial (calidad 4/IND). Ideal para las plantillas laterales y estructura.</td>
+      </tr>
+    </table>
+
+    <div class="callout">
+      <strong>🛹 Recomendación específica para rampas</strong>
+      <ul style="margin-top:6px; padding-left:20px;">
+        <li><strong>Plantillas laterales / estructura:</strong> Terciado fenólico 12-18 mm, calidad industrial. Resistente y económico.</li>
+        <li><strong>Superficie de rodadura (capa superior):</strong> Terciado fenólico 6 mm o terciado de abedul si conseguís (más liso y duro). Dos capas de 6 mm son mejores que una sola de 12 mm para las curvas.</li>
+        <li><strong>Deck (plataforma plana):</strong> Fenólico 18 mm para mayor rigidez.</li>
+      </ul>
+    </div>
+
+    <h3>Terciado de Abedul (Birch Plywood)</h3>
+    <p>El sitio original menciona el uso de terciado de abedul finlandés (Finnish birch) como capa superior para rampas de interior, por su dureza y superficie muy lisa. En Argentina este material existe pero es difícil de conseguir y bastante caro. Una alternativa más accesible es buscar <strong>terciado de guatambú o cedro</strong> de buena calidad, o directamente usar el <strong>fenólico de pino de 1ra calidad</strong> lijado fino, que da muy buenos resultados.</p>
+
+    <h3>¿Qué NO usar?</h3>
+    <p>Nunca uses <strong>aglomerado/particle board</strong> — absorbe humedad, se hincha y se deshace rápido. El <strong>MDF</strong> tampoco sirve: pesa mucho, no agarra bien los tornillos y se destruye con la humedad. Estos materiales parecen similares al terciado pero son completamente inadecuados para construir rampas.</p>
+
+    <div class="callout info">
+      <strong>📐 Estándares de diseño — construir en módulos de plancha</strong>
+      Los planos del sitio están diseñados para aprovechar planchas de 1,22 × 2,44 m sin desperdiciar madera. Esto es intencional: si seguís los planos respetando las medidas, vas a poder usar las planchas completas o cortadas en mitades exactas, ahorrando material y plata.
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN 4: DÓNDE CONSEGUIR -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🛒</span>
+    <div>
+      <h2>4. Dónde Conseguir los Materiales en Argentina</h2>
+      <div class="orig">Original: "Where to Get Your Supplies"</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <p>En EE.UU. el sitio recomienda ir a tiendas de mejoras del hogar tipo Home Depot. En Argentina tenemos opciones equivalentes y algunas mejores para materiales específicos.</p>
+
+    <h3>Madera (Tirantes y Terciado / Fenólico)</h3>
+    <p>El mejor lugar para comprar madera es directamente en un <strong>corralón de materiales</strong> o <strong>maderera</strong>. Ahí vas a encontrar mejor precio, mayor variedad de espesores y la posibilidad de que te hagan cortes a medida. Cadenas tipo <strong>Easy</strong> o <strong>Sodimac</strong> también venden terciado fenólico y tirantes, son más cómodas pero generalmente más caras.</p>
+
+    <h3>El Coping — Tubo de Acero para el Borde de la Rampa</h3>
+    <p>El "coping" es el tubo de acero que va en el borde superior de la rampa (el que usás para hacer grinds). En EE.UU. lo venden en tiendas de construcción o directamente en MetalsDepot.com. En Argentina lo conseguís así:</p>
+    <ul style="padding-left:20px; margin-top:8px; margin-bottom:12px;">
+      <li><strong>Ferreterías industriales</strong> y <strong>distribuidoras de acero</strong>: buscá "tubo redondo de acero" de 2" de diámetro exterior (50 mm). El acero laminado en caliente (LAC) es el más común y económico.</li>
+      <li><strong>Empresas de acero</strong>: en Buenos Aires hay varias como Tubos Argentinos, Aceros Bragado, o podés buscar en Mercado Libre por "tubo redondo acero 2 pulgadas".</li>
+      <li><strong>Para exterior</strong>: si la rampa queda afuera, preferí tubo galvanizado o pintalo con antióxido después de instalarlo.</li>
+    </ul>
+    <div class="callout info">
+      <strong>📌 ¿Qué medida de tubo?</strong>
+      El diámetro estándar de coping para rampas medianas es de <strong>2" (50 mm) de diámetro exterior</strong>. Para rampas más grandes o mini-ramps más serias se usa 2" también. Pedilo por longitud: si tu rampa mide 2,44 m de ancho, pedís una barra de 2,44 m o más.
+    </div>
+
+    <h3>Tornillos y Ferretería</h3>
+    <p>Tornillos para drywall, tornillos galvanizados para madera, bulones, tuercas y arandelas se consiguen en cualquier ferretería. Para comprar en cantidad y más barato, buscá ferreterías mayoristas o corralones que vengan tornillos en cajas de 100 o 500 unidades.</p>
+
+    <h3>Materiales para Exterior — Madera Impregnada con CCA</h3>
+    <p>Lo que en EE.UU. llaman "pressure treated lumber" (madera tratada a presión) en Argentina se conoce como <strong>madera impregnada</strong> o <strong>pino tratado CCA</strong>. El CCA (Cobre-Cromo-Arsénico) se inyecta a presión en un autoclave, protegiéndola de hongos, insectos y la humedad. La vas a reconocer por su color verdoso característico.</p>
+    <p>Se consigue en madereras y corralones que se especializan en madera para exterior (decks, pergolados, etc.). Preguntá específicamente por "<strong>tirantes de pino impregnado CCA</strong>".</p>
+
+    <div class="callout warning">
+      <strong>⚠️ Precaución con la madera impregnada CCA</strong>
+      Los químicos usados en el tratamiento son tóxicos. Siempre usá guantes al manipularla. Nunca quemes los recortes — los vapores son peligrosos. Al lijar o serrar, usá barbijo y anteojos. Una vez instalada y seca, es totalmente segura para el uso normal.
+    </div>
+
+    <h3>Protección para Rampas de Exterior</h3>
+    <p>Si la rampa va a estar a la intemperie, además de la madera impregnada, considerá:</p>
+    <ul style="padding-left:20px; margin-top:8px;">
+      <li><strong>Pintura para madera exterior</strong> o <strong>lasur</strong> para proteger la superficie</li>
+      <li><strong>Una lona resistente</strong> para cubrir la rampa cuando no se usa</li>
+      <li>Como superficie de rodadura exterior, existen productos específicos como el <strong>Skatelite</strong> (importado) o láminas de <strong>fenólico de alta densidad</strong> que aguantan muy bien la intemperie</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECCIÓN 5: FUNDACIONES -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🏗️</span>
+    <div>
+      <h2>5. Fundaciones y Base de la Rampa</h2>
+      <div class="orig">Original: "Introduction to Ramp Foundation"</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <p>Si la rampa va a ir en el exterior sobre el suelo, necesitás darle una base adecuada para que no se hunda, se mueva o se pudra por el contacto con la tierra. Hay varias formas de hacerlo — acá explicamos el método recomendado.</p>
+
+    <h3>Elegir la Ubicación</h3>
+    <p>Elegí un lugar lo más plano posible. Tenés que poder marcar en el piso el contorno completo de la rampa y trabajar cómodamente alrededor. Pensá también en el drenaje: el agua no debe acumularse debajo de la estructura.</p>
+
+    <h3>Nivelar el Terreno</h3>
+    <p>Una vez elegido el lugar, marcá en el suelo el perímetro de la rampa unos 30 cm más grande que las medidas reales. En cada esquina, clavá una <strong>estaca de madera</strong> dejando al menos 25–30 cm afuera del suelo (más si el terreno tiene mucha pendiente).</p>
+
+    <p>Tomá la estaca en el punto más alto del terreno como referencia. A unos 20 cm del suelo, atale un <strong>hilo</strong>. Estirá el hilo hasta la estaca opuesta y usá un <strong>nivel de hilo</strong> (o nivel de burbuja colgado en el medio) para asegurarte de que quede perfectamente horizontal. Repetí para las cuatro esquinas.</p>
+
+    <div class="callout info">
+      <strong>📌 Terminología argentina</strong>
+      "Line level" = nivel de hilo o nivel de cuerda. Se consigue en cualquier ferretería, es una pequeña burbuja que se cuelga de la cuerda para verificar la horizontalidad.
+    </div>
+
+    <h3>Replanteo de las Bases (Layout)</h3>
+    <p>Con las cuerdas niveladas como referencia, marcá en el suelo con <strong>pintura en aerosol</strong> los puntos exactos donde van a ir las zapatas y los bloques de hormigón. Dividí el ancho en secciones de 1,22 m (equivalente a las 4 pies del original, que es el ancho de una plancha).</p>
+
+    <p>Para una mini-rampa típica de 90 cm de altura con plataforma de 1,22 m, el replanteo tiene puntos donde cavar para las zapatas (marcados con X rojas) y puntos donde van solo bloques de hormigón sobre el suelo (X blancas).</p>
+
+    <h3>Tipos de Fundación (Zapatas)</h3>
+    <p>En EE.UU. mencionan tres métodos: poste en hormigón, poste sobre dado de hormigón, y poste sobre bloque prefabricado. En Argentina el equivalente más práctico es:</p>
+
+    <table>
+      <tr>
+        <th>Método (original EE.UU.)</th>
+        <th>Equivalente en Argentina</th>
+        <th>Pros / Contras</th>
+      </tr>
+      <tr>
+        <td>Poste en hormigón colado (más permanente)</td>
+        <td>Poste embebido en hormigón / colado in-situ</td>
+        <td>Muy estable pero difícil de deshacer</td>
+      </tr>
+      <tr>
+        <td>Poste sobre dado de hormigón prefabricado</td>
+        <td>Poste sobre <strong>dado premoldeado de hormigón</strong> (se consigue en corralones)</td>
+        <td>Buen equilibrio entre estabilidad y costo</td>
+      </tr>
+      <tr>
+        <td>Poste sobre bloque pre-cast ⭐ (recomendado)</td>
+        <td>Poste sobre <strong>loseta de hormigón</strong> o <strong>adoquín de hormigón</strong></td>
+        <td>Se puede remover fácilmente, menos excavación</td>
+      </tr>
+    </table>
+
+    <p>El método recomendado es el tercero: poste sobre <strong>loseta / adoquín de hormigón</strong>. Es el que da mejor relación entre estabilidad, costo y facilidad de modificación.</p>
+
+    <h3>Cómo Colocar las Zapatas (Método Recomendado)</h3>
+    <p>Seguí estos pasos para cada punto de apoyo:</p>
+    <ol style="padding-left:20px; margin: 10px 0 16px 0;">
+      <li style="margin-bottom:8px;">Cavá un pozo redondo de aproximadamente <strong>40 cm de diámetro y 20–25 cm de profundidad</strong>.</li>
+      <li style="margin-bottom:8px;">Compactá bien el fondo del pozo pisando fuerte o usando un pisón.</li>
+      <li style="margin-bottom:8px;">Poné una capa de <strong>10–15 cm de cascote o granza de piedra</strong> en el fondo (esto mejora el drenaje).</li>
+      <li style="margin-bottom:8px;">Colocá encima una <strong>loseta de hormigón</strong> (baldosa de hormigón o adoquín grande). Verificá con nivel de burbuja que quede plana.</li>
+      <li style="margin-bottom:8px;">Sobre la loseta, colocá el <strong>bloque de hormigón</strong> que va a elevar el poste del suelo. Rellenás la tierra alrededor y lo apisonás.</li>
+    </ol>
+
+    <div class="callout info">
+      <strong>📌 Terminología clave</strong>
+      <ul style="margin-top:6px; padding-left:20px;">
+        <li>"Pre-cast concrete block" = <strong>bloque de hormigón prefabricado</strong> (se consigue en corralones, son los bloques grises huecos usados en construcción)</li>
+        <li>"Cinder block" = <strong>bloque de hormigón</strong> (en Argentina también se llama "ladrillo de hormigón" coloquialmente)</li>
+        <li>"Concrete pier" = <strong>dado de hormigón</strong> o <strong>zapata de hormigón</strong></li>
+        <li>"Gravel" = <strong>granza, cascote o piedra triturada</strong> (en corralones la pedís como "granza gruesa" o "cascote")</li>
+        <li>"Torpedo level" = <strong>nivel de burbuja pequeño</strong> (de bolsillo, los hay en ferreterías y Mercado Libre)</li>
+      </ul>
+    </div>
+
+    <h3>Soporte del Deck (Plataforma)</h3>
+    <p>Una vez que tenés las zapatas, hay dos formas de conectar el poste a la estructura del deck:</p>
+
+    <p><strong>Opción 1 — Poste con muesca:</strong> El poste de 4x4 se apoya en el bloque y se le hace una muesca para encajar un tirante 2x4, atornillado con <strong>dos bulones de 1/2" (13 mm) con tuerca y arandela</strong>. Esta opción funciona bien para rampas más bajas.</p>
+
+    <p><strong>Opción 2 — Poste continuo hasta el deck (recomendado para rampas mayores a 1,2 m):</strong> El poste sube desde el suelo y se atornilla directamente a la estructura del deck. Es más robusto y necesario para cualquier rampa de altura considerable.</p>
+
+    <h3>Finalizar la Fundación</h3>
+    <p>Una vez colocados todos los apoyos principales (zapatas de los extremos), completá con bloques de hormigón en los puntos intermedios que marcaste. Estos no necesitan zanja tan profunda: nivelá el suelo, compactá, poné una loseta plana, y encima el bloque. Lo importante es que todos los apoyos queden a la misma altura, perfectamente nivelados.</p>
+
+    <div class="callout">
+      <strong>✅ Resultado final</strong>
+      Una base nivelada, sólida y que no está en contacto directo con la tierra húmeda. Este sistema funciona muy bien y es el método más probado para rampas caseras. Si querés más información, también podés buscar cómo hacen las bases para decks de madera de exterior, que usan el mismo principio.
+    </div>
+
+    <h3>¿Y si la rampa va adentro sobre piso firme?</h3>
+    <p>Si la rampa va en un garaje o piso de hormigón, no necesitás nada de esto. Podés poner la estructura directamente sobre el piso, eventualmente con unas gomas o felgomas debajo para que no resbale y no dañe el piso. Mucho más simple.</p>
+  </div>
+</div>
+
+<!-- SECCIÓN 6: SEGURIDAD -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">⛑️</span>
+    <div>
+      <h2>6. Seguridad durante la Construcción</h2>
+      <div class="orig">Original: "Safety"</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <p>Hay una diferencia entre tener confianza en lo que hacés y ignorar la física. Usá el sentido común cuando construís y todo va a salir bien.</p>
+    <p>Eso dicho, acá van los puntos que sí valen la pena mencionar:</p>
+    <ul style="padding-left:20px; margin-top:8px;">
+      <li style="margin-bottom:8px;"><strong>Herramientas eléctricas:</strong> usá lentes de seguridad al cortar con sierra circular o calar. Los chips de madera en el ojo no tienen nada de lindo.</li>
+      <li style="margin-bottom:8px;"><strong>Madera impregnada CCA:</strong> guantes, barbijo y nunca quemar los recortes.</li>
+      <li style="margin-bottom:8px;"><strong>Tornillos y clavos en el suelo:</strong> mantené el área de trabajo limpia. Los tornillos tirados en el piso son una trampa perfecta para un pie.</li>
+      <li style="margin-bottom:8px;"><strong>Estructura antes de patinar:</strong> antes de tirarte por primera vez, revisá que todos los tornillos estén bien, que no haya tablones sueltos y que la base esté firme.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- RESUMEN RAPIDO -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">📝</span>
+    <div>
+      <h2>Resumen Rápido — Glosario EE.UU. → Argentina</h2>
+    </div>
+  </div>
+  <div class="section-body">
+    <table>
+      <tr>
+        <th>Término original (EE.UU.)</th>
+        <th>Equivalente en Argentina</th>
+      </tr>
+      <tr><td>Lumber / Dimensional lumber</td><td>Madera aserrada / tirantes</td></tr>
+      <tr><td>2x4 / 2x6 / 4x4</td><td>Tirante 2x4 / 2x6 / poste 4x4 (pino elliottis o paraná)</td></tr>
+      <tr><td>Plywood</td><td>Terciado / fenólico</td></tr>
+      <tr><td>CDX plywood</td><td>Terciado fenólico industrial (4/IND)</td></tr>
+      <tr><td>Birch plywood</td><td>Terciado de abedul (difícil de conseguir) / fenólico de pino 1ra calidad</td></tr>
+      <tr><td>Particle board</td><td>Aglomerado (NO USAR)</td></tr>
+      <tr><td>Coarse drywall screws</td><td>Tornillos para drywall de rosca gruesa (cabeza trompeta negros)</td></tr>
+      <tr><td>Galvanized deck screws</td><td>Tornillos galvanizados para madera exterior</td></tr>
+      <tr><td>1 5/8" screws</td><td>Tornillos de ~40 mm</td></tr>
+      <tr><td>2 1/2" screws</td><td>Tornillos de ~65 mm</td></tr>
+      <tr><td>Pressure treated lumber</td><td>Pino impregnado / pino tratado CCA</td></tr>
+      <tr><td>Coping (steel)</td><td>Tubo redondo de acero de 2" (50 mm de diámetro)</td></tr>
+      <tr><td>Cinder block</td><td>Bloque de hormigón</td></tr>
+      <tr><td>Pre-cast concrete block / footing block</td><td>Loseta / adoquín de hormigón / dado premoldeado</td></tr>
+      <tr><td>Gravel</td><td>Granza / cascote de piedra</td></tr>
+      <tr><td>Line level</td><td>Nivel de hilo / nivel de cuerda</td></tr>
+      <tr><td>Torpedo level</td><td>Nivel de burbuja de bolsillo</td></tr>
+      <tr><td>4x8 sheet (plywood)</td><td>Plancha de 1,22 x 2,44 m (¡misma medida!)</td></tr>
+      <tr><td>Carriage bolt 1/2"</td><td>Bulón de 13 mm con cabeza redonda, tuerca y arandela</td></tr>
+      <tr><td>Reciprocating saw</td><td>Sierra sable / sierra de vaivén</td></tr>
+      <tr><td>Circular saw</td><td>Sierra circular</td></tr>
+      <tr><td>Home Depot / Lowe's</td><td>Easy / Sodimac / corralón de materiales / maderera</td></tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  Guía adaptada para Argentina a partir de diyskate.com · Terminología y equivalencias verificadas según INTI, proveedores argentinos y normativa local.<br>
+  Para dudas técnicas adicionales, consultá los planos originales en diyskate.com junto con este glosario.
+</div>
+
+</body>
+</html>

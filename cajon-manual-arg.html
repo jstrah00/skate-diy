@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Cajón de Skate DIY — Argentina</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* COVER */
+  .cover {
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 45%, #0f3460 100%);
+    color: white;
+    min-height: 320px;
+    padding: 60px 50px 50px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(233,69,96,0.18) 0%, transparent 70%);
+    top: -150px; right: -100px;
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '📦';
+    font-size: 200px;
+    position: absolute;
+    opacity: 0.05;
+    bottom: -40px; right: 10px;
+    line-height: 1;
+  }
+  .cover .eyebrow {
+    font-size: 0.72em; font-weight: 700; letter-spacing: 4px;
+    color: #e94560; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .cover h1 {
+    font-size: 2.8em; font-weight: 900; line-height: 1.1;
+    margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .cover h1 span { color: #e94560; }
+  .cover .desc { font-size: 1em; color: #a8c8ea; max-width: 560px; margin-bottom: 26px; }
+  .cover-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cover-badges span {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #ddd; padding: 5px 14px; border-radius: 20px;
+    font-size: 0.78em; font-weight: 600;
+  }
+  .cover-badges span.red { background: #e94560; border-color: #e94560; color: white; }
+
+  /* LAYOUT */
+  .page { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+  /* INTRO */
+  .intro-box {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    padding: 32px 36px; margin-bottom: 28px;
+    border-left: 5px solid #e94560;
+  }
+  .intro-box h2 { font-size: 1.15em; font-weight: 800; color: #e94560; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+  /* SPECS */
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  .spec-card {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    padding: 22px 20px; text-align: center;
+  }
+  .spec-card .icon { font-size: 2em; margin-bottom: 6px; }
+  .spec-card .val { font-size: 1.5em; font-weight: 900; color: #0f3460; line-height: 1.1; }
+  .spec-card .lbl { font-size: 0.76em; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* CARDS */
+  .card {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    overflow: hidden; margin-bottom: 28px;
+  }
+  .card-header {
+    background: linear-gradient(90deg, #0f3460, #16213e);
+    color: white; padding: 18px 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .card-header .icon { font-size: 1.4em; }
+  .card-header h2 { font-size: 1.1em; font-weight: 800; letter-spacing: 0.5px; }
+  .card-header small { font-size: 0.72em; color: #aac4e0; display: block; margin-top: 2px; }
+  .card-body { padding: 24px 28px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 0.91em; }
+  th { background: #f0f4fa; color: #0f3460; font-weight: 700; padding: 10px 14px; text-align: left; border-bottom: 2px solid #dce8f8; }
+  td { padding: 9px 14px; border-bottom: 1px solid #eef2f8; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f7f9fd; }
+
+  /* STEPS */
+  .step-card {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    overflow: hidden; margin-bottom: 28px;
+  }
+  .step-header { display: flex; align-items: stretch; background: linear-gradient(90deg, #0f3460, #16213e); color: white; }
+  .step-num {
+    background: #e94560; color: white; font-size: 2em; font-weight: 900;
+    width: 70px; min-width: 70px; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .step-title-block { padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; }
+  .step-title-block h3 { font-size: 1.1em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+  .step-title-block small { color: #a8c8ea; font-size: 0.78em; margin-top: 2px; }
+  .step-body { padding: 24px 28px; }
+
+  .step-image-container {
+    background: #f7f9fd; border-radius: 10px; padding: 16px;
+    margin: 18px 0; text-align: center; border: 1px solid #e0e8f5;
+  }
+  .step-image-container img {
+    max-width: 100%; border-radius: 8px; display: block;
+    margin: 0 auto; max-height: 340px; object-fit: contain;
+  }
+  .img-fallback {
+    display: none; padding: 22px 16px; background: #f0f4fa;
+    border-radius: 8px; color: #666; font-size: 0.88em; text-align: center;
+  }
+  .img-caption { font-size: 0.78em; color: #888; margin-top: 10px; font-style: italic; }
+
+  /* CALLOUTS */
+  .callout {
+    border-radius: 10px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .callout .ci { font-size: 1.3em; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { display: block; margin-bottom: 4px; color: #0f3460; }
+  .callout.info { background: #eef4ff; border: 1px solid #c8daf8; }
+  .callout.tip  { background: #edfaf3; border: 1px solid #b7e8ce; }
+  .callout.warn { background: #fff8ec; border: 1px solid #fad99a; }
+  .callout.alert { background: #fff0f3; border: 1px solid #f5c0c8; }
+
+  /* SUB-STEPS */
+  .sub-steps { counter-reset: sub; padding: 0; list-style: none; }
+  .sub-steps li { counter-increment: sub; display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
+  .sub-steps li::before {
+    content: counter(sub); background: #0f3460; color: white;
+    font-weight: 700; font-size: 0.78em; width: 24px; height: 24px;
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .tool-item {
+    background: #f7f9fd; border-radius: 8px; padding: 8px 12px;
+    font-size: 0.88em; display: flex; align-items: center;
+    gap: 8px; border: 1px solid #e0e8f5;
+  }
+
+  /* TIP BANNER */
+  .tip-banner {
+    background: linear-gradient(135deg, #e94560, #c0392b);
+    color: white; border-radius: 14px; padding: 22px 28px;
+    margin-bottom: 28px; display: flex; gap: 16px; align-items: center;
+  }
+  .tip-banner .tbi { font-size: 2.5em; flex-shrink: 0; }
+  .tip-banner h3 { font-size: 1.05em; font-weight: 800; margin-bottom: 4px; }
+  .tip-banner p { font-size: 0.88em; color: rgba(255,255,255,0.88); margin: 0; }
+
+  /* SAFETY */
+  .safety-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .safety-item { background: #fff8ec; border: 1px solid #fad99a; border-radius: 10px; padding: 14px 16px; font-size: 0.88em; }
+  .safety-item strong { color: #b7790a; display: block; margin-bottom: 4px; }
+
+  /* ANGLE IRON HIGHLIGHT */
+  .highlight-box {
+    background: linear-gradient(135deg, #f0f4fa, #e8f0fb);
+    border: 2px solid #0f3460; border-radius: 12px;
+    padding: 20px 24px; margin: 18px 0;
+  }
+  .highlight-box h4 { color: #0f3460; font-size: 1em; font-weight: 800; margin-bottom: 8px; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center; color: #aaa; font-size: 0.78em;
+    padding: 20px; border-top: 1px solid #e0e8f5; margin-top: 10px;
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: white; font-size: 13px; }
+    .page { max-width: 100%; padding: 10px 15px 30px; }
+    .cover { min-height: 200px; padding: 30px; }
+    .cover h1 { font-size: 2em; }
+    .step-card, .card, .intro-box { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+
+  @media (max-width: 600px) {
+    .cover h1 { font-size: 1.8em; }
+    .cover { padding: 40px 28px 36px; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .tools-grid, .safety-grid { grid-template-columns: 1fr; }
+    .step-num { width: 50px; min-width: 50px; font-size: 1.5em; }
+    .card-body, .step-body { padding: 18px; }
+    .intro-box { padding: 22px 20px; }
+  }
+  .back-btn{position:fixed;top:16px;left:16px;z-index:100;background:rgba(15,52,96,0.92);color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:.82em;font-weight:700;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.15);transition:background 0.2s;}
+  .back-btn:hover{background:#e94560;}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-btn">← Índice</a>
+
+<!-- ===== PORTADA ===== -->
+<div class="cover">
+  <div class="eyebrow">Manual de Construcción · DIY Skate</div>
+  <h1>Cómo hacer un <span>Cajón</span> de Skate</h1>
+  <p class="desc">Guía paso a paso para construir un cajón de grind desde cero, con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+  <div class="cover-badges">
+    <span class="red">🇦🇷 Versión Argentina</span>
+    <span>📐 Medidas en cm</span>
+    <span>🪵 Materiales locales</span>
+    <span>🛹 Nivel: Principiante</span>
+  </div>
+</div>
+
+<!-- ===== CONTENIDO ===== -->
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>¿Qué es un cajón de skate?</h2>
+    <p>El cajón (también llamado <em>ledge</em> o <em>grind box</em>) es uno de los obstáculos más clásicos del street skating. Es básicamente una caja de madera con un perfil de acero en ángulo (ángulo de acero o "escuadra metálica") en los cantos superiores, que permite hacer grinds, slides y todo tipo de trucos de borde.</p>
+    <p style="margin-top:10px;">A diferencia del kicker, el cajón no requiere ningún corte curvo — es todo madera a escuadra, lo que lo hace aún más fácil de construir. Esta guía está basada en los planos de <strong>diyskate.com</strong>, con todos los materiales y medidas adaptados para el mercado argentino y las medidas convertidas de pies y pulgadas a centímetros.</p>
+  </div>
+
+  <!-- SPECS -->
+  <div class="specs-grid">
+    <div class="spec-card">
+      <div class="icon">📏</div>
+      <div class="val">244 cm</div>
+      <div class="lbl">Largo total</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">↔️</div>
+      <div class="val">61 cm</div>
+      <div class="lbl">Ancho</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">↕️</div>
+      <div class="val">30 cm</div>
+      <div class="lbl">Altura</div>
+    </div>
+  </div>
+
+  <!-- TIP BANNER -->
+  <div class="tip-banner">
+    <div class="tbi">💡</div>
+    <div>
+      <h3>Lo mejor del cajón: es completamente modular</h3>
+      <p>Esta guía sigue las medidas estándar del diseño original, pero podés escalar el cajón a cualquier largo, ancho o altura que quieras sin cambiar la lógica de construcción. El largo más práctico es que coincida con el largo estándar de un tirante (244 cm) para no desperdiciar madera.</p>
+    </div>
+  </div>
+
+  <!-- MATERIALES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🛒</span>
+      <div>
+        <h2>Lista de materiales</h2>
+        <small>Terminología argentina — conseguibles en corralón, maderera o ferretería</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Cantidad / Medida</th>
+            <th>Para qué sirve</th>
+            <th>Original EE.UU.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tirante de pino 2×4</strong><br><small style="color:#888">Pino Elliottis o Paraná Misionero</small></td>
+            <td>12 piezas de <strong>53 cm</strong> c/u<br><small>(4 piezas por tirante de 2,44 m = 3 tirantes)</small></td>
+            <td>Costillas horizontales de tapa y base</td>
+            <td>12 × 2×4 @ 1'-9"</td>
+          </tr>
+          <tr>
+            <td><strong>Tirante de pino 2×4</strong></td>
+            <td>6 piezas de <strong>30 cm</strong> c/u</td>
+            <td>Separadores verticales laterales (determinan la altura)</td>
+            <td>6 × 2×4 @ 1'-0"</td>
+          </tr>
+          <tr>
+            <td><strong>Tirante de pino 2×4</strong> (largo entero)</td>
+            <td>4 tirantes de <strong>244 cm</strong> (sin cortar)</td>
+            <td>Largueros laterales — base y tapa</td>
+            <td>4 × 2×4 @ 8'-0"</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 18 mm</strong></td>
+            <td>1 pieza de <strong>61 × 244 cm</strong></td>
+            <td>Superficie superior (donde patinás)</td>
+            <td>3/4" plywood, 2'×8'</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 18 mm</strong></td>
+            <td>2 piezas de <strong>29 × 244 cm</strong></td>
+            <td>Caras laterales largas del cajón</td>
+            <td>3/4" plywood, sides @ 1'-0 3/4"</td>
+          </tr>
+          <tr>
+            <td><strong>Ángulo de acero</strong> (escuadra metálica)<br><small style="color:#888">Perfil en L de acero, ala de ~5 cm</small></td>
+            <td>2 barras de <strong>244 cm</strong> de largo</td>
+            <td>Coping / cantos de grind en los bordes superiores</td>
+            <td>Angle iron, 8' long</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~65 mm (2½") — caja de 100 u.</td>
+            <td>Unir tirantes entre sí y laterales a la estructura</td>
+            <td>2½" drywall screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~40 mm (1⅝") — caja de 100 u.</td>
+            <td>Fijar terciado a la estructura</td>
+            <td>1⅝" drywall screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos avellanados galvanizados</strong></td>
+            <td>5 mm (3/16") — ~12 unidades</td>
+            <td>Fijar el ángulo de acero al cajón</td>
+            <td>3/16" countersunk screws</td>
+          </tr>
+          <tr>
+            <td><strong>Pintura para madera</strong> (opcional)</td>
+            <td>1 lata pequeña</td>
+            <td>Acabado, protección y personalización</td>
+            <td>Paint</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout info" style="margin-top:20px;">
+        <span class="ci">📌</span>
+        <div>
+          <strong>Sobre los tirantes de 244 cm sin cortar</strong>
+          <p>Necesitás 4 tirantes de 244 cm que van sin cortar: 2 para la base (largueros inferiores) y 2 para la tapa (largueros superiores). Estos definen el largo total del cajón. Si querés un cajón más corto o más largo, simplemente cambiás esta medida y ajustás la cantidad de costillas internas.</p>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:12px;">
+        <span class="ci">🌧️</span>
+        <div>
+          <strong>¿Cajón para exterior?</strong>
+          <p>Si va a quedar afuera, usá <strong>tirantes de pino impregnado CCA</strong> (pino tratado, de color verdoso) y <strong>terciado fenólico</strong> en todas las planchas. Pintá bien todas las superficies y cubrí con lona cuando no lo uses. La humedad es lo que más destruye un cajón mal protegido.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERRAMIENTAS -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🔨</span>
+      <div><h2>Herramientas necesarias</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="tools-grid">
+        <div class="tool-item">🔵 Sierra circular o serrucho</div>
+        <div class="tool-item">⚡ Atornillador eléctrico / taladro</div>
+        <div class="tool-item">📐 Escuadra y cinta métrica</div>
+        <div class="tool-item">✏️ Lápiz de carpintero</div>
+        <div class="tool-item">🔩 Mechas: 2 mm (1/16"), 5 mm (3/16") y 10 mm (3/8")</div>
+        <div class="tool-item">📏 Nivel de burbuja</div>
+        <div class="tool-item">🗜️ Sargentos / prensas (muy recomendado)</div>
+        <div class="tool-item">🦺 Lentes y guantes de seguridad</div>
+      </div>
+      <div class="callout tip" style="margin-top:16px;">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Mecha de 2 mm — ¿para qué?</strong>
+          <p>Cuando atornillás tirantes cerca de los extremos, la madera puede partirse. Pre-taladrar con una mecha fina (2 mm / 1/16") antes de poner el tornillo evita esas roturas. Es un paso pequeño que ahorra muchos dolores de cabeza.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PASOS ===== -->
+
+  <!-- PASO 1 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title-block">
+        <h3>Preparar todos los cortes</h3>
+        <small>Lista de cortes — antes de empezar a armar, cortar todo</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Antes de clavar o atornillar una sola pieza, prepará todos los cortes. Trabajar con todo ya cortado hace que el armado sea mucho más rápido y ordenado.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/Capture.PNG"
+             alt="Lista de cortes y materiales — cajón de skate"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">📋 <em>Tabla de cortes del diseño original (diyskate.com/images/Capture.PNG)</em></div>
+        <div class="img-caption">Tabla de cortes y materiales completa del diseño original</div>
+      </div>
+
+      <p>Estos son todos los cortes que necesitás:</p>
+      <ul class="sub-steps">
+        <li><strong>12 piezas de tirante 2×4 a 53 cm</strong> — costillas horizontales. De cada tirante de 244 cm salen exactamente 4 piezas, así que comprás 3 tirantes.</li>
+        <li><strong>6 piezas de tirante 2×4 a 30 cm</strong> — separadores verticales de los costados. Salen de las sobras de los tirantes anteriores.</li>
+        <li><strong>4 tirantes de 244 cm sin cortar</strong> — largueros de base y tapa. Podés comprarlos y dejarlos enteros.</li>
+        <li><strong>1 plancha de terciado 18 mm a 61 × 244 cm</strong> — tapa superior. Entra exactamente en media plancha estándar (122 × 244 cm).</li>
+        <li><strong>2 planchas de terciado 18 mm a 29 × 244 cm</strong> — caras laterales largas. También salen de la misma plancha.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Optimización del terciado</strong>
+          <p>Con una sola plancha estándar de fenólico 18 mm (122 × 244 cm) podés sacar la tapa (61 × 244) y las dos caras laterales (29 × 244 c/u). Los tres cortes son a lo largo, así que un corralón te los hace con sierra de banco en minutos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title-block">
+        <h3>Armar la base (marco inferior)</h3>
+        <small>Framing the bottom — largueros + 3 costillas en la base</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Empezá por la base del cajón. El marco inferior es un rectángulo de tirantes que va a ser la "huella" del cajón en el suelo — lo que le da estabilidad y evita que se mueva cuando patinás encima.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/grind_ledge_01.gif"
+             alt="Armado del marco inferior de la base"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🏗️ <em>Marco inferior del cajón (diyskate.com/images/grind_ledge_01.gif)</em></div>
+        <div class="img-caption">Marco inferior: 2 largueros de 244 cm + 3 costillas de 53 cm (una centrada)</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Tomá <strong>2 tirantes de 244 cm</strong> y ponelos en paralelo separados exactamente <strong>53 cm</strong> entre sus caras internas (que es el largo de las costillas).</li>
+        <li>Colocá <strong>3 de las costillas de 53 cm</strong> entre los largueros: una en cada extremo y una centrada en el medio exacto (a 122 cm de cada punta).</li>
+        <li>Fijá con <strong>tornillos de 65 mm</strong> — 2 tornillos por cada unión. Antes de atornillar cerca de los extremos, <strong>pre-taladrar con mecha de 2 mm</strong> para evitar que la madera se parta.</li>
+        <li>Verificá con escuadra que las esquinas estén a 90° antes de ajustar definitivamente. Un marco torcido va a hacer que todo lo siguiente sea más difícil.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📐</span>
+        <div>
+          <strong>¿Cómo verificar que está cuadrado?</strong>
+          <p>Medí las dos diagonales del rectángulo. Si miden exactamente lo mismo, el marco está perfectamente a escuadra. Si difieren, empujá suavemente las esquinas hasta igualarlas antes de apretar los tornillos definitivamente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title-block">
+        <h3>Armar la tapa (marco superior)</h3>
+        <small>Framing the top — largueros + 9 costillas cada 30 cm</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Armá ahora el marco superior del cajón, que es idéntico en forma al de la base pero con más costillas internas para sostener el peso que va a recibir desde arriba.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/grind_ledge_02.jpg"
+             alt="Armado del marco superior de la tapa"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🏗️ <em>Marco superior del cajón (diyskate.com/images/grind_ledge_02.jpg)</em></div>
+        <div class="img-caption">Marco superior: 2 largueros de 244 cm + 9 costillas de 53 cm, separadas 30 cm de centro a centro</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Tomá los otros <strong>2 tirantes de 244 cm</strong> y ponelos en paralelo igual que en el paso anterior, con 53 cm entre sus caras internas.</li>
+        <li>Colocá <strong>9 costillas de 53 cm</strong> entre los largueros, separadas exactamente <strong>30 cm de centro a centro</strong>. Marcalas con lápiz antes de atornillar.</li>
+        <li>Fijá con <strong>tornillos de 65 mm</strong> pre-taladrando los extremos.</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>💪 ¿9 costillas o 5?</h4>
+        <p>Si querés alivianar el cajón para que sea más fácil de mover, podés usar solo 5 costillas en la tapa (en los extremos y 3 intermedias). Con 5 costillas el cajón pesa bastante menos y sigue siendo estructuralmente sólido para uso normal. Si lo vas a skater muy intensamente o lo van a usar varias personas seguido, las 9 costillas son la opción más resistente. Para uso casual doméstico, 5 alcanza perfectamente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title-block">
+        <h3>Unir base y tapa con los separadores laterales</h3>
+        <small>Attaching the sides — 6 piezas de 30 cm que dan la altura</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Ahora conectás el marco de base con el marco de tapa usando las <strong>6 piezas de tirante de 30 cm</strong> que determinan la altura del cajón. Van en los costados del cajón — 3 de cada lado.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/grind_ledge_03.jpg"
+             alt="Separadores verticales conectando base y tapa"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🏗️ <em>Separadores laterales de la caja (diyskate.com/images/grind_ledge_03.jpg)</em></div>
+        <div class="img-caption">Los 6 separadores de 30 cm conectan el marco de base con el de tapa — 3 por lado</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Posicioná el marco de base boca arriba en el suelo. Atornillá los <strong>6 separadores de 30 cm</strong> a los extremos y al centro de cada lado largo, usando <strong>4 tornillos de 65 mm</strong> por pieza (2 por cada cara del larguero).</li>
+        <li>Colocá el marco de la tapa encima y atornillalo de la misma forma, 4 tornillos por separador. Es mucho más fácil hacer esto <strong>apoyando el conjunto de costado</strong> o dando vuelta el marco inferior para trabajar sin tener que doblar el brazo en ángulos raros.</li>
+        <li>Verificá que el cajón no balancea como mesa coja: apoyalo en el suelo y comprobá que los 4 puntos de la base toquen al mismo tiempo. Si tambalea, revisá si algún separador quedó más largo que otro o si la madera tiene alguna deformación.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>El cajón no debe tambalear</strong>
+          <p>Esto es crítico. Un cajón que se mueve cuando patinás encima es peligroso y frustrante. Si al apoyarlo en el suelo balancea, podés limar o lijar levemente el separador que sobresale, o calzar con una pequeña cuña de madera. Tomarte 5 minutos en esto ahorra muchos problemas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title-block">
+        <h3>Forrar con terciado — caras y tapa</h3>
+        <small>Attaching the plywood — tapa 61×244 cm + caras 29×244 cm</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con la estructura completamente armada, es hora de forrarla con las planchas de terciado. Esto cierra el cajón, le da rigidez extra y crea las superficies de grind.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/grind_ledge_05.jpg"
+             alt="Terciado colocado en tapa y laterales"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🪵 <em>Terciado en tapa y laterales (diyskate.com/images/grind_ledge_05.jpg)</em></div>
+        <div class="img-caption">Tapa y laterales forrados con terciado fenólico 18 mm — los bordes superiores quedan expuestos para el ángulo de acero</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li><strong>Caras laterales primero:</strong> atornillá las 2 planchas de <strong>29 × 244 cm</strong> a los costados del cajón. Deben cubrir completamente las caras laterales largas. Usá tornillos de <strong>40 mm</strong> cada 20–25 cm a lo largo de cada tirante debajo.</li>
+        <li><strong>Tapa encima:</strong> colocá la plancha de <strong>61 × 244 cm</strong> sobre la tapa de la estructura. Esta plancha queda encima de los bordes de las caras laterales — eso es intencional, ya que la tapa cubre el canto superior de las caras, protegiéndolas.</li>
+        <li>Atornillá la tapa con tornillos de 40 mm a cada costilla de la estructura superior, cada 25 cm aproximadamente.</li>
+        <li>Si querés forrar también los extremos cortos del cajón, cortá dos trozos de terciado de <strong>29 × 61 cm</strong> y atornillálos. No es estructuralmente necesario pero da un acabado más prolijo.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Por qué 29 cm y no 30 cm en los laterales?</strong>
+          <p>Los laterales miden 29 cm (no 30 cm exacto) porque el terciado tiene 18 mm de espesor. La tapa va encima de los laterales, así que si las caras laterales tuvieran 30 cm, más los 18 mm de la tapa, el cajón quedaría 48 mm más alto de lo deseado. La medida de 29 cm ya descuenta el espesor de la tapa para que la altura final sea exactamente 30 cm.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 6 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div class="step-title-block">
+        <h3>Colocar el ángulo de acero (coping del cajón)</h3>
+        <small>Attaching the coping — ángulo metálico en L sobre los cantos superiores</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>El paso final y el que define el cajón como cajón: colocar el <strong>ángulo de acero</strong> (perfil en L de hierro o acero) sobre los dos cantos superiores largos. Este es el metal sobre el que van a apoyar tus trucks y tabla cuando hagas grinds y slides.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/coping_02.gif"
+             alt="Ángulo de acero colocado en el canto superior del cajón"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Ángulo de acero en los cantos del cajón (diyskate.com/images/coping_02.gif)</em></div>
+        <div class="img-caption">El ángulo en L se coloca justo en el filo del canto superior — las perforaciones quedan escalonadas para que los tornillos no se crucen</div>
+      </div>
+
+      <div class="highlight-box">
+        <h4>🔩 Cómo colocar el ángulo correctamente</h4>
+        <p>El ángulo en L se coloca exactamente sobre el borde superior del cajón, cubriendo tanto la cara lateral como la tapa. Las perforaciones de la cara superior y la cara lateral deben estar <strong>escalonadas (offset)</strong> para que los tornillos de un lado no choquen con los del otro dentro de la madera.</p>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Colocá el ángulo de acero sobre el canto del cajón y marcá los puntos de perforación: <strong>2 agujeros en cada extremo</strong> (uno en la cara superior y uno en la cara lateral) más agujeros intermedios separados <strong>~75 cm entre sí</strong> a lo largo del ángulo.</li>
+        <li>Taladrá cada punto con <strong>mecha para metal de 5 mm (3/16")</strong>. Usá agua o aceite de máquina para enfriar la mecha y que dure más.</li>
+        <li>En cada agujero, hacé un <strong>avellanado</strong> usando la mecha de 10 mm (3/8") — taladrar apenas lo suficiente para que la cabeza del tornillo quede completamente al ras de la superficie del acero. Esto es fundamental: si las cabezas sobresalen, van a enganchar los trucks y la tabla.</li>
+        <li>Posicioná el ángulo sobre el canto del cajón y fijá con <strong>tornillos avellanados de 5 mm</strong> apretando bien. Los tornillos deben entrar en la madera firme — si entran en el aire entre tirantes, reposicioná levemente el ángulo.</li>
+        <li>Repetí para el segundo ángulo en el otro canto largo.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>Dónde conseguir el ángulo de acero en Argentina</strong>
+          <p>El "angle iron" se llama <strong>ángulo de acero</strong> o <strong>perfil en L</strong> en Argentina. Lo conseguís en <strong>distribuidoras de acero y perfiles metálicos</strong>, en <strong>herrerías</strong> y <strong>metalúrgicas</strong>. También se consigue en Easy y Sodimac aunque con menos variedad. Pedilo como "ángulo de acero de ala 5 cm" o "perfil L de 50×50 mm". Si no encontrás el largo exacto (244 cm), comprá barras de 6 m y pedí que te las corten en la herrería.</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Wax = mejor grind</strong>
+          <p>Antes de patinar, frotá bien el ángulo de acero con <strong>cera de parafina</strong> (vela de parafina común, las de colmena o incluso una vela de cumpleaños). Esto reduce mucho la fricción y hace que los grinds y slides fluyan mucho mejor. Repasá con cera cada vez que lo uses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 7 — PINTURA -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <div class="step-title-block">
+        <h3>Pintura, acabado y a skater</h3>
+        <small>Paint it up — última etapa antes de estrenar el cajón</small>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/grind_ledge_06.gif"
+             alt="Cajón terminado listo para patinar"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🛹 <em>Cajón terminado (diyskate.com/images/grind_ledge_06.gif)</em></div>
+        <div class="img-caption">El cajón terminado — pintado, con el ángulo de acero en los cantos y listo para entrenar backside smiths</div>
+      </div>
+
+      <p>¡Ya está! El cajón está estructuralmente listo. Lo que queda es el acabado final:</p>
+
+      <ul class="sub-steps">
+        <li><strong>Pintá la madera</strong> con pintura para madera exterior si el cajón va a estar afuera, o pintura de piso interior si va a estar en un garage o espacio cubierto. Dos manos con lija entre medias dan el mejor resultado.</li>
+        <li><strong>Lijá los cantos</strong> del terciado que puedan tener astillas o filos ásperos, especialmente en los extremos cortos.</li>
+        <li><strong>Aplicá wax</strong> en los ángulos de acero antes de la primera sesión.</li>
+        <li>Poné stickers, grafitis, lo que quieras — el cajón es tuyo.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">🎨</span>
+        <div>
+          <strong>Superficie antideslizante en la tapa</strong>
+          <p>Para que sea más fácil pararse encima del cajón sin resbalarse, podés pintar la tapa con pintura de piso a la que le agregues arena fina antes de que seque (usada para patios y garajes). También existe pintura antideslizante lista para usar en ferreterías grandes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGURIDAD Y MANTENIMIENTO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⛑️</span>
+      <div><h2>Seguridad, mantenimiento y consejos de uso</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="safety-grid">
+        <div class="safety-item">
+          <strong>🔩 Revisá los tornillos regularmente</strong>
+          Con el uso intenso los tornillos se pueden aflojar, especialmente los del ángulo de acero. Revisalos cada tanto y reapretá los que estén flojos antes de patinar.
+        </div>
+        <div class="safety-item">
+          <strong>📐 Cajón sin tambaleo = cajón seguro</strong>
+          Si el cajón empieza a tambalear con el tiempo, revisá si algún separador lateral cedió. Podés reforzar con escuadras metálicas internas.
+        </div>
+        <div class="safety-item">
+          <strong>🌧️ Protección exterior</strong>
+          Si queda afuera, cubrí con lona cuando no lo usés. La humedad repetida sin secado adecuado pudre la madera en pocos meses aunque sea fenólico.
+        </div>
+        <div class="safety-item">
+          <strong>⚠️ Pino impregnado CCA</strong>
+          Si usaste pino tratado, guantes al construir y nunca quemes los recortes. Una vez instalado y seco es completamente seguro para el uso.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📖</span>
+      <div>
+        <h2>Glosario — términos usados en este manual</h2>
+        <small>Equivalencias entre el original en inglés y los nombres en Argentina</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <tr>
+          <th>En este manual (Argentina)</th>
+          <th>Original en inglés (EE.UU.)</th>
+          <th>Aclaración</th>
+        </tr>
+        <tr><td>Tirante 2×4 / pino elliottis</td><td>2×4 lumber</td><td>Medida real: ~40 × 90 mm seco</td></tr>
+        <tr><td>Terciado fenólico 18 mm</td><td>3/4" plywood</td><td>Plancha 1,22 × 2,44 m</td></tr>
+        <tr><td>Ángulo de acero / perfil en L</td><td>Angle iron</td><td>Perfil L 50×50 mm — en herrerías o distribuidoras</td></tr>
+        <tr><td>Tornillo drywall 40 mm</td><td>1 5/8" drywall screw</td><td>Terciado a estructura</td></tr>
+        <tr><td>Tornillo drywall 65 mm</td><td>2 1/2" screw</td><td>Tirante a tirante</td></tr>
+        <tr><td>Mecha 2 mm (1/16")</td><td>1/16" drill bit</td><td>Pre-taladrar para evitar que la madera se parta</td></tr>
+        <tr><td>Mecha 5 mm (3/16")</td><td>3/16" drill bit</td><td>Perforar el ángulo de acero</td></tr>
+        <tr><td>Mecha 10 mm (3/8")</td><td>3/8" drill bit</td><td>Avellanar las perforaciones del acero</td></tr>
+        <tr><td>Cera de parafina / vela</td><td>Wax</td><td>Para lubricar los cantos y mejorar los grinds</td></tr>
+        <tr><td>Pino impregnado CCA</td><td>Pressure treated lumber</td><td>Para uso exterior, color verdoso</td></tr>
+        <tr><td>Corralón / maderera</td><td>Home Depot / lumber yard</td><td>Donde conseguís los materiales</td></tr>
+        <tr><td>Herrería / metalúrgica</td><td>Steel fabrication shop</td><td>Donde conseguís y cortás el ángulo de acero</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="footer">
+  Manual adaptado para Argentina a partir de diyskate.com · Medidas convertidas de pies/pulgadas a centímetros · Materiales equivalentes al mercado local.<br>
+  Para los planos originales en inglés: <strong>diyskate.com/grind_ledge.html</strong>
+</div>
+
+</body>
+</html>

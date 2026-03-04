@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Kicker de Skate DIY — Argentina</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* ===== COVER ===== */
+  .cover {
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 45%, #0f3460 100%);
+    color: white;
+    min-height: 320px;
+    padding: 60px 50px 50px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(233,69,96,0.18) 0%, transparent 70%);
+    top: -150px; right: -100px;
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '🛹';
+    font-size: 180px;
+    position: absolute;
+    opacity: 0.06;
+    bottom: -30px; right: 20px;
+    line-height: 1;
+  }
+  .cover .eyebrow {
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #e94560;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .cover h1 {
+    font-size: 2.8em;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .cover h1 span { color: #e94560; }
+  .cover .desc {
+    font-size: 1em;
+    color: #a8c8ea;
+    max-width: 540px;
+    margin-bottom: 26px;
+  }
+  .cover-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .cover-badges span {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ddd;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.78em;
+    font-weight: 600;
+  }
+  .cover-badges span.red {
+    background: #e94560;
+    border-color: #e94560;
+    color: white;
+  }
+
+  /* ===== LAYOUT ===== */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+  }
+
+  /* ===== INTRO BOX ===== */
+  .intro-box {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    padding: 32px 36px;
+    margin-bottom: 28px;
+    border-left: 5px solid #e94560;
+  }
+  .intro-box h2 {
+    font-size: 1.15em;
+    font-weight: 800;
+    color: #e94560;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  /* ===== SPECS GRID ===== */
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .spec-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    padding: 22px 20px;
+    text-align: center;
+  }
+  .spec-card .icon { font-size: 2em; margin-bottom: 6px; }
+  .spec-card .val {
+    font-size: 1.5em;
+    font-weight: 900;
+    color: #0f3460;
+    line-height: 1.1;
+  }
+  .spec-card .lbl {
+    font-size: 0.76em;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* ===== MATERIALS CARD ===== */
+  .materials-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .card-header {
+    background: linear-gradient(90deg, #0f3460, #16213e);
+    color: white;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card-header .icon { font-size: 1.4em; }
+  .card-header h2 { font-size: 1.1em; font-weight: 800; letter-spacing: 0.5px; }
+  .card-header small { font-size: 0.72em; color: #aac4e0; display: block; margin-top: 2px; }
+  .card-body { padding: 24px 28px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.91em;
+  }
+  th {
+    background: #f0f4fa;
+    color: #0f3460;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid #dce8f8;
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #eef2f8;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f7f9fd; }
+  td strong { color: #0f3460; }
+
+  /* ===== STEP CARDS ===== */
+  .step-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .step-header {
+    display: flex;
+    align-items: stretch;
+    background: linear-gradient(90deg, #0f3460, #16213e);
+    color: white;
+  }
+  .step-num {
+    background: #e94560;
+    color: white;
+    font-size: 2em;
+    font-weight: 900;
+    width: 70px;
+    min-width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title-block {
+    padding: 16px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .step-title-block h3 {
+    font-size: 1.1em;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .step-title-block small {
+    color: #a8c8ea;
+    font-size: 0.78em;
+    margin-top: 2px;
+  }
+  .step-body { padding: 24px 28px; }
+
+  .step-image-container {
+    background: #f7f9fd;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 18px 0;
+    text-align: center;
+    border: 1px solid #e0e8f5;
+  }
+  .step-image-container img {
+    max-width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+    max-height: 340px;
+    object-fit: contain;
+  }
+  .step-image-container .img-caption {
+    font-size: 0.78em;
+    color: #888;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* ===== CALLOUTS ===== */
+  .callout {
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 0.91em;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout .ci { font-size: 1.3em; flex-shrink: 0; margin-top: 1px; }
+  .callout.info { background: #eef4ff; border: 1px solid #c8daf8; }
+  .callout.tip { background: #edfaf3; border: 1px solid #b7e8ce; }
+  .callout.warn { background: #fff8ec; border: 1px solid #fad99a; }
+  .callout.red { background: #fff0f3; border: 1px solid #f5c0c8; }
+  .callout p { margin: 0; }
+  .callout strong { display: block; margin-bottom: 4px; color: #0f3460; }
+
+  /* ===== SUB-STEPS ===== */
+  .sub-steps {
+    counter-reset: sub;
+    padding: 0;
+    list-style: none;
+  }
+  .sub-steps li {
+    counter-increment: sub;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .sub-steps li::before {
+    content: counter(sub);
+    background: #0f3460;
+    color: white;
+    font-weight: 700;
+    font-size: 0.78em;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ===== TOOLS ===== */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .tool-item {
+    background: #f7f9fd;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.88em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #e0e8f5;
+  }
+
+  /* ===== TIP BANNER ===== */
+  .tip-banner {
+    background: linear-gradient(135deg, #e94560, #c0392b);
+    color: white;
+    border-radius: 14px;
+    padding: 22px 28px;
+    margin-bottom: 28px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .tip-banner .tbi { font-size: 2.5em; flex-shrink: 0; }
+  .tip-banner h3 { font-size: 1.05em; font-weight: 800; margin-bottom: 4px; }
+  .tip-banner p { font-size: 0.88em; color: rgba(255,255,255,0.88); margin: 0; }
+
+  /* ===== SAFETY ===== */
+  .safety-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .safety-item {
+    background: #fff8ec;
+    border: 1px solid #fad99a;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.88em;
+  }
+  .safety-item strong { color: #b7790a; display: block; margin-bottom: 4px; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    color: #aaa;
+    font-size: 0.78em;
+    padding: 20px;
+    border-top: 1px solid #e0e8f5;
+    margin-top: 10px;
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; font-size: 13px; }
+    .page { max-width: 100%; padding: 10px 15px 30px; }
+    .cover { min-height: 200px; padding: 30px; }
+    .cover h1 { font-size: 2em; }
+    .step-card, .materials-card, .intro-box { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .specs-grid { grid-template-columns: repeat(3,1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .cover h1 { font-size: 1.8em; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .safety-grid { grid-template-columns: 1fr; }
+    .step-num { width: 50px; min-width: 50px; font-size: 1.5em; }
+    .card-body, .step-body { padding: 18px; }
+  }
+  .back-btn{position:fixed;top:16px;left:16px;z-index:100;background:rgba(15,52,96,0.92);color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:.82em;font-weight:700;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.15);transition:background 0.2s;}
+  .back-btn:hover{background:#e94560;}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-btn">← Índice</a>
+
+<!-- ===================== PORTADA ===================== -->
+<div class="cover">
+  <div class="eyebrow">Manual de Construcción · DIY Skate</div>
+  <h1>Cómo hacer un <span>Kicker</span> de Skate</h1>
+  <p class="desc">Guía paso a paso con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+  <div class="cover-badges">
+    <span class="red">🇦🇷 Versión Argentina</span>
+    <span>📐 Medidas en cm</span>
+    <span>🪵 Materiales locales</span>
+    <span>🛹 Nivel: Principiante</span>
+  </div>
+</div>
+
+<!-- ===================== CONTENIDO ===================== -->
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>¿Qué es un kicker?</h2>
+    <p>Un kicker (o "rampa lanzadora") es una de las estructuras más sencillas y versátiles del skate callejero. Es básicamente una rampa inclinada con una pequeña curva al final que te lanza al aire cuando salís por la punta. Se puede usar para saltar, hacer tricks de gap, aprovechar con scooter, BMX o longboard, y es tan fácil de construir que es el proyecto perfecto para empezar.</p>
+    <p style="margin-top:10px;">Esta guía está basada en los planos de <strong>diyskate.com</strong>, con todos los materiales y medidas adaptados para Argentina. Las medidas originales (en pies y pulgadas) fueron convertidas a centímetros, y los nombres de materiales reemplazados por los equivalentes que conseguís en cualquier corralón o ferretería local.</p>
+  </div>
+
+  <!-- DIMENSIONES -->
+  <div class="specs-grid">
+    <div class="spec-card">
+      <div class="icon">📏</div>
+      <div class="val">183 cm</div>
+      <div class="lbl">Largo total</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">↔️</div>
+      <div class="val">122 cm</div>
+      <div class="lbl">Ancho</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">↕️</div>
+      <div class="val">46 cm</div>
+      <div class="lbl">Altura</div>
+    </div>
+  </div>
+
+  <!-- TIP RUEDAS -->
+  <div class="tip-banner">
+    <div class="tbi">💡</div>
+    <div>
+      <h3>Truco: hacelo portable</h3>
+      <p>Podés atornillar un viejo truck de skate con ruedas en la parte trasera baja del kicker para que sea fácil de mover empujando como una carretilla. Muy útil si lo querés llevar de un lugar a otro o guardar contra la pared.</p>
+    </div>
+  </div>
+
+  <!-- MATERIALES -->
+  <div class="materials-card">
+    <div class="card-header">
+      <span class="icon">🛒</span>
+      <div>
+        <h2>Lista de materiales</h2>
+        <small>Terminología argentina — conseguibles en corralón, maderera o ferretería</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Cantidad / Medida</th>
+            <th>Para qué sirve</th>
+            <th>Nombre original (EE.UU.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tirante de pino 2×4</strong><br><small style="color:#888">Pino Elliottis o Paraná Misionero</small></td>
+            <td>10 piezas de <strong>117 cm</strong> c/u<br><small>(de cada tirante de 2,44 m salen 2 piezas)</small></td>
+            <td>Costillas / estructura interna de la rampa</td>
+            <td>2×4 lumber</td>
+          </tr>
+          <tr>
+            <td><strong>Plancha de terciado fenólico 18 mm</strong></td>
+            <td>1 plancha de <strong>122 × 188 cm</strong><br><small>(se corta de una plancha estándar 1,22×2,44)</small></td>
+            <td>Superficie de rodadura principal</td>
+            <td>3/4" plywood, 4'×6'-2</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 18 mm</strong> (laterales)</td>
+            <td>2 piezas de <strong>46 × 168 cm</strong></td>
+            <td>Plantillas / paredes laterales de la rampa</td>
+            <td>Sides, 1'-6 × 5'-6</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 6 mm</strong><br><small>(o terciado flexible, "triplay caleado")</small></td>
+            <td>6 tiras de <strong>30 × 122 cm</strong></td>
+            <td>Superficie inferior (zona de contacto con el suelo) — capa de Masonite</td>
+            <td>Masonite / hardboard 1/4"</td>
+          </tr>
+          <tr>
+            <td><strong>Chapa de acero galvanizado</strong><br><small>Espesor: 5 mm (3/16") aprox, o chapa gruesa</small></td>
+            <td>1 pieza de <strong>122 × 25 cm</strong></td>
+            <td>Lámina metálica de umbral (lip) en la base</td>
+            <td>Sheet metal 3/16" thick, 4'×10"</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~40 mm (1 5/8") — caja de 100 u.</td>
+            <td>Fijar terciado a terciado y terciado a tirante</td>
+            <td>1 5/8" drywall screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~65 mm (2 1/2") — caja de 50 u.</td>
+            <td>Fijar tirantes entre sí y los laterales a los tirantes</td>
+            <td>2 1/2" drywall screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos avellanados galvanizados</strong></td>
+            <td>5 mm (3/16") — 3 unidades</td>
+            <td>Fijar la chapa de acero a la base</td>
+            <td>3/16" countersunk screws</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout info" style="margin-top:20px;">
+        <span class="ci">📌</span>
+        <div>
+          <strong>Nota sobre el "Masonite"</strong>
+          <p>El sitio original usa "Masonite" (un tipo de hardboard / fibra dura) para las tiras de la parte inferior. En Argentina este material exacto no se consigue fácilmente bajo ese nombre. La mejor alternativa es usar <strong>terciado de 3 mm a 6 mm</strong> o <strong>HDF (fibra de alta densidad)</strong> que se vende en madereras. Si la rampa va a estar afuera, usá directamente terciado fenólico de 6 mm que aguanta la humedad.</p>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:12px;">
+        <span class="ci">🔧</span>
+        <div>
+          <strong>¿Rampa para exterior?</strong>
+          <p>Si va a quedar afuera, usá <strong>tirantes de pino impregnado CCA</strong> (el que tiene color verdoso y se vende en madereras) en lugar de pino común, y terciado fenólico en todos los tableros. Pintá o lasureá la superficie y cubrí la rampa con una lona cuando no la uses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERRAMIENTAS -->
+  <div class="materials-card">
+    <div class="card-header">
+      <span class="icon">🔨</span>
+      <div>
+        <h2>Herramientas necesarias</h2>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tools-grid">
+        <div class="tool-item">🔵 Sierra circular o caladora</div>
+        <div class="tool-item">⚡ Atornillador eléctrico / taladro</div>
+        <div class="tool-item">📐 Escuadra y cinta métrica</div>
+        <div class="tool-item">🪚 Serrucho (opcional, para cortes finos)</div>
+        <div class="tool-item">🔩 Mechas para madera y metal (3/16" / 5mm y 3/8" / 10mm)</div>
+        <div class="tool-item">✏️ Lápiz o marcador de carpintero</div>
+        <div class="tool-item">🗜️ Sargentos / prensas (recomendado)</div>
+        <div class="tool-item">📏 Nivel de burbuja</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== PASOS ======== -->
+
+  <!-- PASO 1 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title-block">
+        <h3>Preparar y cortar los tirantes (costillas)</h3>
+        <small>Cut the cross members — 10 piezas de 117 cm</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Antes de empezar a armar, prepará todos los cortes de madera. Empezá con los <strong>tirantes 2×4</strong>: tenés que cortar <strong>10 piezas de 117 cm de largo</strong>. De cada tirante de largo estándar (244 cm) te salen exactamente 2 piezas, así que necesitás comprar <strong>5 tirantes de 2,44 m</strong>.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/Capture1.PNG" alt="Lista de cortes — tabla de materiales" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:20px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.9em;">
+          📋 <em>Imagen de referencia: tabla de cortes del sitio original (diyskate.com/images/Capture1.PNG)</em>
+        </div>
+        <div class="img-caption">Tabla de cortes y lista de materiales completa del diseño original</div>
+      </div>
+
+      <p>Una vez cortados los 10 tirantes, ponelos a un lado. Después vas a necesitar también:</p>
+
+      <ul class="sub-steps">
+        <li>Cortar los <strong>2 laterales</strong> de fenólico 18 mm: cada uno mide <strong>46 cm de alto × 168 cm de largo</strong>. (Ver paso 2 para los detalles del perfil curvo.)</li>
+        <li>Cortar la <strong>plancha de superficie</strong> de fenólico 18 mm: <strong>122 cm de ancho × 188 cm de largo</strong>.</li>
+        <li>Cortar las <strong>6 tiras de la base</strong> (Masonite / terciado fino): cada tira de <strong>30 cm × 122 cm</strong>.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Consejo: pedí los cortes en la maderera</strong>
+          <p>La mayoría de los corralones y madereras tienen sierra de banco y te hacen los cortes por un costo mínimo. Es mucho más preciso que cortar a mano, especialmente los laterales curvos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title-block">
+        <h3>Cortar los laterales (plantillas)</h3>
+        <small>Cut the sides — perfil del kicker 46 cm × 168 cm c/u</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Los laterales son las dos piezas de terciado grueso que definen la forma del kicker — son el perfil visto de costado. Cada uno mide <strong>46 cm de alto × 168 cm de largo</strong> antes del corte curvo.</p>
+      <p>El perfil tiene una parte recta inclinada y una pequeña curva en la punta superior (el "kick" o lanzamiento). El dibujo de referencia muestra exactamente la forma que hay que trazar y cortar.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/kicker_ramp_01.gif" alt="Perfil lateral del kicker — forma y medidas" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:20px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.9em;">
+          📐 <em>Imagen de referencia: perfil lateral del kicker (diyskate.com/images/kicker_ramp_01.gif)</em>
+        </div>
+        <div class="img-caption">Forma y dimensiones del lateral — base 168 cm, altura 46 cm, con curva en la punta</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Trazá el perfil en la plancha de fenólico usando lápiz de carpintero y cinta métrica. Podés usar un flexómetro largo o una varilla flexible para trazar la curva suave de la transición.</li>
+        <li>Cortá con <strong>caladora</strong> siguiendo la línea. La parte recta la podés hacer con sierra circular.</li>
+        <li>Una vez cortado el primer lateral, usalo como <strong>plantilla</strong> para trazar el segundo — así te asegurás que los dos queden idénticos. Superponé las dos piezas, clavá un tornillo provisorio para que no se muevan, y calá las dos juntas si tu caladora tiene potencia.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📐</span>
+        <div>
+          <strong>¿Cómo trazar la curva del kick?</strong>
+          <p>La curva de transición en la punta del kicker es lo que lo hace funcionar bien. Para trazarla, podés clavar un tornillo como pivote a la distancia correcta del radio y usar un cordón con lápiz en la punta como compás. También podés usar una regla flexible o un pedazo de zócalo de madera delgada que curve naturalmente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title-block">
+        <h3>Armar el esqueleto — base y tirantes inferiores</h3>
+        <small>Framing the bottom — tirante inferior + primeras costillas</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con los laterales cortados, empezá a armar la estructura. El primer paso es colocar los tirantes 2×4 que forman la base de la caja.</p>
+      <p>Ponés los dos laterales parados (con el perfil hacia afuera) y atornillás los <strong>tirantes de 117 cm de largo</strong> conectándolos por la parte inferior como se muestra en la imagen. Estos tirantes son los que le dan el ancho y rigidez a toda la estructura.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/kicker_ramp_02.jpg" alt="Armado de la base con tirantes" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:20px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.9em;">
+          🏗️ <em>Imagen de referencia: armado de tirantes en la base (diyskate.com/images/kicker_ramp_02.jpg)</em>
+        </div>
+        <div class="img-caption">Tirantes de base atornillados entre los dos laterales — vista desde abajo</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Apoyá los dos laterales en paralelo, con la cara interior mirando hacia adentro. Separalos exactamente <strong>117 cm</strong> entre caras internas (que es el largo de los tirantes).</li>
+        <li>Atornillá los primeros tirantes de la zona inferior con <strong>tornillos de 65 mm</strong>. Usá al menos 2 tornillos por punto de unión. Pre-taladrá si la madera tiende a partir.</li>
+        <li>Verificá con escuadra que los ángulos queden a 90°. Una estructura torcida de entrada va a ser un problema en todos los pasos siguientes.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Truco de ensamble</strong>
+          <p>Si tenés sargentos (prensas), usálos para mantener el tirante en posición mientras atornillás. Si no, podés pedir a alguien que sujete mientras vos tornillás. La primera fijación siempre es la más difícil.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title-block">
+        <h3>Colocar todas las costillas superiores</h3>
+        <small>Framing the top — 8 tirantes cada 20 cm desde la base</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Ahora colocás los 8 tirantes restantes a lo largo de toda la superficie inclinada, espaciados <strong>20 cm de centro a centro</strong> empezando desde la base. Estos tirantes son los que van a sostener la plancha de terciado de superficie y distribuyen el peso mientras patinás.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/kicker_ramp_03.jpg" alt="Tirantes superiores colocados cada 20 cm" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:20px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.9em;">
+          🏗️ <em>Imagen de referencia: tirantes superiores colocados a 20 cm de separación (diyskate.com/images/kicker_ramp_03.jpg)</em>
+        </div>
+        <div class="img-caption">Los 8 tirantes restantes colocados cada 20 cm sobre la superficie inclinada</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Marcá con lápiz en los laterales los puntos a 20 cm de separación (medido desde el borde inferior, de centro a centro del tirante). Son 8 líneas en total.</li>
+        <li>Atornillá cada tirante en esas marcas con <strong>2 tornillos de 65 mm</strong> por lado (4 por tirante en total). Asegurate de que cada tirante quede perpendicular a los laterales.</li>
+        <li>Los tirantes deben quedar <em>al ras</em> con la cara superior de los laterales — así cuando apoyés el terciado de superficie queda plano y sin escalones.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Por qué cada 20 cm?</strong>
+          <p>El espaciado de 20 cm (equivalente a las 8 pulgadas originales) es el balance justo entre resistencia estructural y cantidad de madera usada. Con menos separación el kicker sería más sólido pero más pesado y caro. Con más separación el terciado podría ceder con el tiempo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title-block">
+        <h3>Colocar la plancha de superficie (terciado 18 mm)</h3>
+        <small>Attaching the plywood — 122 cm × 188 cm, espesor 18 mm</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con toda la estructura armada, es momento de poner la plancha de terciado que va a ser la superficie de rodadura. Esta plancha debe quedar apoyada desde el suelo hasta llegar a la punta más alta del kicker.</p>
+      <p>La plancha mide <strong>122 cm de ancho × 188 cm de largo</strong> y es de terciado fenólico de <strong>18 mm de espesor</strong>. Cubrirá completamente la parte inclinada de la estructura.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/kicker_ramp_04.jpg" alt="Plancha de terciado colocada sobre la estructura" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:20px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.9em;">
+          🪵 <em>Imagen de referencia: plancha de terciado sobre el esqueleto (diyskate.com/images/kicker_ramp_04.jpg)</em>
+        </div>
+        <div class="img-caption">Plancha de terciado 18 mm cubriendo todo el armazón — desde el suelo hasta la punta</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Posicioná la plancha sobre la estructura de modo que el borde inferior toque el suelo y cubra la punta superior. Verificá que esté centrada (misma cantidad de borde a cada lado).</li>
+        <li>Atornillá la plancha a cada tirante debajo con <strong>tornillos de 40 mm</strong> cada 20–25 cm a lo largo de cada costilla. No pongas tornillos muy cerca de los bordes del terciado o puede partirse.</li>
+        <li>También atornillá a los laterales pasando por el canto del terciado.</li>
+        <li>Si la rampa va a tener mucho uso o a estar afuera, podés agregar una segunda capa de terciado de 6 mm encima para mayor durabilidad y superficie más lisa.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Superficie más lisa</strong>
+          <p>Para una superficie de rodadura premium, aplicá una segunda capa delgada de terciado de 6 mm lijado fino. También podés lijar la superficie del 18 mm con lija de grano 80 y darle una mano de pintura de piso antideslizante. Para exteriores, buscá "pintura para pisos de madera exterior".</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 6 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div class="step-title-block">
+        <h3>Colocar las tiras inferiores (zona de contacto con el suelo)</h3>
+        <small>Attaching the Masonite — 6 tiras de 30 × 122 cm en la base</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>La parte inferior del kicker (la "caja" o base) necesita cerrarse con tiras de terciado fino o HDF para cubrir los laterales de la estructura en la zona baja. Son <strong>6 tiras de 30 cm × 122 cm</strong> que se colocan en la parte de abajo como se muestra en la imagen.</p>
+      <p>Fijá cada tira con <strong>4 tornillos de 40 mm</strong> — 2 por cada lateral. Las tiras deben quedar bien pegadas entre sí sin espacios visibles.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/kicker_ramp_05.jpg" alt="Tiras de Masonite / terciado fino en la base" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:20px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.9em;">
+          🪵 <em>Imagen de referencia: tiras en la zona inferior de la caja (diyskate.com/images/kicker_ramp_05.jpg)</em>
+        </div>
+        <div class="img-caption">Tiras de terciado fino (3–6 mm) cubren la caja inferior — 6 piezas de 30 × 122 cm c/u</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Comenzá por la tira más baja y ascendé. Asegurate de que la primera tira quede a ras del suelo.</li>
+        <li>Las tiras deben cubrir completamente la estructura interna de la caja para que quede prolija y no haya riesgo de engancharse con algún elemento saliente.</li>
+        <li>Si usás terciado de 6 mm en lugar de Masonite, podés curvar levemente las tiras para que sigan el perfil si hay alguna curva en esa zona.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Qué queda entre las tiras y el suelo?</strong>
+          <p>Una vez colocadas las 6 tiras, debe quedar un espacio de aproximadamente <strong>25 cm</strong> entre la última tira y el suelo. Ese espacio es donde va la chapa de acero del paso siguiente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 7 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <div class="step-title-block">
+        <h3>Colocar la chapa de acero (umbral / lip)</h3>
+        <small>Attaching the steel — chapa 122 × 25 cm en la base del kicker</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>El paso final es colocar la <strong>chapa de acero galvanizado</strong> en la zona inferior donde el kicker toca el suelo. Esta chapa actúa como "umbral" o lip de metal — protege la madera del desgaste por el contacto repetido con el suelo, y además da una superficie dura para los grinds y slides en la base de la rampa.</p>
+      <p>La chapa mide <strong>122 cm de ancho × 25 cm de alto</strong>, con un espesor de <strong>aproximadamente 5 mm</strong>.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/kicker_ramp_06.jpg" alt="Chapa de acero en la base del kicker" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:20px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.9em;">
+          ⚙️ <em>Imagen de referencia: chapa de acero en la base (diyskate.com/images/kicker_ramp_06.jpg)</em>
+        </div>
+        <div class="img-caption">Chapa de acero galvanizado en la base — protege la madera y sirve de superficie dura</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Marcá en la chapa los 3 puntos de perforación: uno a <strong>5 cm de cada extremo</strong> y uno en el centro exacto. Perforá con taladro y mecha para metal de <strong>5 mm (3/16")</strong>.</li>
+        <li>En cada agujero, hacé un <strong>avellanado</strong> con mecha de 10 mm (3/8") taladrando apenas lo suficiente para que la cabeza del tornillo quede al ras de la chapa — de modo que no haya nada saliente que enganche.</li>
+        <li>Posicioná la chapa en el espacio que quedó libre entre las tiras y el suelo. Debe entrar ajustada.</li>
+        <li>Fijá con los 3 <strong>tornillos avellanados de 5 mm</strong>. Apretá bien para que la chapa quede completamente plana y sin movimiento.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>Dónde conseguir la chapa en Argentina</strong>
+          <p>Las chapas de acero de este tamaño se consiguen en <strong>distribuidoras de acero y chapas</strong> (buscar "chapa de acero calibre 3/16" o "chapa gruesa de 5 mm"). También podés ir a un <strong>taller metalúrgico o herrero</strong> y pedirles que te corten la pieza exacta — suele ser rápido y económico. Buscá "metalúrgica" o "herrería" cerca tuyo. En Mercado Libre también se consiguen recortes de chapa.</p>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Alternativa: perfil de aluminio o acero</strong>
+          <p>Si no conseguís la chapa exacta, podés usar un <strong>perfil en L de acero</strong> (escuadra de acero) de las medidas apropiadas, o incluso un perfil de umbral para puertas que conseguís en ferreterías grandes. El objetivo es tener una superficie dura en el borde inferior que aguante el contacto repetido.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGURIDAD -->
+  <div class="materials-card">
+    <div class="card-header">
+      <span class="icon">⛑️</span>
+      <div>
+        <h2>Seguridad y uso</h2>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="safety-grid">
+        <div class="safety-item">
+          <strong>🔩 Revisá los tornillos regularmente</strong>
+          Después de cada sesión intensa, verificá que no haya tornillos sueltos o que la madera no esté comenzando a ceder. Un kicker bien mantenido dura años.
+        </div>
+        <div class="safety-item">
+          <strong>🌧️ Protección contra la lluvia</strong>
+          Si la rampa queda afuera, cubrila con una lona cuando no la uses. La humedad es el peor enemigo de la madera sin tratamiento.
+        </div>
+        <div class="safety-item">
+          <strong>🛹 Primera prueba</strong>
+          Antes de tirarte a toda velocidad, hacé una pasada lenta para verificar que nada se mueva, cruja de forma rara o ceda. La estructura debe sentirse absolutamente sólida.
+        </div>
+        <div class="safety-item">
+          <strong>⚠️ Madera impregnada CCA</strong>
+          Si usaste pino tratado, usá guantes al construir y nunca quemes los recortes. Una vez instalada y seca es completamente segura.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO RAPIDO -->
+  <div class="materials-card">
+    <div class="card-header">
+      <span class="icon">📖</span>
+      <div>
+        <h2>Glosario rápido — términos de esta guía</h2>
+        <small>Equivalencias usadas en este manual</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <tr><th>En esta guía (Argentina)</th><th>Original en inglés (EE.UU.)</th><th>Medida / Aclaración</th></tr>
+        <tr><td>Tirante 2×4 / pino elliottis</td><td>2×4 lumber</td><td>40 × 90 mm real (seco)</td></tr>
+        <tr><td>Terciado fenólico 18 mm</td><td>3/4" plywood</td><td>Plancha 1,22 × 2,44 m</td></tr>
+        <tr><td>Terciado fino 3–6 mm</td><td>Masonite / 1/4" hardboard</td><td>Para tiras de la base</td></tr>
+        <tr><td>Chapa de acero galvanizado</td><td>Sheet metal 3/16"</td><td>122 × 25 cm, ~5 mm espesor</td></tr>
+        <tr><td>Tornillo drywall 40 mm</td><td>1 5/8" drywall screw</td><td>Terciado a terciado / tirante</td></tr>
+        <tr><td>Tornillo drywall 65 mm</td><td>2 1/2" screw</td><td>Tirante a tirante / lateral</td></tr>
+        <tr><td>Caladora</td><td>Jig saw</td><td>Para corte curvo de laterales</td></tr>
+        <tr><td>Corralón / maderera</td><td>Home Depot / lumber yard</td><td>Donde comprás los materiales</td></tr>
+        <tr><td>Pino impregnado CCA</td><td>Pressure treated lumber</td><td>Para uso exterior</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="footer">
+  Manual adaptado para Argentina a partir de diyskate.com · Medidas convertidas de pies/pulgadas a centímetros · Materiales equivalentes al mercado local.<br>
+  Para los planos originales en inglés: <strong>diyskate.com/kicker_ramp.html</strong>
+</div>
+
+</body>
+</html>

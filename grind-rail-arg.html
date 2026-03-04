@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Manual Grind Rail DIY — Argentina</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter','Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;line-height:1.75;font-size:15px;}
+
+  /* COVER */
+  .cover{background:linear-gradient(135deg,#0d0d1a 0%,#1a1a3e 45%,#0f3460 100%);color:white;min-height:320px;padding:60px 50px 50px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
+  .cover::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(233,69,96,0.18) 0%,transparent 70%);top:-150px;right:-100px;border-radius:50%;}
+  .cover::after{content:'⚙️';font-size:180px;position:absolute;opacity:0.05;bottom:-30px;right:10px;line-height:1;}
+  .cover .eyebrow{font-size:.72em;font-weight:700;letter-spacing:4px;color:#e94560;text-transform:uppercase;margin-bottom:14px;}
+  .cover h1{font-size:2.8em;font-weight:900;line-height:1.1;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+  .cover h1 span{color:#e94560;}
+  .cover .desc{font-size:1em;color:#a8c8ea;max-width:580px;margin-bottom:26px;}
+  .cover-badges{display:flex;gap:10px;flex-wrap:wrap;}
+  .cover-badges span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#ddd;padding:5px 14px;border-radius:20px;font-size:.78em;font-weight:600;}
+  .cover-badges span.red{background:#e94560;border-color:#e94560;color:white;}
+  .cover-badges span.steel{background:#2c3e50;border-color:#34495e;color:#ccc;}
+
+  /* LAYOUT */
+  .page{max-width:900px;margin:0 auto;padding:30px 20px 60px;}
+
+  /* INTRO */
+  .intro-box{background:white;border-radius:14px;box-shadow:0 3px 20px rgba(0,0,0,.09);padding:32px 36px;margin-bottom:28px;border-left:5px solid #e94560;}
+  .intro-box h2{font-size:1.15em;font-weight:800;color:#e94560;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+
+  /* VERSION SELECTOR */
+  .version-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;}
+  .version-card{background:white;border-radius:14px;box-shadow:0 3px 20px rgba(0,0,0,.09);padding:24px 22px;border-top:5px solid #ccc;position:relative;}
+  .version-card.steel{border-top-color:#e94560;}
+  .version-card.wood{border-top-color:#0f3460;}
+  .version-card .vtag{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.72em;font-weight:700;margin-bottom:10px;}
+  .version-card.steel .vtag{background:#fff0f3;color:#e94560;}
+  .version-card.wood .vtag{background:#eef4ff;color:#0f3460;}
+  .version-card h3{font-size:1.05em;font-weight:800;margin-bottom:8px;color:#1a1a2e;}
+  .version-card p{font-size:.88em;color:#555;margin-bottom:10px;}
+  .version-card ul{padding-left:18px;font-size:.85em;color:#555;}
+  .version-card ul li{margin-bottom:4px;}
+  .version-card .diff{font-size:.8em;font-weight:700;padding:4px 10px;border-radius:8px;display:inline-block;margin-top:8px;}
+  .version-card.steel .diff{background:#fff0f3;color:#c0392b;}
+  .version-card.wood .diff{background:#eef4ff;color:#0f3460;}
+
+  /* SPECS */
+  .specs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+  .spec-card{background:white;border-radius:14px;box-shadow:0 3px 20px rgba(0,0,0,.09);padding:18px 14px;text-align:center;}
+  .spec-card .icon{font-size:1.8em;margin-bottom:6px;}
+  .spec-card .val{font-size:1.3em;font-weight:900;color:#0f3460;line-height:1.1;}
+  .spec-card .lbl{font-size:.72em;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-top:4px;}
+
+  /* SECTION DIVIDER */
+  .section-divider{background:linear-gradient(90deg,#e94560,#c0392b);color:white;border-radius:14px;padding:18px 28px;margin:10px 0 24px;display:flex;align-items:center;gap:14px;}
+  .section-divider.blue{background:linear-gradient(90deg,#0f3460,#16213e);}
+  .section-divider .sdi{font-size:2em;flex-shrink:0;}
+  .section-divider h2{font-size:1.15em;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+  .section-divider p{font-size:.82em;color:rgba(255,255,255,.8);margin:0;}
+
+  /* CARDS */
+  .card{background:white;border-radius:14px;box-shadow:0 3px 20px rgba(0,0,0,.09);overflow:hidden;margin-bottom:28px;}
+  .card-header{background:linear-gradient(90deg,#0f3460,#16213e);color:white;padding:18px 28px;display:flex;align-items:center;gap:12px;}
+  .card-header.red{background:linear-gradient(90deg,#c0392b,#962d22);}
+  .card-header .icon{font-size:1.4em;}
+  .card-header h2{font-size:1.1em;font-weight:800;letter-spacing:.5px;}
+  .card-header small{font-size:.72em;color:#aac4e0;display:block;margin-top:2px;}
+  .card-header.red small{color:#f5b8b8;}
+  .card-body{padding:24px 28px;}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;font-size:.91em;}
+  th{background:#f0f4fa;color:#0f3460;font-weight:700;padding:10px 14px;text-align:left;border-bottom:2px solid #dce8f8;}
+  td{padding:9px 14px;border-bottom:1px solid #eef2f8;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#f7f9fd;}
+
+  /* STEPS */
+  .step-card{background:white;border-radius:14px;box-shadow:0 3px 20px rgba(0,0,0,.09);overflow:hidden;margin-bottom:24px;}
+  .step-header{display:flex;align-items:stretch;background:linear-gradient(90deg,#0f3460,#16213e);color:white;}
+  .step-header.red-h{background:linear-gradient(90deg,#c0392b,#962d22);}
+  .step-num{background:#e94560;color:white;font-size:2em;font-weight:900;width:70px;min-width:70px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step-num.blue-n{background:#0f3460;}
+  .step-title-block{padding:16px 22px;display:flex;flex-direction:column;justify-content:center;}
+  .step-title-block h3{font-size:1.1em;font-weight:800;text-transform:uppercase;letter-spacing:.5px;}
+  .step-title-block small{color:#a8c8ea;font-size:.78em;margin-top:2px;}
+  .step-body{padding:24px 28px;}
+
+  .step-image-container{background:#f7f9fd;border-radius:10px;padding:16px;margin:18px 0;text-align:center;border:1px solid #e0e8f5;}
+  .step-image-container img{max-width:100%;border-radius:8px;display:block;margin:0 auto;max-height:320px;object-fit:contain;}
+  .img-fallback{display:none;padding:22px 16px;background:#f0f4fa;border-radius:8px;color:#666;font-size:.88em;text-align:center;}
+  .img-caption{font-size:.78em;color:#888;margin-top:10px;font-style:italic;}
+
+  /* CALLOUTS */
+  .callout{border-radius:10px;padding:14px 18px;margin:14px 0;font-size:.91em;display:flex;gap:12px;align-items:flex-start;}
+  .callout .ci{font-size:1.3em;flex-shrink:0;margin-top:1px;}
+  .callout p{margin:0;}
+  .callout strong{display:block;margin-bottom:4px;color:#0f3460;}
+  .callout.info{background:#eef4ff;border:1px solid #c8daf8;}
+  .callout.tip{background:#edfaf3;border:1px solid #b7e8ce;}
+  .callout.warn{background:#fff8ec;border:1px solid #fad99a;}
+  .callout.alert{background:#fff0f3;border:1px solid #f5c0c8;}
+
+  /* SUB-STEPS */
+  .sub-steps{counter-reset:sub;padding:0;list-style:none;}
+  .sub-steps li{counter-increment:sub;display:flex;gap:14px;margin-bottom:12px;align-items:flex-start;}
+  .sub-steps li::before{content:counter(sub);background:#0f3460;color:white;font-weight:700;font-size:.78em;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+  .sub-steps.red li::before{background:#e94560;}
+
+  /* TOOLS */
+  .tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+  .tool-item{background:#f7f9fd;border-radius:8px;padding:8px 12px;font-size:.88em;display:flex;align-items:center;gap:8px;border:1px solid #e0e8f5;}
+
+  /* HIGHLIGHT */
+  .highlight-box{background:linear-gradient(135deg,#f0f4fa,#e8f0fb);border:2px solid #0f3460;border-radius:12px;padding:20px 24px;margin:18px 0;}
+  .highlight-box.red-h{background:linear-gradient(135deg,#fff5f5,#ffe8e8);border-color:#e94560;}
+  .highlight-box h4{color:#0f3460;font-size:1em;font-weight:800;margin-bottom:8px;}
+  .highlight-box.red-h h4{color:#c0392b;}
+
+  /* TIP BANNER */
+  .tip-banner{background:linear-gradient(135deg,#e94560,#c0392b);color:white;border-radius:14px;padding:22px 28px;margin-bottom:28px;display:flex;gap:16px;align-items:center;}
+  .tip-banner .tbi{font-size:2.5em;flex-shrink:0;}
+  .tip-banner h3{font-size:1.05em;font-weight:800;margin-bottom:4px;}
+  .tip-banner p{font-size:.88em;color:rgba(255,255,255,.88);margin:0;}
+
+  /* SAFETY */
+  .safety-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .safety-item{background:#fff8ec;border:1px solid #fad99a;border-radius:10px;padding:14px 16px;font-size:.88em;}
+  .safety-item strong{color:#b7790a;display:block;margin-bottom:4px;}
+
+  /* MEASURE TABLE */
+  .measure-table th{background:#2c3e50;color:white;}
+
+  /* FOOTER */
+  .footer{text-align:center;color:#aaa;font-size:.78em;padding:20px;border-top:1px solid #e0e8f5;margin-top:10px;}
+
+  /* PRINT */
+  @media print{
+    body{background:white;font-size:13px;}
+    .page{max-width:100%;padding:10px 15px 30px;}
+    .cover{min-height:200px;padding:30px;}
+    .cover h1{font-size:2em;}
+    .step-card,.card,.intro-box,.section-divider{box-shadow:none;break-inside:avoid;}
+    .step-card,.card,.intro-box{border:1px solid #ddd;}
+  }
+  @media(max-width:600px){
+    .cover h1{font-size:1.8em;}
+    .cover{padding:40px 28px 36px;}
+    .version-grid,.specs-grid{grid-template-columns:1fr 1fr;}
+    .tools-grid,.safety-grid{grid-template-columns:1fr;}
+    .step-num{width:50px;min-width:50px;font-size:1.5em;}
+    .card-body,.step-body{padding:18px;}
+    .intro-box{padding:22px 20px;}
+  }
+  .back-btn{position:fixed;top:16px;left:16px;z-index:100;background:rgba(15,52,96,0.92);color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:.82em;font-weight:700;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.15);transition:background 0.2s;}
+  .back-btn:hover{background:#e94560;}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-btn">← Índice</a>
+
+<!-- PORTADA -->
+<div class="cover">
+  <div class="eyebrow">Manual de Construcción · DIY Skate</div>
+  <h1>Cómo hacer un <span>Grind Rail</span></h1>
+  <p class="desc">Dos versiones completas: caño de acero soldado y rail de madera con caño — con materiales, medidas en centímetros y todo adaptado para Argentina.</p>
+  <div class="cover-badges">
+    <span class="red">🇦🇷 Versión Argentina</span>
+    <span>📐 Medidas en cm</span>
+    <span class="steel">⚙️ Versión todo acero</span>
+    <span>🪵 Versión madera + caño</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>¿Qué es un grind rail?</h2>
+    <p>El grind rail (o barra de grind) es posiblemente el obstáculo más icónico del skate street y de parques. Es simplemente un caño o perfil metálico elevado del suelo sobre el que hacés grinds (50-50, nosegrind, 5-0, etc.) y slides (boardslide, tailslide, etc.). Es el obstáculo que más aparece en videos y que más se practica en spots callejeros.</p>
+    <p style="margin-top:10px;">Este manual cubre <strong>dos versiones</strong>: la versión de <strong>todo acero soldado</strong> (la clásica de los skateparks, más duradera y profesional) y la versión de <strong>madera + caño</strong> (sin soldadura, más accesible para quien no tiene soldadora). Ambas dan excelentes resultados — la elección depende de tus herramientas y experiencia.</p>
+  </div>
+
+  <!-- COMPARATIVA DE VERSIONES -->
+  <div class="version-grid">
+    <div class="version-card steel">
+      <span class="vtag">⚙️ Versión A</span>
+      <h3>Todo Acero — Soldado</h3>
+      <p>El rail clásico de skatepark: caño redondo o cuadrado sobre patas de acero con base de chapa, todo soldado. Es el más resistente, liviano y duradero.</p>
+      <ul>
+        <li>Requiere soldadora (o acceso a herrero)</li>
+        <li>Más liviano que la versión de madera</li>
+        <li>Más preferido en skateparks</li>
+        <li>Dura toda la vida si se protege del óxido</li>
+      </ul>
+      <div class="diff">🔥 Dificultad: Media (requiere soldar)</div>
+    </div>
+    <div class="version-card wood">
+      <span class="vtag">🪵 Versión B</span>
+      <h3>Madera + Caño — Sin Soldadura</h3>
+      <p>Base de madera con tirantes y caño atornillado encima. No requiere soldar — solo taladro y tornillos. Más pesado pero perfectamente funcional.</p>
+      <ul>
+        <li>Sin soldadora — solo herramientas básicas</li>
+        <li>Más pesado que el de acero</li>
+        <li>Muy fácil de reparar y modificar</li>
+        <li>Ideal como primer rail DIY</li>
+      </ul>
+      <div class="diff">🟢 Dificultad: Fácil</div>
+    </div>
+  </div>
+
+  <!-- TIP BANNER -->
+  <div class="tip-banner">
+    <div class="tbi">💡</div>
+    <div>
+      <h3>¿No tenés soldadora? Hay solución</h3>
+      <p>Si querés la versión de acero pero no tenés soldadora ni sabés soldar, podés llevar el caño y las patas cortadas a cualquier <strong>herrería o taller metalúrgico</strong> con las dimensiones exactas y pedirles que lo suelden. Suele ser rápido y económico — mucho más barato que comprar un rail armado.</p>
+    </div>
+  </div>
+
+  <!-- DONDE COMPRAR EL ACERO -->
+  <div class="card">
+    <div class="card-header red">
+      <span class="icon">🏪</span>
+      <div>
+        <h2>Dónde conseguir el acero en Argentina</h2>
+        <small>El paso más importante antes de empezar cualquiera de las dos versiones</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <p>El original recomienda buscar "steel yards" o "steel fabricators". En Argentina el equivalente son las <strong>distribuidoras de acero y perfiles metálicos</strong>, las <strong>herrerías</strong> y los <strong>talleres metalúrgicos</strong>. También encontrás material en Easy, Sodimac y Mercado Libre, aunque con menos variedad de medidas.</p>
+
+      <h3 style="font-size:1em;font-weight:800;color:#0f3460;margin:20px 0 12px;text-transform:uppercase;letter-spacing:.5px;">Caño redondo (para rail redondo)</h3>
+      <table>
+        <thead><tr><th>Especificación original (EE.UU.)</th><th>Cómo pedirlo en Argentina</th><th>Dónde conseguirlo</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>2 3/8" OD, 1/4" wall<br><small style="color:#888">"2" Schedule 80 black pipe"</small></td>
+            <td><strong>Caño de acero negro de 2" cédula 80</strong><br>o "caño estructural redondo de 60 mm ext."</td>
+            <td>Distribuidoras de acero, herrerías, Mercado Libre</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-size:1em;font-weight:800;color:#0f3460;margin:20px 0 12px;text-transform:uppercase;letter-spacing:.5px;">Tubo cuadrado (para rail cuadrado)</h3>
+      <table>
+        <thead><tr><th>Especificación original (EE.UU.)</th><th>Cómo pedirlo en Argentina</th><th>Dónde conseguirlo</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>2"×2" square tubing<br><small style="color:#888">pared 1/8" a 3/16"</small></td>
+            <td><strong>Tubo estructural cuadrado 50×50 mm</strong><br>pared de 3 a 5 mm (LAC o galvanizado)</td>
+            <td>Distribuidoras de acero, ferreterías industriales</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-size:1em;font-weight:800;color:#0f3460;margin:20px 0 12px;text-transform:uppercase;letter-spacing:.5px;">Chapa de base (pies del rail)</h3>
+      <table>
+        <thead><tr><th>Especificación original</th><th>Equivalente Argentina</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>3/16" × 4" × largo plate steel</td>
+            <td><strong>Chapa plana de acero de ~5 mm de espesor</strong>, cortada a 10 cm de ancho × largo necesario. Pedila en herrerías o distribuidoras de acero como "platina de acero 100×5 mm".</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip" style="margin-top:18px;">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Consejo: comprá todo en la misma distribuidora o herrería</strong>
+          <p>Las distribuidoras de acero y perfiles suelen tener caño redondo, tubo cuadrado y chapa plana todo en el mismo lugar. Si además podés hacer que te corten las piezas a medida ahí mismo, te ahorrás mucho trabajo. Buscá "distribuidora de acero" o "perfiles metálicos" en tu zona.</p>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:8px;">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>Rail para exterior — protección contra el óxido</strong>
+          <p>Si el rail va a quedar afuera, aplicá al menos una mano de <strong>pintura antióxido</strong> sobre todas las superficies de acero antes de armar. Después podés dar una mano de pintura de acabado del color que quieras. El acero sin protección se oxida rápido en exteriores, especialmente el caño negro (sin galvanizar).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- VERSIÓN A — TODO ACERO SOLDADO     -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="section-divider">
+    <div class="sdi">⚙️</div>
+    <div>
+      <h2>Versión A — Rail Todo Acero (Soldado)</h2>
+      <p>Caño redondo o cuadrado sobre patas y base de chapa, todo unido con soldadura</p>
+    </div>
+  </div>
+
+  <!-- SPECS RAIL ACERO -->
+  <div class="specs-grid">
+    <div class="spec-card"><div class="icon">📏</div><div class="val">183 cm</div><div class="lbl">Largo del rail</div></div>
+    <div class="spec-card"><div class="icon">↕️</div><div class="val">~27 cm</div><div class="lbl">Altura (redondo)<br><small style="font-size:.8em;color:#aaa">o 23 cm (cuadrado)</small></div></div>
+    <div class="spec-card"><div class="icon">📦</div><div class="val">50 mm</div><div class="lbl">Diámetro / lado del caño</div></div>
+    <div class="spec-card"><div class="icon">⚡</div><div class="val">Soldar</div><div class="lbl">Herramienta clave</div></div>
+  </div>
+
+  <!-- MATERIALES ACERO -->
+  <div class="card">
+    <div class="card-header red">
+      <span class="icon">🛒</span>
+      <div>
+        <h2>Materiales — Versión Todo Acero</h2>
+        <small>Para un rail redondo de 183 cm largo × ~27 cm alto</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>Material</th><th>Cantidad / Medida</th><th>Para qué</th><th>Original EE.UU.</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Caño redondo de acero negro 2" cédula 80</strong><br><small style="color:#888">(o tubo cuadrado 50×50 mm si preferís rail cuadrado)</small></td>
+            <td>1 barra de <strong>183 cm</strong></td>
+            <td>El rail en sí — la barra principal sobre la que grindeas</td>
+            <td>2 3/8" OD pipe, 6' long</td>
+          </tr>
+          <tr>
+            <td><strong>Caño / tubo para patas</strong><br><small style="color:#888">mismo material que el rail</small></td>
+            <td>2 piezas de <strong>24 cm</strong> c/u<br><small>(patas del rail cuadrado 23 cm alto)</small><br>o 2 piezas de <strong>~22 cm</strong><br><small>(patas rail redondo 27 cm, ver notas)</small></td>
+            <td>Patas verticales que soportan el rail</td>
+            <td>2 pieces at 6 3/4" (sq.) / 9 5/8" (round)</td>
+          </tr>
+          <tr>
+            <td><strong>Platina / chapa plana de acero</strong><br><small style="color:#888">~5 mm de espesor, 10 cm de ancho</small></td>
+            <td>2 piezas de <strong>10 × 38 cm</strong><br><small>(bases / pies del rail)</small></td>
+            <td>Pies de apoyo en el suelo — evitan que el rail se hunda o se mueva</td>
+            <td>3/16"×4"×1'-3 plate steel, ×2</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout info" style="margin-top:18px;">
+        <span class="ci">📐</span>
+        <div>
+          <strong>¿Cómo calcular la altura de las patas?</strong>
+          <p>La altura real de las patas depende de si usás rail redondo o cuadrado. Para rail redondo: la altura total = largo de pata + radio del caño (la mitad del diámetro exterior, ~2,5 cm). Para rail cuadrado: la altura total = largo de pata + la mitad del lado del tubo (~2,5 cm). Si querés que el rail quede a exactamente <strong>27 cm de alto</strong> con caño redondo de 5 cm de diámetro, las patas deben medir 27 − 2,5 = <strong>24,5 cm</strong>. Para rail cuadrado a 23 cm, las patas miden 23 − 2,5 = <strong>20,5 cm</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGEN COPING -->
+  <div class="step-card">
+    <div class="step-header red-h">
+      <div class="step-num">A1</div>
+      <div class="step-title-block">
+        <h3>Tipos de caño — redondo vs. cuadrado</h3>
+        <small>Elegir el perfil antes de comprar el material</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Antes de comprar, decidí qué tipo de caño querés usar. Cada uno tiene sus ventajas:</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/coping_05.gif"
+             alt="Caño redondo vs tubo cuadrado para grind rail"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Comparativa caño redondo / tubo cuadrado (diyskate.com/images/coping_05.gif)</em></div>
+        <div class="img-caption">Caño redondo (izquierda) y tubo cuadrado (derecha) — los dos tipos principales de rail</div>
+      </div>
+
+      <table style="margin-top:8px;">
+        <thead><tr><th>Tipo</th><th>Ventajas</th><th>Desventajas</th><th>Mejor para</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Caño redondo</strong></td>
+            <td>Más fluido para grinds, más parecido a los rails de plaza y calle</td>
+            <td>Las patas requieren un corte en "V" para apoyar bien</td>
+            <td>Grinds y slides rápidos, rail de calle</td>
+          </tr>
+          <tr>
+            <td><strong>Tubo cuadrado</strong></td>
+            <td>Las patas se sueldan directo, más fácil de armar, más agarre para boards</td>
+            <td>Menos fluido que el redondo para slides</td>
+            <td>Primer rail, uso mixto skate/BMX</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PASO A2 — RAIL CUADRADO -->
+  <div class="step-card">
+    <div class="step-header red-h">
+      <div class="step-num">A2</div>
+      <div class="step-title-block">
+        <h3>Armar el rail cuadrado soldado</h3>
+        <small>Tubo cuadrado 50×50 mm — patas + base de chapa + barra principal</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/02.gif"
+             alt="Diagrama rail cuadrado — patas, base y barra"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Diagrama rail cuadrado (diyskate.com/images/02.gif)</em></div>
+        <div class="img-caption">Esquema del rail cuadrado: barra de 183 cm, patas perpendiculares, bases de chapa centradas</div>
+      </div>
+
+      <ul class="sub-steps red">
+        <li>Cortá <strong>2 piezas de pata</strong> del tubo cuadrado a la altura deseada (para 23 cm de altura total: patas de ~20,5 cm). Verificá que las dos patas tengan exactamente el mismo largo.</li>
+        <li>Cortá las <strong>2 bases de chapa plana</strong> a 10 × 38 cm. Marcá el centro exacto de cada base.</li>
+        <li><strong>Soltá las patas</strong> en el centro de cada base, verificando con escuadra que queden exactamente perpendiculares (90°). Un error de verticalidad acá va a hacer que el rail quede inclinado.</li>
+        <li>Posicioná la barra principal de 183 cm sobre las patas. Las patas deben quedar a <strong>23 cm de cada extremo</strong> del rail (igual a la altura del rail). Verificá con nivel que todo esté horizontal.</li>
+        <li><strong>Soltá el rail a las patas</strong>. Pasá el cordón de soldadura en todo el perímetro de contacto para máxima resistencia.</li>
+        <li>Dejá enfriar, pasá el cepillo de acero para limpiar la escoria y aplicá <strong>pintura antióxido</strong> en toda la estructura.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PASO A3 — RAIL REDONDO -->
+  <div class="step-card">
+    <div class="step-header red-h">
+      <div class="step-num">A3</div>
+      <div class="step-title-block">
+        <h3>Armar el rail redondo soldado</h3>
+        <small>Caño redondo 2" cédula 80 — con corte en "V" en las patas</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/06.gif"
+             alt="Diagrama rail redondo — patas con corte en V"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Diagrama rail redondo con corte en V (diyskate.com/images/06.gif)</em></div>
+        <div class="img-caption">Rail redondo: las patas llevan un corte en semiciclo arriba para que el caño apoye firmemente antes de soldar</div>
+      </div>
+
+      <ul class="sub-steps red">
+        <li>Cortá las <strong>2 patas</strong> del mismo caño redondo, aproximadamente <strong>2,5 cm más largas</strong> que la altura final deseada (ej: si querés 27 cm de altura total, cortá las patas a ~27 cm y después grindás el exceso).</li>
+        <li><strong>Corte en "V" (semiciclo)</strong> en la punta superior de cada pata: con amoladora / esmeril, tallá una muesca semicircular que acomode exactamente el caño principal. Este paso no es obligatorio pero hace la soldadura mucho más fuerte y fácil de ejecutar — la superficie de contacto es mayor.</li>
+        <li>Soltá las patas en el centro de cada base de chapa a 90°, igual que en el rail cuadrado.</li>
+        <li>Posicioná el caño principal sobre las patas. Las patas van a <strong>~15 cm de cada extremo</strong> del rail (para un rail de 183 cm).</li>
+        <li>Verificá con nivel que el caño quede perfectamente horizontal. Soltá el caño a las patas con buen cordón de soldadura en todo el contorno de contacto.</li>
+        <li>Enfriar, limpiar escoria, pintura antióxido.</li>
+      </ul>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/07.gif"
+             alt="Rail redondo terminado — vista lateral"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Rail redondo soldado terminado (diyskate.com/images/07.gif)</em></div>
+        <div class="img-caption">Rail redondo terminado — patas soldadas con corte en V, base de chapa centrada</div>
+      </div>
+
+      <div class="highlight-box red-h">
+        <h4>🎿 Truco: rail inclinado (slanted rail)</h4>
+        <p>Si querés hacer un rail con inclinación (como los que ves en spots de calle), simplemente cortá una pata más larga que la otra. Por ejemplo, pata trasera de 15 cm y pata delantera de 25 cm — te da un rail inclinado de acceso progresivo, perfecto para aprender a subirlo. Es exactamente el mismo procedimiento de armado.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGEN FINAL ACERO -->
+  <div class="step-card">
+    <div class="step-header red-h">
+      <div class="step-num">A4</div>
+      <div class="step-title-block">
+        <h3>Rails terminados — referencias visuales</h3>
+        <small>Versiones finales de ambos tipos de rail soldado</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/01.gif"
+             alt="Rails de acero soldado — referencia visual"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Rails de acero terminados (diyskate.com/images/01.gif)</em></div>
+        <div class="img-caption">Referencias de rail redondo y cuadrado completamente soldados</div>
+      </div>
+      <div class="step-image-container" style="margin-top:12px;">
+        <img src="https://www.diyskate.com/images/05.gif"
+             alt="Rail cuadrado terminado con base de chapa"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">⚙️ <em>Rail cuadrado con base de chapa (diyskate.com/images/05.gif)</em></div>
+        <div class="img-caption">Rail cuadrado terminado — patas soldadas perpendiculares a la base de chapa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- VERSIÓN B — MADERA + CAÑO (SIN SOLDAR) -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-divider blue" style="margin-top:36px;">
+    <div class="sdi">🪵</div>
+    <div>
+      <h2>Versión B — Rail Madera + Caño (Sin Soldadura)</h2>
+      <p>Base de tirantes de madera con caño atornillado encima — solo taladro y tornillos</p>
+    </div>
+  </div>
+
+  <!-- SPECS MADERA -->
+  <div class="specs-grid">
+    <div class="spec-card"><div class="icon">📏</div><div class="val">Variable</div><div class="lbl">Largo (a elección)</div></div>
+    <div class="spec-card"><div class="icon">↕️</div><div class="val">~16 cm</div><div class="lbl">Altura estándar</div></div>
+    <div class="spec-card"><div class="icon">↔️</div><div class="val">~18 cm</div><div class="lbl">Ancho de base</div></div>
+    <div class="spec-card"><div class="icon">🟢</div><div class="val">Sin soldar</div><div class="lbl">Solo tornillos</div></div>
+  </div>
+
+  <!-- MATERIALES MADERA -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🛒</span>
+      <div>
+        <h2>Materiales — Versión Madera + Caño</h2>
+        <small>Para un rail de largo a tu elección (ej. 183 cm). Ajustá las medidas de madera según el largo que elijas.</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead><tr><th>Material</th><th>Cantidad</th><th>Para qué</th><th>Original EE.UU.</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Tirante de pino 2×4</strong><br><small style="color:#888">~40×90 mm real</small></td>
+            <td>2 tirantes del <strong>largo elegido</strong></td>
+            <td>Alma del cuerpo de madera: uno de canto sobre el otro plano</td>
+            <td>2 × 2×4 @ largo del rail</td>
+          </tr>
+          <tr>
+            <td><strong>Tabla de pino 2×6</strong><br><small style="color:#888">~40×140 mm real</small></td>
+            <td>1 tabla del <strong>largo elegido</strong></td>
+            <td>Base horizontal de la estructura de madera — la "huella" en el suelo</td>
+            <td>1 × 2×6 @ largo del rail</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 12 mm</strong><br><small style="color:#888">(o el más grueso disponible)</small></td>
+            <td>Tiras de <strong>~18 cm de ancho</strong> × largo del rail<br>+ (opcional) tapas de los extremos</td>
+            <td>Revestimiento lateral que da estabilidad y rigidez al cuerpo de madera</td>
+            <td>1/2" plywood, 7" wide strips</td>
+          </tr>
+          <tr>
+            <td><strong>Caño redondo o tubo cuadrado</strong><br><small style="color:#888">Mismo acero que versión A</small></td>
+            <td>1 barra del <strong>largo elegido</strong></td>
+            <td>El rail en sí — va atornillado encima del cuerpo de madera</td>
+            <td>Round or square steel tube</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall 65 mm</strong></td>
+            <td>Caja de 50 u.</td>
+            <td>Unir los tirantes de madera entre sí</td>
+            <td>2½" screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall 40 mm</strong></td>
+            <td>Caja de 100 u.</td>
+            <td>Fijar el terciado lateral</td>
+            <td>1⅝" screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos 40 mm + tuerca y arandela</strong> (para fijar el caño)</td>
+            <td>3–5 unidades (según largo)</td>
+            <td>Sujetar el caño/tubo al cuerpo de madera</td>
+            <td>1⅝" screws through predrilled holes</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout info" style="margin-top:18px;">
+        <span class="ci">📐</span>
+        <div>
+          <strong>¿Qué altura da esta configuración?</strong>
+          <p>Con un tirante 2×4 plano (~40 mm) + un tirante 2×4 de canto (~90 mm) + la tabla 2×6 debajo (~40 mm) = altura total de la madera ~170 mm (~17 cm). Sumando el caño de 50 mm de diámetro, el rail queda a unos <strong>~19–20 cm del suelo</strong> aproximadamente. Para subir la altura, agregás un tirante 2×4 plano adicional en el medio. Para bajarla, usás la tabla 2×6 como única base.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO B1 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue-n">B1</div>
+      <div class="step-title-block">
+        <h3>Armar el cuerpo de madera</h3>
+        <small>Dos tirantes 2×4 + tabla 2×6 — la columna vertebral del rail de madera</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>El cuerpo de madera es la base que sostiene el caño. Se arma apilando dos tirantes 2×4 y una tabla 2×6 en un sandwich vertical que da la altura y la rigidez necesaria.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/08.gif"
+             alt="Cuerpo de madera del rail — tirantes apilados con tabla 2×6"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🪵 <em>Cuerpo de madera del rail (diyskate.com/images/08.gif)</em></div>
+        <div class="img-caption">Un tirante 2×4 de canto sobre otro 2×4 plano, y la tabla 2×6 debajo — todo atornillado por el fondo</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li><strong>Tirante base plano:</strong> colocá el primer tirante 2×4 en posición plana (con la cara de 90 mm mirando hacia arriba).</li>
+        <li><strong>Tirante de canto:</strong> centrá el segundo tirante 2×4 encima del primero, pero en posición <em>de canto</em> (con la cara de 40 mm apoyada sobre la cara de 90 mm del primero). Atornillá desde abajo hacia arriba con <strong>tornillos de 65 mm</strong> — 1 tornillo cada 30 cm aproximadamente.</li>
+        <li><strong>Tabla 2×6 debajo:</strong> posicioná la tabla 2×6 centrada debajo del tirante base. Atornillá desde arriba hacia abajo, pasando por los dos tirantes, con <strong>tornillos de 65 mm</strong>.</li>
+        <li>Verificá con nivel que el conjunto quede recto y sin torsión antes de ajustar definitivamente.</li>
+      </ul>
+
+      <div class="highlight-box">
+        <h4>📏 ¿Querés un rail más alto?</h4>
+        <p>Agregá un tercer tirante 2×4 plano entre el tirante base y el tirante de canto. Eso suma ~40 mm más de altura. Si agregás otro, también tenés que ampliar la base usando una tabla 2×8 en lugar de la 2×6, para que la estructura no quede inestable.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO B2 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue-n">B2</div>
+      <div class="step-title-block">
+        <h3>Colocar el revestimiento lateral de terciado</h3>
+        <small>Tiras de terciado 12 mm — dan rigidez y evitan que la madera se tuerza</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>El cuerpo de madera solo con tirantes tiene cierta flexibilidad lateral. Las tiras de terciado que vas a colocar en ambos lados son las que le dan la rigidez definitiva y evitan que la estructura se abra o se tuerza con el uso.</p>
+
+      <ul class="sub-steps">
+        <li>Cortá tiras de terciado de <strong>~18 cm de ancho</strong> × largo del rail. El ancho exacto depende de la altura total de tu estructura de madera — medir antes de cortar.</li>
+        <li>Atornillá una tira en cada cara lateral del cuerpo de madera con <strong>tornillos de 40 mm</strong>, cada 20–25 cm. Las tiras deben cubrir desde la base de la tabla 2×6 hasta la parte superior del tirante de canto.</li>
+        <li><strong>Tapas de los extremos (opcional):</strong> si querés cerrar los extremos del rail, cortá dos piezas de terciado de la misma altura y ancho que la sección transversal del cuerpo. Si ponés tapas, los tirantes y la tabla deben cortarse <strong>2,5 cm más cortos</strong> que el largo final del rail (para compensar el espesor del terciado en cada extremo).</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Las tapas de los extremos mejoran mucho el acabado</strong>
+          <p>Aunque el original las marca como opcionales, cerrar los extremos con terciado hace que el rail quede muchísimo más prolijo y protege la madera interna de la humedad. Si vas a tenerlo afuera, son casi obligatorias.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO B3 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue-n">B3</div>
+      <div class="step-title-block">
+        <h3>Fijar el caño / tubo encima del cuerpo de madera</h3>
+        <small>Perforar y atornillar — el caño queda sujeto firmemente sin soldadura</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con el cuerpo de madera armado y revestido, colocás el caño o tubo encima y lo fijás con tornillos que pasan de arriba hacia abajo.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/09.gif"
+             alt="Sistema de fijación del caño al cuerpo de madera"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🔩 <em>Sistema de fijación del caño (diyskate.com/images/09.gif)</em></div>
+        <div class="img-caption">El caño se fija con tornillos: agujero grande arriba para la cabeza, agujero guía abajo — los tornillos pasan por el caño y entran en la madera</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Posicioná el caño sobre la parte superior del cuerpo de madera, centrado.</li>
+        <li>En la parte superior del caño / tubo, marcá los puntos de perforación: <strong>uno a 5 cm de cada extremo</strong>, y luego uno cada ~120 cm a lo largo del rail (para un rail de 183 cm son 3 tornillos: extremos + centro).</li>
+        <li>En cada punto, taladrá el caño con <strong>mecha de 10 mm (3/8")</strong> — este es el agujero por donde entra la cabeza del tornillo.</li>
+        <li>Justo debajo del primer agujero (en la cara inferior del caño), taladrá un segundo agujero más chico de <strong>5 mm (3/16")</strong> — este es el agujero guía por donde sale la punta del tornillo hacia la madera.</li>
+        <li>Pasá un <strong>tornillo de 40 mm</strong> por el agujero grande de arriba hacia el agujero guía de abajo y atornillalo en la madera. La cabeza del tornillo queda recesada dentro del caño — no sobresale y no te va a molestar al grindear.</li>
+        <li>Repetí en todos los puntos de fijación. Para un rail de 4 pies (~120 cm) usás 3 tornillos; para uno de 244 cm o más, agregás uno intermedio extra cada 120 cm adicionales.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>Verificá que el caño no gire</strong>
+          <p>Especialmente con caño redondo, los tornillos pueden actuar como pivote y el caño puede girar si no está bien sujeto. Asegurate de que los tornillos estén bien apretados y que la madera sujete firme. Si el caño gira, podés solucionar pegando una pequeña cuña de madera debajo del caño antes de atornillar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGEN FINAL MADERA -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num blue-n">B4</div>
+      <div class="step-title-block">
+        <h3>Rail de madera terminado</h3>
+        <small>Resultado final — listo para usar</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/04.gif"
+             alt="Rail de madera terminado — vista lateral"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🪵 <em>Rail de madera terminado (diyskate.com/images/04.gif)</em></div>
+        <div class="img-caption">Rail madera + caño terminado — cuerpo de tirantes con terciado lateral y caño fijado con tornillos</div>
+      </div>
+      <div class="step-image-container" style="margin-top:12px;">
+        <img src="https://www.diyskate.com/images/10.gif"
+             alt="Rail en uso"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+        <div class="img-fallback">🛹 <em>Rail en uso (diyskate.com/images/10.gif)</em></div>
+        <div class="img-caption">Cualquiera de las dos versiones da un rail sólido y funcional — ¡a grindear!</div>
+      </div>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Wax en el caño = grinds más fluidos</strong>
+          <p>Antes de la primera sesión, frotá bien el caño con <strong>cera de parafina</strong> (vela común). Reduce enormemente la fricción y hace que todo tipo de grind y slide fluya mejor. Es un hábito que vas a incorporar rápido.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA DE MEDIDAS ESCALABLES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📊</span>
+      <div>
+        <h2>Tabla de medidas para distintos tamaños de rail</h2>
+        <small>Todas las versiones escalables — ambas variantes de construcción</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <p style="margin-bottom:14px;">Estos son los cortes de pata para las alturas más comunes de rail, para la versión de acero soldado:</p>
+      <table class="measure-table">
+        <thead><tr><th>Altura total del rail</th><th>Largo de pata (rail cuadrado)</th><th>Largo de pata (rail redondo)</th><th>Distancia pata–extremo</th></tr></thead>
+        <tbody>
+          <tr><td>20 cm</td><td>17,5 cm</td><td>17,5 cm</td><td>20 cm desde el extremo</td></tr>
+          <tr><td>25 cm</td><td>22,5 cm</td><td>22,5 cm</td><td>25 cm desde el extremo</td></tr>
+          <tr><td>30 cm (estándar)</td><td>27,5 cm</td><td>27,5 cm</td><td>30 cm desde el extremo</td></tr>
+          <tr><td>40 cm</td><td>37,5 cm</td><td>37,5 cm</td><td>40 cm desde el extremo</td></tr>
+        </tbody>
+      </table>
+      <div class="callout info" style="margin-top:14px;">
+        <span class="ci">📌</span>
+        <div>
+          <strong>La regla de la distancia pata–extremo</strong>
+          <p>Las patas siempre se ubican a una distancia desde el extremo del rail igual a la altura del rail. Si el rail mide 30 cm de alto, las patas van a 30 cm de cada punta. Esto mantiene las proporciones correctas para la estabilidad y evita que el rail se balancee cuando saltás encima.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGURIDAD -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⛑️</span>
+      <div><h2>Seguridad, mantenimiento y consejos</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="safety-grid">
+        <div class="safety-item">
+          <strong>🔩 Revisá el rail periódicamente</strong>
+          Los tornillos de fijación del caño se pueden aflojar. Revisá antes de cada sesión intensa. Un caño que se mueve es peligroso.
+        </div>
+        <div class="safety-item">
+          <strong>🦺 Soldadura — equipo obligatorio</strong>
+          Al soldar: careta de soldador (nunca mirar el arco sin protección), guantes de cuero, ropa de algodón, ventilación. Nunca soldar sin careta.
+        </div>
+        <div class="safety-item">
+          <strong>🌧️ Protección exterior</strong>
+          Pintura antióxido sobre todo el acero. En la versión de madera, tratar la madera con barniz o pintura exterior. Guardar bajo techo si es posible.
+        </div>
+        <div class="safety-item">
+          <strong>⚙️ Revisá las soldaduras</strong>
+          En la versión soldada, inspeccioná periódicamente las uniones pata–rail y pata–base. Una soldadura fisurada puede ceder de golpe bajo carga.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📖</span>
+      <div>
+        <h2>Glosario — términos de este manual</h2>
+        <small>Equivalencias entre el original en inglés y los nombres en Argentina</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <tr><th>En este manual (Argentina)</th><th>Original EE.UU.</th><th>Aclaración</th></tr>
+        <tr><td>Caño redondo de acero negro 2" cédula 80</td><td>2" Schedule 80 black pipe</td><td>~60 mm diámetro exterior, pared gruesa</td></tr>
+        <tr><td>Tubo estructural cuadrado 50×50 mm</td><td>2"×2" square tubing</td><td>Pared de 3–5 mm — en distribuidoras de acero</td></tr>
+        <tr><td>Platina / chapa plana de acero ~5 mm</td><td>3/16" plate steel</td><td>Para las bases / pies del rail soldado</td></tr>
+        <tr><td>Tirante 2×4</td><td>2×4 lumber</td><td>~40×90 mm real — pino elliottis</td></tr>
+        <tr><td>Tabla 2×6</td><td>2×6 lumber</td><td>~40×140 mm real</td></tr>
+        <tr><td>Terciado fenólico 12 mm</td><td>1/2" plywood</td><td>Para revestimiento lateral</td></tr>
+        <tr><td>Tornillo 40 mm / 65 mm</td><td>1⅝" / 2½" screws</td><td>Tornillos para drywall rosca gruesa</td></tr>
+        <tr><td>Mecha 10 mm / 5 mm</td><td>3/8" / 3/16" drill bit</td><td>Para perforar el caño de acero</td></tr>
+        <tr><td>Amoladora / esmeril</td><td>Grinder</td><td>Para el corte en V de las patas del rail redondo</td></tr>
+        <tr><td>Pintura antióxido</td><td>Primer / rust inhibitor</td><td>Protección del acero para exterior</td></tr>
+        <tr><td>Herrería / metalúrgica</td><td>Steel fabricator / welder</td><td>Donde conseguís el acero y podés pedir que suelden</td></tr>
+        <tr><td>Cera de parafina / vela</td><td>Wax</td><td>Para lubricar el caño y mejorar grinds</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="footer">
+  Manual adaptado para Argentina a partir de diyskate.com · Medidas convertidas de pies/pulgadas a centímetros · Materiales equivalentes al mercado local.<br>
+  Para los planos originales en inglés: <strong>diyskate.com/grind_rail.html</strong>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Micro Quarter Pipe DIY — Argentina</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  /* COVER */
+  .cover {
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 45%, #0f3460 100%);
+    color: white;
+    min-height: 320px;
+    padding: 60px 50px 50px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(233,69,96,0.18) 0%, transparent 70%);
+    top: -150px; right: -100px;
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '🛹';
+    font-size: 180px;
+    position: absolute;
+    opacity: 0.06;
+    bottom: -30px; right: 20px;
+    line-height: 1;
+  }
+  .cover .eyebrow {
+    font-size: 0.72em; font-weight: 700; letter-spacing: 4px;
+    color: #e94560; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .cover h1 {
+    font-size: 2.8em; font-weight: 900; line-height: 1.1;
+    margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .cover h1 span { color: #e94560; }
+  .cover .desc { font-size: 1em; color: #a8c8ea; max-width: 560px; margin-bottom: 26px; }
+  .cover-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cover-badges span {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #ddd; padding: 5px 14px; border-radius: 20px;
+    font-size: 0.78em; font-weight: 600;
+  }
+  .cover-badges span.red { background: #e94560; border-color: #e94560; color: white; }
+
+  /* LAYOUT */
+  .page { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+  /* INTRO */
+  .intro-box {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    padding: 32px 36px; margin-bottom: 28px;
+    border-left: 5px solid #e94560;
+  }
+  .intro-box h2 { font-size: 1.15em; font-weight: 800; color: #e94560; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+  /* SPECS */
+  .specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  .spec-card {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    padding: 22px 20px; text-align: center;
+  }
+  .spec-card .icon { font-size: 2em; margin-bottom: 6px; }
+  .spec-card .val { font-size: 1.5em; font-weight: 900; color: #0f3460; line-height: 1.1; }
+  .spec-card .lbl { font-size: 0.76em; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* CARDS */
+  .card {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    overflow: hidden; margin-bottom: 28px;
+  }
+  .card-header {
+    background: linear-gradient(90deg, #0f3460, #16213e);
+    color: white; padding: 18px 28px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .card-header .icon { font-size: 1.4em; }
+  .card-header h2 { font-size: 1.1em; font-weight: 800; letter-spacing: 0.5px; }
+  .card-header small { font-size: 0.72em; color: #aac4e0; display: block; margin-top: 2px; }
+  .card-body { padding: 24px 28px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 0.91em; }
+  th { background: #f0f4fa; color: #0f3460; font-weight: 700; padding: 10px 14px; text-align: left; border-bottom: 2px solid #dce8f8; }
+  td { padding: 9px 14px; border-bottom: 1px solid #eef2f8; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f7f9fd; }
+
+  /* STEPS */
+  .step-card {
+    background: white; border-radius: 14px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.09);
+    overflow: hidden; margin-bottom: 28px;
+  }
+  .step-header { display: flex; align-items: stretch; background: linear-gradient(90deg, #0f3460, #16213e); color: white; }
+  .step-num {
+    background: #e94560; color: white; font-size: 2em; font-weight: 900;
+    width: 70px; min-width: 70px; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .step-title-block { padding: 16px 22px; display: flex; flex-direction: column; justify-content: center; }
+  .step-title-block h3 { font-size: 1.1em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+  .step-title-block small { color: #a8c8ea; font-size: 0.78em; margin-top: 2px; }
+  .step-body { padding: 24px 28px; }
+
+  .step-image-container {
+    background: #f7f9fd; border-radius: 10px; padding: 16px;
+    margin: 18px 0; text-align: center; border: 1px solid #e0e8f5;
+  }
+  .step-image-container img {
+    max-width: 100%; border-radius: 8px; display: block;
+    margin: 0 auto; max-height: 340px; object-fit: contain;
+  }
+  .img-caption { font-size: 0.78em; color: #888; margin-top: 10px; font-style: italic; }
+
+  /* CALLOUTS */
+  .callout {
+    border-radius: 10px; padding: 14px 18px; margin: 14px 0;
+    font-size: 0.91em; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .callout .ci { font-size: 1.3em; flex-shrink: 0; margin-top: 1px; }
+  .callout p { margin: 0; }
+  .callout strong { display: block; margin-bottom: 4px; color: #0f3460; }
+  .callout.info { background: #eef4ff; border: 1px solid #c8daf8; }
+  .callout.tip  { background: #edfaf3; border: 1px solid #b7e8ce; }
+  .callout.warn { background: #fff8ec; border: 1px solid #fad99a; }
+  .callout.alert { background: #fff0f3; border: 1px solid #f5c0c8; }
+
+  /* SUB-STEPS */
+  .sub-steps { counter-reset: sub; padding: 0; list-style: none; }
+  .sub-steps li { counter-increment: sub; display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
+  .sub-steps li::before {
+    content: counter(sub); background: #0f3460; color: white;
+    font-weight: 700; font-size: 0.78em; width: 24px; height: 24px;
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* TOOLS GRID */
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .tool-item {
+    background: #f7f9fd; border-radius: 8px; padding: 8px 12px;
+    font-size: 0.88em; display: flex; align-items: center;
+    gap: 8px; border: 1px solid #e0e8f5;
+  }
+
+  /* TIP BANNER */
+  .tip-banner {
+    background: linear-gradient(135deg, #e94560, #c0392b);
+    color: white; border-radius: 14px; padding: 22px 28px;
+    margin-bottom: 28px; display: flex; gap: 16px; align-items: center;
+  }
+  .tip-banner .tbi { font-size: 2.5em; flex-shrink: 0; }
+  .tip-banner h3 { font-size: 1.05em; font-weight: 800; margin-bottom: 4px; }
+  .tip-banner p { font-size: 0.88em; color: rgba(255,255,255,0.88); margin: 0; }
+
+  /* SAFETY */
+  .safety-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .safety-item { background: #fff8ec; border: 1px solid #fad99a; border-radius: 10px; padding: 14px 16px; font-size: 0.88em; }
+  .safety-item strong { color: #b7790a; display: block; margin-bottom: 4px; }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: linear-gradient(135deg, #f0f4fa, #e8f0fb);
+    border: 2px solid #0f3460; border-radius: 12px;
+    padding: 20px 24px; margin: 18px 0;
+  }
+  .highlight-box h4 { color: #0f3460; font-size: 1em; font-weight: 800; margin-bottom: 8px; }
+
+  /* LAYERS DIAGRAM */
+  .layers-box {
+    background: #f7f9fd; border: 1px solid #dce8f8; border-radius: 12px;
+    padding: 20px 24px; margin: 16px 0;
+  }
+  .layers-box h4 { color: #0f3460; font-size: 0.95em; font-weight: 800; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .layer-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .layer-badge {
+    background: #0f3460; color: white; font-size: 0.72em; font-weight: 700;
+    padding: 4px 10px; border-radius: 20px; white-space: nowrap; min-width: 90px; text-align: center;
+  }
+  .layer-badge.red { background: #e94560; }
+  .layer-badge.green { background: #27ae60; }
+  .layer-desc { font-size: 0.88em; color: #444; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center; color: #aaa; font-size: 0.78em;
+    padding: 20px; border-top: 1px solid #e0e8f5; margin-top: 10px;
+  }
+
+  @media print {
+    body { background: white; font-size: 13px; }
+    .page { max-width: 100%; padding: 10px 15px 30px; }
+    .cover { min-height: 200px; padding: 30px; }
+    .cover h1 { font-size: 2em; }
+    .step-card, .card, .intro-box { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  }
+  @media (max-width: 600px) {
+    .cover h1 { font-size: 1.8em; }
+    .cover { padding: 40px 28px 36px; }
+    .specs-grid { grid-template-columns: 1fr 1fr; }
+    .tools-grid, .safety-grid { grid-template-columns: 1fr; }
+    .step-num { width: 50px; min-width: 50px; font-size: 1.5em; }
+    .card-body, .step-body { padding: 18px; }
+    .intro-box { padding: 22px 20px; }
+  }
+  .back-btn{position:fixed;top:16px;left:16px;z-index:100;background:rgba(15,52,96,0.92);color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:.82em;font-weight:700;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.15);transition:background 0.2s;}
+  .back-btn:hover{background:#e94560;}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-btn">← Índice</a>
+
+<!-- PORTADA -->
+<div class="cover">
+  <div class="eyebrow">Manual de Construcción · DIY Skate</div>
+  <h1>Cómo hacer una <span>Micro Quarter</span></h1>
+  <p class="desc">Guía paso a paso para construir una mini quarter pipe desde cero, con materiales, medidas en centímetros y terminología adaptada para Argentina.</p>
+  <div class="cover-badges">
+    <span class="red">🇦🇷 Versión Argentina</span>
+    <span>📐 Medidas en cm</span>
+    <span>🪵 Materiales locales</span>
+    <span>🛹 Nivel: Principiante</span>
+  </div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <h2>¿Qué es una Micro Quarter?</h2>
+    <p>Una <em>micro quarter</em> (o "micro cuarto de tubo") es una quarter pipe de tamaño reducido — exactamente lo que dice el nombre. Por su tamaño compacto, es ideal para garajes, sótanos, patios y entradas de casas. Es el punto de entrada perfecto al mundo de las rampas de skate: más fácil de construir que una half-pipe, más divertida que una rampa plana, y cabe en cualquier lado.</p>
+    <p style="margin-top:10px;">Esta guía está basada en los planos de <strong>diyskate.com</strong>, con todos los materiales y medidas adaptados para el mercado argentino. Las medidas originales (en pies y pulgadas) fueron convertidas a centímetros, y los nombres de materiales reemplazados por los equivalentes que conseguís en cualquier corralón o ferretería local.</p>
+  </div>
+
+  <!-- SPECS -->
+  <div class="specs-grid">
+    <div class="spec-card">
+      <div class="icon">↕️</div>
+      <div class="val">61 cm</div>
+      <div class="lbl">Altura</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">↔️</div>
+      <div class="val">122 cm</div>
+      <div class="lbl">Ancho</div>
+    </div>
+    <div class="spec-card">
+      <div class="icon">🔄</div>
+      <div class="val">168 cm</div>
+      <div class="lbl">Radio de transición</div>
+    </div>
+  </div>
+
+  <!-- TIP BANNER -->
+  <div class="tip-banner">
+    <div class="tbi">💡</div>
+    <div>
+      <h3>Ideal para espacios reducidos</h3>
+      <p>Por su tamaño compacto (61 cm de alto, 122 cm de ancho), esta rampa entra perfectamente en un garaje simple o patio mediano. Es la primera rampa que deberías hacer si estás empezando a construir — aprendés todas las técnicas sin gastar demasiado.</p>
+    </div>
+  </div>
+
+  <!-- MATERIALES -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🛒</span>
+      <div>
+        <h2>Lista de materiales</h2>
+        <small>Terminología argentina — conseguibles en corralón, maderera o ferretería</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Cantidad / Medida</th>
+            <th>Para qué sirve</th>
+            <th>Original EE.UU.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tirante de pino 2×4</strong><br><small style="color:#888">Pino Elliottis o Paraná Misionero</small></td>
+            <td>11 piezas de <strong>117 cm</strong> c/u<br><small>(de cada tirante de 2,44 m salen 2 piezas → comprás 6 tirantes)</small></td>
+            <td>Costillas / estructura interna de la rampa</td>
+            <td>11 × 2×4 @ 3'-10½"</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 18 mm</strong></td>
+            <td>1 plancha estándar de <strong>122 × 244 cm</strong></td>
+            <td>Plantillas laterales + tapa del deck — todo sale de esta sola plancha</td>
+            <td>3/4" plywood, 4'×8' sheet</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 9 mm</strong><br><small style="color:#888">(3/8" en el original)</small></td>
+            <td>2 planchas de <strong>122 × 122 cm</strong><br><small>(se cortan de una plancha estándar 122×244 cm)</small></td>
+            <td>Primera y segunda capa de la superficie de rodadura (curva)</td>
+            <td>3/8" plywood × 2 layers</td>
+          </tr>
+          <tr>
+            <td><strong>Terciado fenólico 6 mm</strong><br><small style="color:#888">(o HDF / fibra dura — equivalente a "Masonite")</small></td>
+            <td>1 pieza de <strong>107 × 122 cm</strong></td>
+            <td>Capa de superficie final (la que pisás y donde vas a caer)</td>
+            <td>Masonite / hardboard, 1/4"</td>
+          </tr>
+          <tr>
+            <td><strong>Tubo de acero redondo 2" (coping)</strong><br><small style="color:#888">Ver sección específica del coping abajo</small></td>
+            <td>1 barra de <strong>122 cm</strong> de largo</td>
+            <td>Coping — el caño de metal en el borde superior de la rampa</td>
+            <td>2" Schedule 80 black steel pipe, 4' long</td>
+          </tr>
+          <tr>
+            <td><strong>Chapa de acero galvanizado</strong><br><small style="color:#888">Espesor: ~5 mm (3/16") o chapa gruesa similar</small></td>
+            <td>1 pieza de <strong>122 × 30 cm</strong></td>
+            <td>Umbral / lip metálico en la base de la rampa (donde toca el suelo)</td>
+            <td>Sheet metal 3/16", 4'×1'</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~40 mm (1⅝") — caja de 100 u.</td>
+            <td>Fijar terciado a la estructura</td>
+            <td>1 5/8" drywall screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos para drywall rosca gruesa</strong></td>
+            <td>~65 mm (2½") — caja de 50 u.</td>
+            <td>Unir tirantes entre sí y los laterales a los tirantes</td>
+            <td>2 1/2" drywall screws</td>
+          </tr>
+          <tr>
+            <td><strong>Tornillos avellanados galvanizados</strong></td>
+            <td>5 mm (3/16") — ~6 unidades</td>
+            <td>Fijar el tubo de coping y la chapa de umbral</td>
+            <td>3/16" countersunk screws</td>
+          </tr>
+          <tr>
+            <td><strong>Pintura para madera</strong> (opcional)</td>
+            <td>1 lata pequeña</td>
+            <td>Acabado y protección de la madera</td>
+            <td>Paint</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout info" style="margin-top:20px;">
+        <span class="ci">📌</span>
+        <div>
+          <strong>Optimización del terciado — todo de 2 planchas</strong>
+          <p>Con <strong>1 plancha de 18 mm</strong> (122×244 cm) sacás las dos plantillas laterales y la tapa del deck. Con <strong>1 plancha de 9 mm</strong> (122×244 cm) cortada al medio (dos piezas de 122×122 cm) tenés las dos capas de rodadura. Y con un recorte de 6 mm tenés la capa de Masonite. En total: 3 planchas máximo si comprás bien.</p>
+        </div>
+      </div>
+
+      <div class="callout warn" style="margin-top:12px;">
+        <span class="ci">🌧️</span>
+        <div>
+          <strong>¿Rampa para exterior?</strong>
+          <p>Si va a quedar afuera, usá <strong>tirantes de pino impregnado CCA</strong> (el pino de color verdoso) y <strong>terciado fenólico</strong> en todas las planchas. Pintá bien las superficies, cubrí con lona cuando no la uses y considerá una capa de <strong>Skatelite o fenólico de alta densidad</strong> como superficie final — aguantan mucho mejor la intemperie que el Masonite.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERRAMIENTAS -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🔨</span>
+      <div><h2>Herramientas necesarias</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="tools-grid">
+        <div class="tool-item">🔵 Sierra circular</div>
+        <div class="tool-item">🔵 Caladora (jig saw)</div>
+        <div class="tool-item">⚡ Atornillador eléctrico / taladro</div>
+        <div class="tool-item">📐 Escuadra y cinta métrica</div>
+        <div class="tool-item">✏️ Lápiz de carpintero</div>
+        <div class="tool-item">🔩 Mechas: 2 mm, 5 mm (3/16") y 10 mm (3/8")</div>
+        <div class="tool-item">🔩 Mecha para metal de 5 mm (3/16")</div>
+        <div class="tool-item">📏 Nivel de burbuja</div>
+        <div class="tool-item">🗜️ Sargentos / prensas</div>
+        <div class="tool-item">🦺 Lentes y guantes de seguridad</div>
+        <div class="tool-item">🪚 Sierra para metal (para el tubo coping)</div>
+        <div class="tool-item">📐 Regla flexible o tirante largo (para trazar la curva)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PASOS ===== -->
+
+  <!-- PASO 1 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title-block">
+        <h3>Preparar todos los cortes</h3>
+        <small>Cut list — antes de armar, cortar todo</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Antes de atornillar una sola pieza, prepará todos los cortes. Empezá con los tirantes 2×4: cortá <strong>11 piezas de 117 cm de largo</strong>. De cada tirante de 2,44 m salen exactamente 2 piezas (te sobran 10 cm por tirante), así que comprás <strong>6 tirantes de 2,44 m</strong> y de uno usás solo una pieza.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/Capture2.PNG"
+             alt="Lista de cortes — materiales micro quarter"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          📋 <em>Tabla de cortes del diseño original (diyskate.com/images/Capture2.PNG)</em>
+        </div>
+        <div class="img-caption">Tabla de cortes y lista de materiales completa del diseño original</div>
+      </div>
+
+      <p>Estos son todos los cortes que vas a necesitar, organizados por material:</p>
+
+      <ul class="sub-steps">
+        <li><strong>11 piezas de tirante 2×4 a 117 cm</strong> — costillas de la estructura. Necesitás 6 tirantes de 2,44 m.</li>
+        <li><strong>Plantillas laterales (×2) + tapa de deck</strong> — todo sale de la plancha de 18 mm de 122×244 cm. El layout de cortes se dibuja en el paso 2.</li>
+        <li><strong>2 piezas de terciado 9 mm a 122×122 cm</strong> — primera y segunda capa de rodadura. Salen de una sola plancha estándar cortada al medio a lo ancho.</li>
+        <li><strong>1 pieza de terciado 6 mm / HDF a 107×122 cm</strong> — capa final (Masonite). Sale de una plancha estándar con un corte.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Pedí los cortes rectos en la maderera</strong>
+          <p>Los cortes rectos del terciado (la tapa, las capas de rodadura y el HDF) los puede hacer la maderera o corralón con sierra de banco, por muy poco. Lo que tenés que hacer vos en casa es solo el corte curvo de la transición en las plantillas laterales. Esto te ahorra tiempo y da más precisión.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title-block">
+        <h3>Distribuir y trazar los cortes en la plancha de 18 mm</h3>
+        <small>Plywood layout — plantillas + deck de una sola plancha</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>En la plancha de fenólico 18 mm (122×244 cm) entran las dos plantillas laterales y la tapa del deck. El truco es aprovechar bien el espacio para no desperdiciar material.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq01.jpg"
+             alt="Layout de cortes en la plancha de terciado 18mm"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          📐 <em>Layout de la plancha de terciado (diyskate.com/images/mq01.jpg)</em>
+        </div>
+        <div class="img-caption">Distribución de cortes en la plancha de 18 mm — plantillas laterales y tapa del deck</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Apoyá la plancha de 18 mm en una superficie plana. Marcá con lápiz una línea a <strong>122 cm del extremo</strong> dividiendo la plancha en dos mitades: de un lado van las dos plantillas laterales, del otro va la tapa del deck.</li>
+        <li>La tapa del deck mide <strong>61 × 122 cm</strong> — sale exacta de la mitad sobrante sin desperdicio.</li>
+        <li>Las dos plantillas laterales se trazan en la otra mitad. El perfil curvo se hace en el paso 3. Por ahora solo marcá el rectángulo de <strong>61 × 122 cm</strong> para cada plantilla.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📐</span>
+        <div>
+          <strong>¿Por qué 61 cm de alto?</strong>
+          <p>La altura de la rampa es de 61 cm (2 pies en el original). Las plantillas laterales tienen exactamente ese alto antes de trazar la curva. Una vez que recortás el perfil de transición, la altura final en el punto más alto queda en esos 61 cm.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title-block">
+        <h3>Trazar la curva de transición</h3>
+        <small>Drawing the transition — radio de 168 cm con compás casero</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Esta es la parte más técnica de la construcción — dibujar la curva suave de la transición en las plantillas laterales. No es difícil, pero requiere atención.</p>
+      <p>El método que usa el sitio original (y que funciona muy bien) es construir un <strong>compás gigante</strong> con un tirante 2×4 de ~25 cm, que actúa como un radio de 168 cm para trazar el arco.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq02.jpg"
+             alt="Compás casero con tirante 2x4 para trazar la transición"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          📐 <em>Compás de tirante para trazar la transición (diyskate.com/images/mq02.jpg)</em>
+        </div>
+        <div class="img-caption">El tirante 2×4 actúa como compás — un extremo con el lápiz, el otro con el tornillo-pivote</div>
+      </div>
+
+      <div class="highlight-box">
+        <h4>🔧 Cómo construir el compás de tirante</h4>
+        <p>Tomá un tirante 2×4 de unos 25 cm (un sobrante sirve). En un extremo, taladrá un agujero del diámetro de un lápiz (~9-10 mm). A partir de ese agujero, medí <strong>168 cm hacia el otro extremo</strong> y clavá ahí un tornillo sin que atraviese completamente el tirante — ese es el pivote.</p>
+      </div>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq03.jpg"
+             alt="Plancha de terciado posicionada para trazar el arco"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          📐 <em>Posición de la plancha para trazar (diyskate.com/images/mq03.jpg)</em>
+        </div>
+        <div class="img-caption">La plancha de 18 mm junto a la plancha de 9 mm — el pivote va en la segunda</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Apoyá la plancha de 18 mm en el suelo en una superficie lo más plana posible. Colocá la plancha de 9 mm pegada a ella, de largo a largo, tocándose.</li>
+        <li>Posicioná el compás de tirante de modo que el tornillo-pivote quede clavado en la plancha de 9 mm, en el punto exacto que muestra el diagrama del sitio original. El pivote debe quedar a ras del suelo (o del nivel inferior del arco).</li>
+        <li>Con el lápiz en el agujero del otro extremo, hacé girar el tirante trazando el arco sobre la plancha de 18 mm. El resultado es la curva de transición de la rampa.</li>
+        <li>Una vez trazado el arco, completá el perfil midiendo hacia arriba <strong>58,7 cm</strong> y hacia adelante <strong>155,6 cm</strong> desde la esquina inferior izquierda para cerrar la forma de la plantilla. También trazá el detalle del hueco para el coping en la esquina superior.</li>
+      </ul>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq04.jpg"
+             alt="Transición trazada completa con detalle del coping"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          📐 <em>Transición trazada con detalle del coping (diyskate.com/images/mq04.jpg)</em>
+        </div>
+        <div class="img-caption">La transición completa trazada — con el hueco semicircular para el coping en la esquina superior</div>
+      </div>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>El hueco del coping es importante</strong>
+          <p>En la esquina superior de cada plantilla hay que trazar y cortar un pequeño semicírculo donde va a apoyar el tubo de coping. El diámetro del hueco debe ser levemente mayor que el diámetro exterior del tubo (2" = 50 mm exterior del Schedule 40, o 60 mm del Schedule 80). Esto mantiene el coping en su lugar y en la posición correcta.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title-block">
+        <h3>Cortar las plantillas laterales</h3>
+        <small>Cut the transition — con caladora siguiendo las líneas</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con todas las líneas trazadas, es hora de cortar. La curva de transición se hace con <strong>caladora</strong> — una sierra circular no puede hacer este tipo de corte curvo.</p>
+
+      <ul class="sub-steps">
+        <li>Cortá con cuidado siguiendo exactamente la línea del arco. No vayas rápido — la precisión acá es lo que determina la calidad de la curva de rodadura. Una curva irregular se va a notar cuando patinés.</li>
+        <li>Cortá también la tapa del deck del mismo terciado (la pieza de 61×122 cm) con sierra circular si la maderera no te lo hizo antes.</li>
+        <li>Una vez cortada la primera plantilla, <strong>usala como plantilla para trazar la segunda</strong> — apoyala sobre el terciado, trazá el contorno con lápiz y cortá igual. Así garantizás que los dos lados sean idénticos. Si podés, fijalas con un tornillo provisorio y calalas juntas en una sola pasada.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Las dos plantillas DEBEN ser iguales</strong>
+          <p>Si los dos lados de la rampa tienen perfiles distintos, la superficie de rodadura va a quedar torcida y la rampa se va a sentir mal. Siempre usar una como molde de la otra — nunca trazar las dos independientemente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title-block">
+        <h3>Armar la estructura — base y tirantes</h3>
+        <small>Framing the bottom — tirantes de base y primeras costillas</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con las plantillas listas, empezá a armar el esqueleto. Primero colocás los tirantes inferior y superior que anclan la estructura.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq05.jpg"
+             alt="Tirantes de base colocados entre las plantillas laterales"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          🏗️ <em>Tirantes de base en las plantillas (diyskate.com/images/mq05.jpg)</em>
+        </div>
+        <div class="img-caption">Tirante inferior y superior de la zona plana — primera fijación del esqueleto</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Posicioná las dos plantillas laterales paradas en paralelo, con la cara curva mirando hacia el mismo lado, separadas exactamente <strong>117 cm</strong> entre caras internas (el largo de los tirantes).</li>
+        <li>Atornillá el <strong>tirante inferior</strong> (el que va en la base, en el punto donde la rampa toca el suelo) con <strong>2 tornillos de 65 mm por lado</strong>. Pre-taladrá con mecha de 2 mm cerca de los extremos.</li>
+        <li>Atornillá también el <strong>tirante del borde superior del deck</strong> (la parte plana de arriba) de la misma forma.</li>
+        <li>Verificá con nivel de burbuja y escuadra que todo esté a 90° antes de continuar.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PASO 6 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div class="step-title-block">
+        <h3>Completar la estructura — todas las costillas</h3>
+        <small>Framing the center — 9 tirantes restantes, cada 20 cm</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Ahora colocás los <strong>9 tirantes restantes</strong> a lo largo de toda la superficie de rodadura, separados <strong>20 cm de centro a centro</strong> (equivalente a las 8 pulgadas del original). Estos tirantes son los que van a soportar las capas de terciado y tu peso mientras patinás.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq06.jpg"
+             alt="Todas las costillas colocadas a 20 cm de separación"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          🏗️ <em>Estructura con todas las costillas (diyskate.com/images/mq06.jpg)</em>
+        </div>
+        <div class="img-caption">Los 9 tirantes restantes distribuidos a 20 cm de centro a centro sobre la zona de rodadura y el deck</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Marcá en las plantillas los puntos a 20 cm de separación (de centro a centro). Empezá desde el tirante de base y subí siguiendo el perfil de la curva.</li>
+        <li>Atornillá cada tirante en su posición con <strong>2 tornillos de 65 mm por lado</strong>. Asegurate de que cada tirante quede <em>al ras con la cara exterior de la curva</em> para que el terciado apoye bien.</li>
+        <li>Los tirantes de la zona del deck (la parte plana arriba) van horizontales. Los de la zona de la curva siguen el perfil y van en ángulo respecto al suelo.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>Costillas al ras de la curva</strong>
+          <p>Cada tirante debe quedar exactamente a nivel con la cara exterior del perfil curvo de las plantillas. Si alguno sobresale, el terciado no va a quedar liso. Si queda hundido, habrá un escalón. Verificá pasando una regla larga por la superficie antes de colocar el primer terciado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 7: COPING -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <div class="step-title-block">
+        <h3>El tubo de coping — compra, corte y perforación</h3>
+        <small>Buying & drilling the coping — tubo de acero 2" × 122 cm</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>El coping es el tubo de acero que va en el borde superior de la curva — el que usás para hacer grinds, stalls y pivots. Para esta rampa necesitás un tubo de <strong>122 cm de largo</strong>.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mqcoping_00.gif"
+             alt="Diagrama del tubo de coping"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          ⚙️ <em>Diagrama del coping (diyskate.com/images/mqcoping_00.gif)</em>
+        </div>
+        <div class="img-caption">Diagrama del tubo de coping — posición de los agujeros exteriores e interiores escalonados</div>
+      </div>
+
+      <div class="highlight-box">
+        <h4>🔧 ¿Qué tubo usar en Argentina?</h4>
+        <p>El original especifica "2" Schedule 80 black steel pipe" — un tubo de acero negro de pared gruesa. En Argentina pedís en <strong>distribuidoras de acero o herrerías</strong>:</p>
+        <ul style="padding-left:18px; margin-top:8px;">
+          <li><strong>Opción ideal (equivalente al Schedule 80):</strong> "Tubo redondo de acero sin costura de 2" diámetro nominal" — pared gruesa, no se doblará con el uso.</li>
+          <li><strong>Opción económica (equivalente al Schedule 40):</strong> "Tubo redondo de acero de 2" diámetro nominal, pared normal (LAC)" — más liviano y barato, puede marcarse con el tiempo pero sirve para uso moderado.</li>
+          <li><strong>NO usar:</strong> caño de PVC, caño eléctrico o conduit — no aguantan el uso de skate.</li>
+        </ul>
+        <p style="margin-top:10px; font-size:0.9em;">El diámetro exterior real del tubo es de <strong>60 mm aprox.</strong> (2 3/8" OD). Pedí siempre que te lo corten a 122 cm exactos.</p>
+      </div>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mqcoping_01.gif"
+             alt="Perforación del tubo de coping — agujero exterior e interior"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          ⚙️ <em>Perforación del coping (diyskate.com/images/mqcoping_01.gif)</em>
+        </div>
+        <div class="img-caption">Sistema de doble perforación — agujero exterior de 10 mm (3/8") para meter el tornillo, interior de 5 mm (3/16") para atornillar</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Marcá en el tubo <strong>3 puntos de perforación</strong>: uno a ~7 cm de cada extremo y uno en el centro exacto (a 61 cm).</li>
+        <li>En cada punto marcado, taladrá <strong>DOS agujeros alineados verticalmente</strong> en el tubo: uno en la pared superior (exterior) y otro en la pared inferior (interior). El agujero exterior va con <strong>mecha de 10 mm (3/8")</strong> — suficientemente grande para pasar el tornillo. El agujero interior va con <strong>mecha de 5 mm (3/16")</strong> — solo para que pase la punta del tornillo.</li>
+        <li>Usá aceite de máquina o agua para enfriar las mechas mientras perforás el acero — el metal caliente come las mechas rápido.</li>
+        <li>Este sistema permite meter el tornillo desde afuera, pasarlo por el interior del tubo y atornillarlo en la madera de la rampa. Es el método estándar para fijar copings.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Los agujeros no afectan el skate</strong>
+          <p>No te preocupes por los agujeros en el coping — los tornillos quedan dentro del tubo y los agujeros de entrada son lo suficientemente pequeños (10 mm) para que no se noten al patinar. El sitio original lo garantiza.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 8 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">8</div>
+      <div class="step-title-block">
+        <h3>Fijar el coping a la rampa</h3>
+        <small>Attach the coping — el tubo va en la muesca de la esquina superior</small>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq07.jpg"
+             alt="Coping colocado en su posición en la rampa"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          ⚙️ <em>Coping en posición (diyskate.com/images/mq07.jpg)</em>
+        </div>
+        <div class="img-caption">El tubo de coping colocado en la muesca — debe sobresalir ~1 cm por fuera de la superficie de la rampa</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Colocá el tubo en la muesca semicircular que cortaste en las plantillas laterales. Debe encajar bien y quedar firme en posición.</li>
+        <li>Metiendo un tornillo por el agujero exterior grande (10 mm), guialo hasta el agujero interior (5 mm) del tubo. Con el atornillador, atornillalo en la madera de la rampa que queda debajo. Esto puede requerir un poco de paciencia la primera vez.</li>
+        <li>Fijá los 3 puntos: los dos extremos y el del medio.</li>
+        <li>El coping debe sobresalir aproximadamente <strong>1 cm (3/8")</strong> por fuera de la superficie de la rampa. Si sobresale más o menos, podés ajustar colocando calzas de madera (shimis) entre el tubo y el tirante de apoyo.</li>
+      </ul>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Por qué 1 cm de saliente?</strong>
+          <p>El coping que sobresale ~1 cm es el estándar en rampas de skate. Si sobresale mucho más, los trucos se sienten "pegajosos" y es difícil salir. Si está muy a ras, no se puede agarrar bien para los stalls. 1 cm (3/8") es el balance perfecto probado por miles de rampas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 9 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">9</div>
+      <div class="step-title-block">
+        <h3>Primera capa de terciado — deck y primera capa de rodadura</h3>
+        <small>Covering the ramp — deck 18 mm + primera capa 9 mm</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con el esqueleto y el coping listos, empezá a cubrir la rampa con las capas de terciado.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq08.jpg"
+             alt="Primera capa de terciado — deck y zona de rodadura"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          🪵 <em>Primera capa de terciado (diyskate.com/images/mq08.jpg)</em>
+        </div>
+        <div class="img-caption">Deck de 18 mm arriba + primera capa de 9 mm en la zona de rodadura</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li><strong>Deck primero:</strong> atornillá la pieza de <strong>18 mm de 61×122 cm</strong> sobre la zona plana superior. Usá tornillos de 40 mm cada ~30 cm en cada tirante debajo.</li>
+        <li><strong>Primera capa de rodadura:</strong> tomá la primera pieza de terciado 9 mm (122×122 cm). Empezá desde arriba (desde el coping hacia abajo) y colocala sobre la zona curva. Atornillá a cada tirante debajo con tornillos de 40 mm.</li>
+        <li>El terciado de 9 mm es lo suficientemente flexible para seguir la curva de la transición. Si hay alguna zona que no curva bien, podés humectar levemente el lado de la madera que va hacia adentro para facilitar el doblado, o atornillar progresivamente desde un extremo al otro.</li>
+      </ul>
+
+      <div class="callout tip">
+        <span class="ci">✅</span>
+        <div>
+          <strong>Empezar desde el coping hacia abajo</strong>
+          <p>Al colocar el terciado de rodadura, siempre empezá atornillando desde la parte superior (cerca del coping) y bajá. Esto evita que la plancha quede con una burbuja o tensión acumulada en la parte media de la curva.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 10 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">10</div>
+      <div class="step-title-block">
+        <h3>Segunda capa de terciado y capa de Masonite / HDF</h3>
+        <small>Next layer and Masonite — 3 capas en total sobre la zona de rodadura</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>La zona de rodadura lleva <strong>3 capas en total</strong>: dos de terciado 9 mm y una capa final de Masonite / HDF de 6 mm. Cuantas más capas, más rígida y duradera queda la superficie.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq09.jpg"
+             alt="Tres capas terminadas — dos de 9mm y Masonite encima"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          🪵 <em>Tres capas de la superficie (diyskate.com/images/mq09.jpg)</em>
+        </div>
+        <div class="img-caption">Las 3 capas completas — ahora podés verificar el saliente del coping</div>
+      </div>
+
+      <div class="layers-box">
+        <h4>📋 Sistema de capas — zona de rodadura</h4>
+        <div class="layer-row">
+          <span class="layer-badge green">Capa 3 (tope)</span>
+          <span class="layer-desc"><strong>HDF / Masonite 6 mm</strong> — 107 × 122 cm. Capa lisa final donde patinás. Los tornillos van <em>avellanados</em> (al ras de la superficie).</span>
+        </div>
+        <div class="layer-row">
+          <span class="layer-badge">Capa 2</span>
+          <span class="layer-desc"><strong>Terciado 9 mm</strong> — 122 × 122 cm. Segunda capa de rigidez.</span>
+        </div>
+        <div class="layer-row">
+          <span class="layer-badge">Capa 1 (base)</span>
+          <span class="layer-desc"><strong>Terciado 9 mm</strong> — 122 × 122 cm. Primera capa sobre los tirantes.</span>
+        </div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Colocá la <strong>segunda pieza de terciado 9 mm</strong> sobre la primera, igual que antes. Los tornillos deben llegar a los tirantes — usá una varilla larga o marcá los tirantes con tiza antes de cubrir la primera capa.</li>
+        <li>Finalmente, colocá la capa de <strong>HDF / terciado 6 mm de 107×122 cm</strong>. Esta capa es más corta porque no llega hasta arriba — empieza justo donde termina el deck de 18 mm.</li>
+        <li><strong>MUY IMPORTANTE en esta capa:</strong> los tornillos deben quedar <em>completamente avellanados</em> (al ras o por debajo de la superficie). Usá una mecha avellanadora o la mecha de 10 mm para hacer el rebaje antes de poner cada tornillo. Si las cabezas sobresalen, van a lastimar en las caídas.</li>
+        <li>Con la capa de Masonite puesta, verificá el saliente del coping — debe sobresalir ~1 cm. Si cambió, ajustá con calzas antes de dar por terminado este paso.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>Los tornillos del Masonite DEBEN ir avellanados</strong>
+          <p>Cualquier tornillo que sobresalga en la capa final de rodadura es un peligro real — puede cortar o lastimar seriamente en una caída. Tomarte el tiempo de avellanar cada agujero es obligatorio, no opcional.</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="ci">📌</span>
+        <div>
+          <strong>¿Qué usar en lugar de Masonite en Argentina?</strong>
+          <p>El "Masonite" original es un tablero de fibra dura (hardboard). En Argentina la alternativa más fácil y económica es <strong>terciado fenólico de 6 mm de buena calidad</strong>. Si querés una superficie más lisa y dura, buscá <strong>HDF (tablero de fibra de alta densidad)</strong> en madereras especializadas. Para rampas de exterior, el fenólico de 6 mm es la única opción práctica.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 11 -->
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">11</div>
+      <div class="step-title-block">
+        <h3>Colocar la chapa de acero (umbral / lip de base)</h3>
+        <small>Attaching the threshold — chapa 122 × 30 cm en la base</small>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Con todas las capas colocadas, debería quedar un espacio de aproximadamente <strong>30 cm</strong> entre la capa de Masonite y el suelo en la base de la rampa. Ese espacio es donde va la chapa de acero que protege la parte baja de la rampa del desgaste por contacto con el suelo.</p>
+
+      <div class="step-image-container">
+        <img src="https://www.diyskate.com/images/mq10.jpg"
+             alt="Chapa de acero colocada en la base de la rampa"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display:none; padding:22px 16px; background:#f0f4fa; border-radius:8px; color:#666; font-size:0.88em; text-align:center;">
+          ⚙️ <em>Chapa de acero en la base (diyskate.com/images/mq10.jpg)</em>
+        </div>
+        <div class="img-caption">La chapa de acero cubre el espacio inferior — las cabezas de tornillo van completamente al ras</div>
+      </div>
+
+      <ul class="sub-steps">
+        <li>Marcá en la chapa <strong>5 puntos de perforación</strong>: uno a ~5 cm de cada extremo y los restantes distribuidos uniformemente. Taladrá con mecha para metal de <strong>5 mm (3/16")</strong>.</li>
+        <li>Avellaná cada agujero con mecha de 10 mm (3/8") para que las cabezas de los tornillos queden al ras de la superficie metálica. Las cabezas que sobresalen enganchan trucks y tabla.</li>
+        <li>Posicioná la chapa en el espacio inferior y fijala con los tornillos avellanados de 5 mm directamente en la madera de la estructura.</li>
+        <li>Verificá que la chapa quede plana y sin movimiento antes de dar por terminado.</li>
+      </ul>
+
+      <div class="callout warn">
+        <span class="ci">⚠️</span>
+        <div>
+          <strong>Dónde conseguir la chapa en Argentina</strong>
+          <p>La chapa de acero de 5 mm se consigue en <strong>distribuidoras de chapa y acero</strong> o en <strong>herrerías y metalúrgicas</strong>. Pedí que te corten una pieza de <strong>122 × 30 cm de chapa de acero de 5 mm</strong>. Si no encontrás ese espesor exacto, también podés usar 4 mm — aguanta bien para este uso. En Mercado Libre buscá "chapa de acero recorte" y encontrás vendedores que venden piezas cortadas a medida.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEGURIDAD Y MANTENIMIENTO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⛑️</span>
+      <div><h2>Seguridad, mantenimiento y consejos de uso</h2></div>
+    </div>
+    <div class="card-body">
+      <div class="safety-grid">
+        <div class="safety-item">
+          <strong>🔩 Revisá los tornillos regularmente</strong>
+          El coping especialmente se puede aflojar con el uso intenso. Revisá los tornillos del coping y de la chapa de base cada tanto. Un coping flojo es peligroso.
+        </div>
+        <div class="safety-item">
+          <strong>📐 Primera prueba con calma</strong>
+          Antes de tirar trucos a fondo, hacé una pasada lenta para verificar que no haya nada que cruja raro, que las capas no se muevan y que el coping esté firme. La estructura debe sentirse absolutamente sólida.
+        </div>
+        <div class="safety-item">
+          <strong>🌧️ Protección exterior</strong>
+          Si queda afuera, cubrí con lona cuando no la uses. La humedad repetida destruye rápido cualquier madera sin tratamiento, incluso el fenólico.
+        </div>
+        <div class="safety-item">
+          <strong>⚠️ Pino impregnado CCA</strong>
+          Si usaste pino tratado en la estructura, usá guantes al construir y nunca quemes los recortes. Una vez instalado y seco, es completamente seguro para el uso normal.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOSARIO -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📖</span>
+      <div>
+        <h2>Glosario — términos usados en este manual</h2>
+        <small>Equivalencias entre el original en inglés y los nombres en Argentina</small>
+      </div>
+    </div>
+    <div class="card-body">
+      <table>
+        <tr>
+          <th>En este manual (Argentina)</th>
+          <th>Original en inglés (EE.UU.)</th>
+          <th>Aclaración</th>
+        </tr>
+        <tr><td>Tirante 2×4 / pino elliottis</td><td>2×4 lumber</td><td>Medida real: ~40 × 90 mm seco</td></tr>
+        <tr><td>Terciado fenólico 18 mm</td><td>3/4" plywood</td><td>Plancha 1,22 × 2,44 m — plantillas y deck</td></tr>
+        <tr><td>Terciado fenólico 9 mm</td><td>3/8" plywood</td><td>Dos capas para la superficie de rodadura</td></tr>
+        <tr><td>HDF / terciado 6 mm</td><td>Masonite / 1/4" hardboard</td><td>Capa superficial lisa — tornillos avellanados</td></tr>
+        <tr><td>Tubo de acero 2" pared gruesa</td><td>2" Schedule 80 black steel pipe</td><td>Coping — ~60 mm de diámetro exterior</td></tr>
+        <tr><td>Tubo de acero 2" pared normal</td><td>2" Schedule 40 steel pipe</td><td>Coping alternativo más económico</td></tr>
+        <tr><td>Chapa de acero 5 mm</td><td>Sheet metal 3/16"</td><td>Umbral / lip en la base de la rampa</td></tr>
+        <tr><td>Tornillo drywall 40 mm</td><td>1 5/8" drywall screw</td><td>Terciado a estructura</td></tr>
+        <tr><td>Tornillo drywall 65 mm</td><td>2 1/2" screw</td><td>Tirante a tirante / lateral</td></tr>
+        <tr><td>Mecha 5 mm (3/16")</td><td>3/16" drill bit</td><td>Perforar acero (coping y chapa)</td></tr>
+        <tr><td>Mecha 10 mm (3/8")</td><td>3/8" drill bit</td><td>Agujero exterior del coping + avellanado</td></tr>
+        <tr><td>Caladora</td><td>Jig saw</td><td>Para el corte curvo de las plantillas</td></tr>
+        <tr><td>Pino impregnado CCA</td><td>Pressure treated lumber</td><td>Para uso exterior, color verdoso</td></tr>
+        <tr><td>Corralón / maderera</td><td>Home Depot / lumber yard</td><td>Donde conseguís los materiales</td></tr>
+        <tr><td>Herrería / metalúrgica / distribuidora de acero</td><td>Steel fabricator / steel yard</td><td>Donde conseguís y cortás el coping y la chapa</td></tr>
+        <tr><td>Skatelite / fenólico de alta densidad</td><td>Skatelite / Ramp Armor</td><td>Superficie profesional para exterior</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="footer">
+  Manual adaptado para Argentina a partir de diyskate.com · Medidas convertidas de pies/pulgadas a centímetros · Materiales equivalentes al mercado local.<br>
+  Para los planos originales en inglés: <strong>diyskate.com/micro_quarter.html</strong>
+</div>
+
+</body>
+</html>
