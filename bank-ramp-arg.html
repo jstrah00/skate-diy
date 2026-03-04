@@ -97,8 +97,8 @@
   .callout.alert { background: #fff0f3; border: 1px solid #f5c0c8; }
 
   .sub-steps { counter-reset: sub; padding: 0; list-style: none; }
-  .sub-steps li { counter-increment: sub; display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
-  .sub-steps li::before { content: counter(sub); background: #0f3460; color: white; font-weight: 700; font-size: 0.78em; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .sub-steps li { counter-increment: sub; display: block; position: relative; padding-left: 38px; margin-bottom: 12px; }
+  .sub-steps li::before { content: counter(sub); background: #0f3460; color: white; font-weight: 700; font-size: 0.78em; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; left: 0; top: 2px; }
 
   .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
   .tool-item { background: #f7f9fd; border-radius: 8px; padding: 8px 12px; font-size: 0.88em; display: flex; align-items: center; gap: 8px; border: 1px solid #e0e8f5; }
@@ -140,6 +140,7 @@
     .step-num { width: 50px; min-width: 50px; font-size: 1.5em; }
     .card-body, .step-body { padding: 18px; }
     .intro-box { padding: 22px 20px; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   }
   .back-btn{position:fixed;top:16px;left:16px;z-index:100;background:rgba(15,52,96,0.92);color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:.82em;font-weight:700;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.15);transition:background 0.2s;}
   .back-btn:hover{background:#e94560;}
